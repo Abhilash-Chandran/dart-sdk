@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/packages\\dapr_client/melos_dapr_client.iml" filepath="$PROJECT_DIR$/packages\\dapr_client/melos_dapr_client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages\\dapr_flutter/melos_dapr_flutter.iml" filepath="$PROJECT_DIR$/packages\\dapr_flutter/melos_dapr_flutter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melos_dapr_dart_sdk.iml" filepath="$PROJECT_DIR$/melos_dapr_dart_sdk.iml" />
+    </modules>
+  </component>
+</project>

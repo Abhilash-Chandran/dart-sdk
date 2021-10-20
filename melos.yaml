@@ -1,0 +1,4 @@
+name: dapr_dart_sdk
+
+packages:
+  - packages/**
