@@ -1,4 +1,4 @@
-FROM cirus/flutter:latest
+FROM cirrusci/flutter:latest
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -35,7 +35,16 @@ RUN apt-get update \
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    #
+    # Install Melos
+    && flutter pub global activate melos
+
+#
+# Setup pub bin cache in the path.
+# Need to find if this is the correct way to set melos in path.
+ENV PATH ${PATH}:/root/.pub-cache/bin
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
+
