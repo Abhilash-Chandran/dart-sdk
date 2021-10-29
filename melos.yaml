@@ -2,3 +2,20 @@ name: dapr_dart_sdk
 
 packages:
   - packages/**
+
+scripts:
+  update_dapr_grpc: 
+    run : |
+      cd packages/dapr_proto && ./scripts/sh/update_dapr_grpc.sh
+    # select_package:
+    #   - "*dapr_client"
+    #   - "*dapr_flutter"
+  freezed:build:client:
+    run : |
+      melos exec --scope="*dapr_client" -- dart run build_runner build --build-filter "package:dapr_client/src/models/generated/*" --delete-conflicting-outputs
+  # freezed:watch:client:
+  #   run : |
+  #     melos exec --scope="*dapr_client" -- dart run build_runner watch --build-filter "package:dapr_client/src/models/generated/*"
+  publish:proto:
+    run: melos exec --scope="*dapr_proto" -- pub publish
+    

@@ -27,6 +27,10 @@ RUN apt-get update \
     # Create a non-root user to use if preferred - see https://aka.ms/vscode-remote/containers/non-root-user.
     && groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    #
+    # Install protobuf compiler
+    && apt install -y protobuf-compiler \
+    #
     # [Optional] Add sudo support for the non-root user
     && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME\
@@ -38,7 +42,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     #
     # Install Melos
-    && flutter pub global activate melos
+    && flutter pub global activate melos \
+    && flutter pub global activate protoc_plugin
 
 #
 # Setup pub bin cache in the path.
