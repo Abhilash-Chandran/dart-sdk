@@ -62,16 +62,16 @@ class DaprHttpClient implements Client {
     Map<String, String> headers = const {},
     Object? body,
   }) async {
-    String _content_type = 'Content-type';
+    String _contentType = 'Content-type';
 
     // Set up the content-type for the request if its not already provided.
     // Do this only if the body is not null. If the body is null then no need to set the content type in headers.
-    if (body != null && headers[_content_type] != null) {
+    if (body != null && headers[_contentType] != null) {
       if (body is Object) {
-        headers[_content_type] = "application/json";
+        headers[_contentType] = "application/json";
         body = jsonEncode(body);
       } else if (body is String) {
-        headers[_content_type] = "text/plain";
+        headers[_contentType] = "text/plain";
       }
       // else { todo: decide whether to throw error or
 

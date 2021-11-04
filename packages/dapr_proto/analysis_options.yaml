@@ -18,6 +18,7 @@ include: package:lints/recommended.yaml
 linter:
   rules:
     constant_identifier_names: false
+    avoid_renaming_method_parameters: false
   
 # analyzer:
 #   exclude:

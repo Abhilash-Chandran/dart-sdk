@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  ###################################
+  ##
+  ## Dapr dart-sdk dev environment
+  ##
+  ## Builds the environtment from 
+  ## the Dockerfile in this directory
+  ###################################
+  dart-sdk-dev-env:
+    build: .
+    networks:
+      - dart-sdk-network
+  ###############################
+  ## Redis state store service
+  ###############################
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6380:6379"
+    networks:
+      - dart-sdk-network
+volumes:
+network:
+  dart-sdk-network
