@@ -4,6 +4,7 @@ import 'package:dapr_client/src/abstractions/client/client.dart';
 import 'package:dapr_client/src/config/dap_config_constants.dart';
 import 'package:dapr_client/src/enums/communication_protocol.dart';
 import 'package:dapr_client/src/enums/http_method.dart';
+import 'package:dapr_client/src/utils/utils.dart';
 import 'package:http/http.dart' as http;
 
 ///
@@ -59,57 +60,70 @@ class DaprHttpClient implements Client {
   Future<String> executeDaprApiCall({
     required String apiUrl,
     required HttpMethod httpMethod,
-    Map<String, String> headers = const {},
+    Map<String, String>? headers,
     Object? body,
   }) async {
-    String _contentType = 'Content-type';
-
+    String _contentType = 'Content-Type';
+    headers ??= {};
     // Set up the content-type for the request if its not already provided.
     // Do this only if the body is not null. If the body is null then no need to set the content type in headers.
-    if (body != null && headers[_contentType] != null) {
-      if (body is Object) {
+    if (body != null && headers[_contentType] == null) {
+      if (body is Map<String, dynamic>) {
         headers[_contentType] = "application/json";
+        // This needs to be configurable.
+        body = removeNullsFromMap(body);
         body = jsonEncode(body);
       } else if (body is String) {
-        headers[_contentType] = "text/plain";
+        headers[_contentType] = "text/plain; charset=UTF-8";
+      } else {
+        headers[_contentType] = "text/plain; charset=UTF-8";
       }
-      // else { todo: decide whether to throw error or
-
-      // }
     }
 
     // Prepare the daprApiUrl based on the partial path received.
     // Here we assume if the [apiUrl] starts with http or https then the provided url is used as it is.
     // Otherwise the provided url is partial and hence the base url is appended.
-    final _fullApiUrl = Uri.parse(
+    final _finalApiUrl = Uri.parse(
       apiUrl.startsWith(RegExp('^(http:)|(https:)'))
           ? apiUrl
           : '$_daprBaseUrl$apiUrl',
     );
-    final http.Response response;
-    // Make the daprApi call based on the method.
-    switch (httpMethod) {
-      case HttpMethod.get:
-        response = await client.get(_fullApiUrl, headers: headers);
-        break;
-      case HttpMethod.post:
-        response = await client.post(_fullApiUrl, headers: headers, body: body);
-        break;
-      case HttpMethod.put:
-        response = await client.put(_fullApiUrl, headers: headers, body: body);
-        break;
-      case HttpMethod.delete:
-        response =
-            await client.delete(_fullApiUrl, headers: headers, body: body);
-        break;
-      default:
-        response = await client.get(_fullApiUrl, headers: headers);
-        break;
+    try {
+      final http.Response response;
+      // Make the daprApi call based on the method.
+      switch (httpMethod) {
+        case HttpMethod.get:
+          response = await client.get(_finalApiUrl, headers: headers);
+          break;
+        case HttpMethod.post:
+          response =
+              await client.post(_finalApiUrl, headers: headers, body: body);
+
+          break;
+        case HttpMethod.put:
+          response =
+              await client.put(_finalApiUrl, headers: headers, body: body);
+          break;
+        case HttpMethod.delete:
+          response =
+              await client.delete(_finalApiUrl, headers: headers, body: body);
+          break;
+        default:
+          response = await client.get(_finalApiUrl, headers: headers);
+          break;
+      }
+      if (response.statusCode >= 400) {
+        // Todo: Decide how to throw an exception and what information needs to be passed.
+        // Todo: Define Exception classes.
+      }
+
+      // Note we do not parse the response here.
+      // It is the responsibility of the caller to parse the reponse and convert
+      // it to the internal object types.
+      return response.body;
+    } catch (e) {
+      print(e);
+      return '';
     }
-    if (response.statusCode >= 400) {
-      // Todo: Decide how to throw an exception and what information needs to be passed.
-      // Todo: Define Exception classes.
-    }
-    return response.body;
   }
 }

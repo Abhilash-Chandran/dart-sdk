@@ -21,7 +21,8 @@ include: package:lints/recommended.yaml
 
 analyzer:
   exclude:
-    - lib/src/models/generated/**
+    - lib/src/models/generated/**.g.dart
+    - lib/src/models/generated/**.freezed.dart
 
 # For more information about the core and recommended set of lints, see
 # https://dart.dev/go/core-lints

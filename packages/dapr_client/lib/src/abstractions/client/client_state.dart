@@ -9,23 +9,24 @@ abstract class ClientState {
     required List<SaveStateItem> stateObjects,
   });
 
+  /// The result can be of any type which is json encodable.
+  /// So the return cannot be expresed as a String or Map. The current choice
+  /// without a sealed or union class is to opt for dynamic.
   ///
-  ///
-  /// Todo: Think about making the return as Union of Map and String. Perhaps using Freezed!
-  ///
-  Future<Map<String, dynamic>> get({
+  /// TODO: Perhaps a Freezed based Union class could be used. But in that
+  ///  case which types needs to be supported is still a question.
+  Future<dynamic> get({
     required String storeName,
     required String key,
     // todo: add options for passing metadata and state options
     // StateOptions? options,
   });
 
-  Future<List<Map<String, dynamic>>> getBulk({
+  Future<List<BulkStateItem>> getBulk({
     required String storeName,
     required List<String> keys,
-    int? parallelism,
-    // todo: add options for passing metadata and state options
-    // String? metadata,
+    int parallelism = 10,
+    String metadata = '',
   });
 
   Future<void> delete({

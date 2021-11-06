@@ -6,12 +6,11 @@ import '../all_type_def.dart';
 part 'state_models.freezed.dart';
 part 'state_models.g.dart';
 
-@freezed
-
 /// The definition is based on the options to be passed to save state method
 /// of the Dapr State api.
 ///
-/// https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/#concurrency
+/// https://docs.dapr.io/reference/api/state_api/#request-body
+@freezed
 class SaveStateItem with _$SaveStateItem {
   factory SaveStateItem({
     required String key,
@@ -25,6 +24,22 @@ class SaveStateItem with _$SaveStateItem {
 
   factory SaveStateItem.fromJson(Map<String, dynamic> json) =>
       _$SaveStateItemFromJson(json);
+}
+
+/// The definition is based on the response definition provided in Dapr State management api
+/// Check the response section.
+///
+/// https://docs.dapr.io/reference/api/state_api/#example-2
+@freezed
+class BulkStateItem with _$BulkStateItem {
+  factory BulkStateItem({
+    required String key,
+    required dynamic data,
+    String? etag,
+  }) = _BulkStateItem;
+
+  factory BulkStateItem.fromJson(Map<String, dynamic> json) =>
+      _$BulkStateItemFromJson(json);
 }
 
 @freezed
@@ -43,23 +58,29 @@ class Etag with _$Etag {
   const factory Etag({
     required String value,
   }) = _Etag;
+  factory Etag.fromJson(Map<String, dynamic> json) => _$EtagFromJson(json);
 }
 
 @freezed
 class StateOperation with _$StateOperation {
   const factory StateOperation({
     required String operation,
-    required List<StateOperationRequest> request,
+    required StateOperationRequest request,
   }) = _StateOperation;
+  factory StateOperation.fromJson(Map<String, dynamic> json) =>
+      _$StateOperationFromJson(json);
 }
 
 @freezed
 class StateOperationRequest with _$StateOperationRequest {
   const factory StateOperationRequest({
     required String key,
-    required String value,
+    String? value,
     Etag? etag,
     StateMetaData? metaData,
     StateOptions? options,
   }) = _StateOperationRequest;
+
+  factory StateOperationRequest.fromJson(Map<String, dynamic> json) =>
+      _$StateOperationRequestFromJson(json);
 }

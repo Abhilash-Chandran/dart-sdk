@@ -18,4 +18,9 @@ scripts:
   #     melos exec --scope="*dapr_client" -- dart run build_runner watch --build-filter "package:dapr_client/src/models/generated/*"
   publish:proto:
     run: melos exec --scope="*dapr_proto" -- pub publish
-    
+  test:client:e2e:http:
+    run : |
+      melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id test-suite --app-protocol grpc --app-port 50001 --dapr-http-port 50000 --components-path ./test/components dart run test 'test/client/http/http_client_test.dart'
+  debug:test:client:e2e:http:
+    run : |
+      melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id test-suite --app-protocol grpc --app-port 50001 --dapr-http-port 50000 --components-path ./test/components -- dart run test --debug --chain-stack-traces 'test/client/http/http_client_test.dart' 

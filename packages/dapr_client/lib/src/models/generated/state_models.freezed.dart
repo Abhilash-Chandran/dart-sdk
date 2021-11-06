@@ -200,6 +200,193 @@ abstract class _SaveStateItem implements SaveStateItem {
       throw _privateConstructorUsedError;
 }
 
+BulkStateItem _$BulkStateItemFromJson(Map<String, dynamic> json) {
+  return _BulkStateItem.fromJson(json);
+}
+
+/// @nodoc
+class _$BulkStateItemTearOff {
+  const _$BulkStateItemTearOff();
+
+  _BulkStateItem call(
+      {required String key, required dynamic data, String? etag}) {
+    return _BulkStateItem(
+      key: key,
+      data: data,
+      etag: etag,
+    );
+  }
+
+  BulkStateItem fromJson(Map<String, Object?> json) {
+    return BulkStateItem.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $BulkStateItem = _$BulkStateItemTearOff();
+
+/// @nodoc
+mixin _$BulkStateItem {
+  String get key => throw _privateConstructorUsedError;
+  dynamic get data => throw _privateConstructorUsedError;
+  String? get etag => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $BulkStateItemCopyWith<BulkStateItem> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $BulkStateItemCopyWith<$Res> {
+  factory $BulkStateItemCopyWith(
+          BulkStateItem value, $Res Function(BulkStateItem) then) =
+      _$BulkStateItemCopyWithImpl<$Res>;
+  $Res call({String key, dynamic data, String? etag});
+}
+
+/// @nodoc
+class _$BulkStateItemCopyWithImpl<$Res>
+    implements $BulkStateItemCopyWith<$Res> {
+  _$BulkStateItemCopyWithImpl(this._value, this._then);
+
+  final BulkStateItem _value;
+  // ignore: unused_field
+  final $Res Function(BulkStateItem) _then;
+
+  @override
+  $Res call({
+    Object? key = freezed,
+    Object? data = freezed,
+    Object? etag = freezed,
+  }) {
+    return _then(_value.copyWith(
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      etag: etag == freezed
+          ? _value.etag
+          : etag // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$BulkStateItemCopyWith<$Res>
+    implements $BulkStateItemCopyWith<$Res> {
+  factory _$BulkStateItemCopyWith(
+          _BulkStateItem value, $Res Function(_BulkStateItem) then) =
+      __$BulkStateItemCopyWithImpl<$Res>;
+  @override
+  $Res call({String key, dynamic data, String? etag});
+}
+
+/// @nodoc
+class __$BulkStateItemCopyWithImpl<$Res>
+    extends _$BulkStateItemCopyWithImpl<$Res>
+    implements _$BulkStateItemCopyWith<$Res> {
+  __$BulkStateItemCopyWithImpl(
+      _BulkStateItem _value, $Res Function(_BulkStateItem) _then)
+      : super(_value, (v) => _then(v as _BulkStateItem));
+
+  @override
+  _BulkStateItem get _value => super._value as _BulkStateItem;
+
+  @override
+  $Res call({
+    Object? key = freezed,
+    Object? data = freezed,
+    Object? etag = freezed,
+  }) {
+    return _then(_BulkStateItem(
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      etag: etag == freezed
+          ? _value.etag
+          : etag // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_BulkStateItem implements _BulkStateItem {
+  _$_BulkStateItem({required this.key, required this.data, this.etag});
+
+  factory _$_BulkStateItem.fromJson(Map<String, dynamic> json) =>
+      _$$_BulkStateItemFromJson(json);
+
+  @override
+  final String key;
+  @override
+  final dynamic data;
+  @override
+  final String? etag;
+
+  @override
+  String toString() {
+    return 'BulkStateItem(key: $key, data: $data, etag: $etag)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _BulkStateItem &&
+            (identical(other.key, key) || other.key == key) &&
+            const DeepCollectionEquality().equals(other.data, data) &&
+            (identical(other.etag, etag) || other.etag == etag));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, key, const DeepCollectionEquality().hash(data), etag);
+
+  @JsonKey(ignore: true)
+  @override
+  _$BulkStateItemCopyWith<_BulkStateItem> get copyWith =>
+      __$BulkStateItemCopyWithImpl<_BulkStateItem>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_BulkStateItemToJson(this);
+  }
+}
+
+abstract class _BulkStateItem implements BulkStateItem {
+  factory _BulkStateItem(
+      {required String key,
+      required dynamic data,
+      String? etag}) = _$_BulkStateItem;
+
+  factory _BulkStateItem.fromJson(Map<String, dynamic> json) =
+      _$_BulkStateItem.fromJson;
+
+  @override
+  String get key;
+  @override
+  dynamic get data;
+  @override
+  String? get etag;
+  @override
+  @JsonKey(ignore: true)
+  _$BulkStateItemCopyWith<_BulkStateItem> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 StateOptions _$StateOptionsFromJson(Map<String, dynamic> json) {
   return _StateOptions.fromJson(json);
 }
@@ -366,6 +553,10 @@ abstract class _StateOptions implements StateOptions {
       throw _privateConstructorUsedError;
 }
 
+Etag _$EtagFromJson(Map<String, dynamic> json) {
+  return _Etag.fromJson(json);
+}
+
 /// @nodoc
 class _$EtagTearOff {
   const _$EtagTearOff();
@@ -374,6 +565,10 @@ class _$EtagTearOff {
     return _Etag(
       value: value,
     );
+  }
+
+  Etag fromJson(Map<String, Object?> json) {
+    return Etag.fromJson(json);
   }
 }
 
@@ -384,6 +579,7 @@ const $Etag = _$EtagTearOff();
 mixin _$Etag {
   String get value => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $EtagCopyWith<Etag> get copyWith => throw _privateConstructorUsedError;
 }
@@ -447,9 +643,11 @@ class __$EtagCopyWithImpl<$Res> extends _$EtagCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Etag implements _Etag {
   const _$_Etag({required this.value});
+
+  factory _$_Etag.fromJson(Map<String, dynamic> json) => _$$_EtagFromJson(json);
 
   @override
   final String value;
@@ -474,10 +672,17 @@ class _$_Etag implements _Etag {
   @override
   _$EtagCopyWith<_Etag> get copyWith =>
       __$EtagCopyWithImpl<_Etag>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_EtagToJson(this);
+  }
 }
 
 abstract class _Etag implements Etag {
   const factory _Etag({required String value}) = _$_Etag;
+
+  factory _Etag.fromJson(Map<String, dynamic> json) = _$_Etag.fromJson;
 
   @override
   String get value;
@@ -486,17 +691,24 @@ abstract class _Etag implements Etag {
   _$EtagCopyWith<_Etag> get copyWith => throw _privateConstructorUsedError;
 }
 
+StateOperation _$StateOperationFromJson(Map<String, dynamic> json) {
+  return _StateOperation.fromJson(json);
+}
+
 /// @nodoc
 class _$StateOperationTearOff {
   const _$StateOperationTearOff();
 
   _StateOperation call(
-      {required String operation,
-      required List<StateOperationRequest> request}) {
+      {required String operation, required StateOperationRequest request}) {
     return _StateOperation(
       operation: operation,
       request: request,
     );
+  }
+
+  StateOperation fromJson(Map<String, Object?> json) {
+    return StateOperation.fromJson(json);
   }
 }
 
@@ -506,8 +718,9 @@ const $StateOperation = _$StateOperationTearOff();
 /// @nodoc
 mixin _$StateOperation {
   String get operation => throw _privateConstructorUsedError;
-  List<StateOperationRequest> get request => throw _privateConstructorUsedError;
+  StateOperationRequest get request => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $StateOperationCopyWith<StateOperation> get copyWith =>
       throw _privateConstructorUsedError;
@@ -518,7 +731,9 @@ abstract class $StateOperationCopyWith<$Res> {
   factory $StateOperationCopyWith(
           StateOperation value, $Res Function(StateOperation) then) =
       _$StateOperationCopyWithImpl<$Res>;
-  $Res call({String operation, List<StateOperationRequest> request});
+  $Res call({String operation, StateOperationRequest request});
+
+  $StateOperationRequestCopyWith<$Res> get request;
 }
 
 /// @nodoc
@@ -543,8 +758,15 @@ class _$StateOperationCopyWithImpl<$Res>
       request: request == freezed
           ? _value.request
           : request // ignore: cast_nullable_to_non_nullable
-              as List<StateOperationRequest>,
+              as StateOperationRequest,
     ));
+  }
+
+  @override
+  $StateOperationRequestCopyWith<$Res> get request {
+    return $StateOperationRequestCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
   }
 }
 
@@ -555,7 +777,10 @@ abstract class _$StateOperationCopyWith<$Res>
           _StateOperation value, $Res Function(_StateOperation) then) =
       __$StateOperationCopyWithImpl<$Res>;
   @override
-  $Res call({String operation, List<StateOperationRequest> request});
+  $Res call({String operation, StateOperationRequest request});
+
+  @override
+  $StateOperationRequestCopyWith<$Res> get request;
 }
 
 /// @nodoc
@@ -582,20 +807,23 @@ class __$StateOperationCopyWithImpl<$Res>
       request: request == freezed
           ? _value.request
           : request // ignore: cast_nullable_to_non_nullable
-              as List<StateOperationRequest>,
+              as StateOperationRequest,
     ));
   }
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_StateOperation implements _StateOperation {
   const _$_StateOperation({required this.operation, required this.request});
+
+  factory _$_StateOperation.fromJson(Map<String, dynamic> json) =>
+      _$$_StateOperationFromJson(json);
 
   @override
   final String operation;
   @override
-  final List<StateOperationRequest> request;
+  final StateOperationRequest request;
 
   @override
   String toString() {
@@ -609,32 +837,44 @@ class _$_StateOperation implements _StateOperation {
             other is _StateOperation &&
             (identical(other.operation, operation) ||
                 other.operation == operation) &&
-            const DeepCollectionEquality().equals(other.request, request));
+            (identical(other.request, request) || other.request == request));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, operation, const DeepCollectionEquality().hash(request));
+  int get hashCode => Object.hash(runtimeType, operation, request);
 
   @JsonKey(ignore: true)
   @override
   _$StateOperationCopyWith<_StateOperation> get copyWith =>
       __$StateOperationCopyWithImpl<_StateOperation>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_StateOperationToJson(this);
+  }
 }
 
 abstract class _StateOperation implements StateOperation {
   const factory _StateOperation(
       {required String operation,
-      required List<StateOperationRequest> request}) = _$_StateOperation;
+      required StateOperationRequest request}) = _$_StateOperation;
+
+  factory _StateOperation.fromJson(Map<String, dynamic> json) =
+      _$_StateOperation.fromJson;
 
   @override
   String get operation;
   @override
-  List<StateOperationRequest> get request;
+  StateOperationRequest get request;
   @override
   @JsonKey(ignore: true)
   _$StateOperationCopyWith<_StateOperation> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+StateOperationRequest _$StateOperationRequestFromJson(
+    Map<String, dynamic> json) {
+  return _StateOperationRequest.fromJson(json);
 }
 
 /// @nodoc
@@ -643,7 +883,7 @@ class _$StateOperationRequestTearOff {
 
   _StateOperationRequest call(
       {required String key,
-      required String value,
+      String? value,
       Etag? etag,
       Map<String, dynamic>? metaData,
       StateOptions? options}) {
@@ -655,6 +895,10 @@ class _$StateOperationRequestTearOff {
       options: options,
     );
   }
+
+  StateOperationRequest fromJson(Map<String, Object?> json) {
+    return StateOperationRequest.fromJson(json);
+  }
 }
 
 /// @nodoc
@@ -663,11 +907,12 @@ const $StateOperationRequest = _$StateOperationRequestTearOff();
 /// @nodoc
 mixin _$StateOperationRequest {
   String get key => throw _privateConstructorUsedError;
-  String get value => throw _privateConstructorUsedError;
+  String? get value => throw _privateConstructorUsedError;
   Etag? get etag => throw _privateConstructorUsedError;
   Map<String, dynamic>? get metaData => throw _privateConstructorUsedError;
   StateOptions? get options => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $StateOperationRequestCopyWith<StateOperationRequest> get copyWith =>
       throw _privateConstructorUsedError;
@@ -680,7 +925,7 @@ abstract class $StateOperationRequestCopyWith<$Res> {
       _$StateOperationRequestCopyWithImpl<$Res>;
   $Res call(
       {String key,
-      String value,
+      String? value,
       Etag? etag,
       Map<String, dynamic>? metaData,
       StateOptions? options});
@@ -714,7 +959,7 @@ class _$StateOperationRequestCopyWithImpl<$Res>
       value: value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       etag: etag == freezed
           ? _value.etag
           : etag // ignore: cast_nullable_to_non_nullable
@@ -762,7 +1007,7 @@ abstract class _$StateOperationRequestCopyWith<$Res>
   @override
   $Res call(
       {String key,
-      String value,
+      String? value,
       Etag? etag,
       Map<String, dynamic>? metaData,
       StateOptions? options});
@@ -800,7 +1045,7 @@ class __$StateOperationRequestCopyWithImpl<$Res>
       value: value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       etag: etag == freezed
           ? _value.etag
           : etag // ignore: cast_nullable_to_non_nullable
@@ -818,19 +1063,18 @@ class __$StateOperationRequestCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_StateOperationRequest implements _StateOperationRequest {
   const _$_StateOperationRequest(
-      {required this.key,
-      required this.value,
-      this.etag,
-      this.metaData,
-      this.options});
+      {required this.key, this.value, this.etag, this.metaData, this.options});
+
+  factory _$_StateOperationRequest.fromJson(Map<String, dynamic> json) =>
+      _$$_StateOperationRequestFromJson(json);
 
   @override
   final String key;
   @override
-  final String value;
+  final String? value;
   @override
   final Etag? etag;
   @override
@@ -864,20 +1108,28 @@ class _$_StateOperationRequest implements _StateOperationRequest {
   _$StateOperationRequestCopyWith<_StateOperationRequest> get copyWith =>
       __$StateOperationRequestCopyWithImpl<_StateOperationRequest>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_StateOperationRequestToJson(this);
+  }
 }
 
 abstract class _StateOperationRequest implements StateOperationRequest {
   const factory _StateOperationRequest(
       {required String key,
-      required String value,
+      String? value,
       Etag? etag,
       Map<String, dynamic>? metaData,
       StateOptions? options}) = _$_StateOperationRequest;
 
+  factory _StateOperationRequest.fromJson(Map<String, dynamic> json) =
+      _$_StateOperationRequest.fromJson;
+
   @override
   String get key;
   @override
-  String get value;
+  String? get value;
   @override
   Etag? get etag;
   @override
