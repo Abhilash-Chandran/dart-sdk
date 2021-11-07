@@ -36,8 +36,7 @@ class HttpClientSecret implements ClientSecret {
         headers: {
           'Content-Type': 'application/json',
         });
-    final _decodedResponse = jsonDecode(result) as Map<String, dynamic>;
-    print(_decodedResponse);
+    final _decodedResponse = jsonDecode(result) as Map<String, dynamic>;    
     final _responseBulkSecrets = <String, SecretResponse>{};
     for (var bulkSecret in _decodedResponse.entries) {
       _responseBulkSecrets.putIfAbsent(
