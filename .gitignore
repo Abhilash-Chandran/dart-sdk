@@ -1,1 +1,5 @@
 .idea
+
+# Remove coverage files from tracking.
+coverage_client
+coverage.lcov
