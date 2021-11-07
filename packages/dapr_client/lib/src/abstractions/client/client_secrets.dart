@@ -1,12 +1,15 @@
+import 'package:dapr_client/src/models/generated/secret_models.dart';
+
 abstract class ClientSecret {
-  Future<Object> get({
+  Future<Map<String, dynamic>> get({
     required String secretStoreName,
     required String key,
-    String? metadata,
+    Map<String, String>? metadata,
   });
 
-  Future<Object> getBulk({
+  Future<Map<String, SecretResponse>> getBulk({
     required String secretStoreName,
+    Map<String, String>? metadata,
   });
 }
 

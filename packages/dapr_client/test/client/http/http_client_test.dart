@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:dapr_client/src/implementation/client/dapr_client.dart';
+import 'package:dapr_client/src/models/generated/secret_models.dart';
 import 'package:dapr_client/src/models/generated/state_models.dart';
 import 'package:test/test.dart';
 
@@ -32,6 +33,43 @@ void main() {
   /// Once the server API is ready we can start the servers programatically.
   setUpAll(() {
     daprClient = DaprClient(daprHost: daprHost, daprPort: daprPort);
+  });
+
+  group('Dapr Http Client - Secret', () {
+    // Note the secrets for this test are provided as env variables while
+    // running the tests.
+    //
+    // Check melos.yaml in the root directory and the script named
+    // test:client:e2e:http
+    var secretStoreName = 'secret-envvars';
+    test('Get secret for a single key', () async {
+      final result = await daprClient.secret.get(
+        secretStoreName: secretStoreName,
+        key: 'TEST_SECRET_1',
+      );
+      expect(result, {'TEST_SECRET_1': 'secret_val_1'});
+    });
+    test('Get bulk secrets', () async {
+      final result = await daprClient.secret.getBulk(
+        secretStoreName: secretStoreName,
+      );
+      // verrify if the first secret is present
+      expect(
+        result,
+        containsPair(
+          'TEST_SECRET_1',
+          SecretResponse(secrets: {'TEST_SECRET_1': 'secret_val_1'}),
+        ),
+      );
+      // verrify if the second secret is present
+      expect(
+        result,
+        containsPair(
+          'TEST_SECRET_2',
+          SecretResponse(secrets: {'TEST_SECRET_2': 'secret_val_2'}),
+        ),
+      );
+    });
   });
 
   /// To avoid dependencies between tests each test should create its own

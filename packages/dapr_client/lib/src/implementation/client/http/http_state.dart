@@ -4,6 +4,7 @@ import 'package:dapr_client/src/abstractions/client/client_state.dart';
 import 'package:dapr_client/src/enums/http_method.dart';
 import 'package:dapr_client/src/implementation/client/http/http_client.dart';
 import 'package:dapr_client/src/models/generated/state_models.dart';
+import 'package:dapr_client/src/utils/utils.dart';
 
 class HttpClientState implements ClientState {
   final DaprHttpClient daprHttpClient;
@@ -56,10 +57,7 @@ class HttpClientState implements ClientState {
         },
       );
       // Convert metadata map into query parameters.
-      var metadataString = '';
-      for (var entry in metadata.entries) {
-        metadataString += '${entry.key}=${entry.value}';
-      }
+      final metadataString = mapToQueryParams(metadata);
       final result = await daprHttpClient.executeDaprApiCall(
         apiUrl:
             '/state/$storeName/bulk${metadataString.isEmpty ? metadataString : '?$metadataString'}',

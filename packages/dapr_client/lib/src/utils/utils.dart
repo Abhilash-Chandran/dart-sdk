@@ -9,3 +9,11 @@ removeNulls(e) => (e is List)
 List removeNullsFromList(List list) => list
   ..removeWhere((value) => value == null)
   ..map((e) => removeNulls(e)).toList();
+
+String mapToQueryParams(Map<String, String> metadataMap) {
+  var _queryParam = '';
+  for (var entry in metadataMap.entries) {
+    _queryParam += '${entry.key}=${entry.value}';
+  }
+  return _queryParam;
+}
