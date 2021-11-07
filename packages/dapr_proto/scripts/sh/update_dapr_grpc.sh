@@ -76,7 +76,7 @@ generateGrpc() {
     # this is why PATH_PROTO != PATH_PROTO_DAPR; PATH_PROTO_DAPR is where we save our proto files while the other is the namespace
     protoc \
         --proto_path="${PATH_PROTO}" \
-        --dart_out="${PATH_PROTO}" \
+        --dart_out="grpc:${PATH_PROTO}" \
         "$PATH_PROTO/$PATH_FILE"
 }
 

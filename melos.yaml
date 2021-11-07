@@ -10,17 +10,34 @@ scripts:
     # select_package:
     #   - "*dapr_client"
     #   - "*dapr_flutter"
+
+  ##########################################################
+  ## Regennerate freezed class definitions of dapr_client ##
+  ########################################################## 
   freezed:build:client:
     run : |
       melos exec --scope="*dapr_client" -- dart run build_runner build --build-filter "package:dapr_client/src/models/generated/*" --delete-conflicting-outputs
-  # freezed:watch:client:
-  #   run : |
-  #     melos exec --scope="*dapr_client" -- dart run build_runner watch --build-filter "package:dapr_client/src/models/generated/*"
+  
+  ##################################################################
+  ## Download latest proto files and generate stubs in dapr_proto ##
+  ################################################################## 
   publish:proto:
     run: melos exec --scope="*dapr_proto" -- pub publish
+  
+    
+  #############################
+  ## End to End test scritps ##
+  #############################
+  test:client:e2e:    
+    run: |
+      melos exec --scope="*dapr_client" -- melos run test:client:e2e:http && melos run test:client:e2e:grpc
+    description: Runs end to end tests on both http client and grpc client
   test:client:e2e:http:
     run : |
       melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id test-suite --app-protocol grpc --app-port 50001 --dapr-http-port 50000 --components-path ./test/components dart run test 'test/client/http/http_client_test.dart'
-  debug:test:client:e2e:http:
+    description: Runs end to end tests on http client
+  test:client:e2e:grpc:
     run : |
-      melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id test-suite --app-protocol grpc --app-port 50001 --dapr-http-port 50000 --components-path ./test/components -- dart run test --debug --chain-stack-traces 'test/client/http/http_client_test.dart' 
+      melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id test-suite --app-protocol grpc --app-port 50001 --dapr-grpc-port 50000 --components-path ./test/components dart run test 'test/client/grpc/grpc_client_test.dart'
+    description: Runs end to end tests on grpc client
+  

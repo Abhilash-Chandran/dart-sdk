@@ -26,7 +26,7 @@ abstract class ClientState {
     required String storeName,
     required List<String> keys,
     int parallelism = 10,
-    String metadata = '',
+    Map<String, String> metadata = const {},
   });
 
   Future<void> delete({
@@ -39,7 +39,7 @@ abstract class ClientState {
   Future<void> transaction({
     required String storeName,
     List<StateOperation>? operations,
-    Map<String, dynamic>? metadata,
+    Map<String, String>? metadata,
   });
 }
 

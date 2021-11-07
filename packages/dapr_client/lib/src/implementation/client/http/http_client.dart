@@ -51,7 +51,9 @@ class DaprHttpClient implements Client {
   String get daprBaseUrl => _daprBaseUrl;
 
   /// Works as the main method to execute all the http calls to the Dapr api.
-  /// All the internal clients implementing http based api's should use this method.
+  /// All the internal clients implementing http based api's should use this
+  /// method.
+  ///
   /// If not possible the reason should be documented in the respective method.
   ///
   /// The types of headers and body is based on the definitions mentioned in the http package from dart.

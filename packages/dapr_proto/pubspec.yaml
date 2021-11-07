@@ -10,7 +10,8 @@ environment:
 
 
 dependencies:
-  protobuf: ^2.0.0 
+  protobuf: ^2.0.0   
+  grpc: ^3.0.2
 
 dev_dependencies:
   lints: ^1.0.0
