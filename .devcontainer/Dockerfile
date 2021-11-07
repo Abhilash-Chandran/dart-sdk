@@ -44,11 +44,11 @@ RUN apt-get update \
     # Install Melos
     && flutter pub global activate melos \
     && flutter pub global activate protoc_plugin \
-    && flutter pub global activate coverage \
-    #
-    # Setup pub bin cache in the path.
-    # Need to find if this is the correct way to set melos in path.
-    ENV PATH ${PATH}:/root/.pub-cache/bin
+    && flutter pub global activate coverage
+
+# Setup pub bin cache in the path.
+# Need to find if this is the correct way to set melos in path.
+ENV PATH ${PATH}:/root/.pub-cache/bin
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
