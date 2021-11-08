@@ -29,13 +29,11 @@ abstract class ClientActor {
   ///
   /// https://docs.dapr.io/reference/api/actors_api/#get-actor-state
   ///
-  /// Todo: Think about making the return as Union of Map and String. Perhaps using Freezed!
+  /// TODO: Think about making the return as Union of Map and String. Perhaps
+  ///  using Freezed!
   ///
-  Future<Map<String, dynamic>> stateGet({
-    String actorType,
-    String actorId,
-    String key
-  });
+  Future<Map<String, dynamic>> stateGet(
+      {String actorType, String actorId, String key});
 
   /// Based on the following api definition.
   ///
@@ -82,6 +80,4 @@ abstract class ClientActor {
   /// https://docs.dapr.io/reference/api/actors_api/#get-registered-actors
   ///
   Future<Object> getActors();
-
- 
 }

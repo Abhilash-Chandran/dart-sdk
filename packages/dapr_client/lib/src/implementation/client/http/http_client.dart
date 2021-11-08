@@ -115,8 +115,9 @@ class DaprHttpClient implements Client {
           break;
       }
       if (response.statusCode >= 400) {
-        // Todo: Decide how to throw an exception and what information needs to be passed.
-        // Todo: Define Exception classes.
+        // TODO: Decide how to throw an exception and what information needs to
+        //  be passed.
+        // TODO: Define Exception classes.
       }
 
       // Note we do not parse the response here.

@@ -2,7 +2,7 @@
 ///
 /// https://docs.dapr.io/reference/api/state_api/#consistency
 ///
-/// Todo: Check how to pass these options to Grpc calls.
+/// TODO: Check how to pass these options to Grpc calls.
 enum Consistency { unspecified, eventual, strong }
 
 /// Concurrency mode for Dapr State Api calls.
@@ -11,5 +11,5 @@ enum Consistency { unspecified, eventual, strong }
 ///
 /// The name are derived based on the proto definitions.
 ///
-/// Todo: Check how to convert and pass these options to Grpc calls.
+/// TODO: Check how to convert and pass these options to Grpc calls.
 enum Concurrency { unspecified, firstWrite, lastWrite }

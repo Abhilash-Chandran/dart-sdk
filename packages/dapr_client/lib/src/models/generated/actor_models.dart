@@ -9,7 +9,7 @@ class ActorTimer with _$ActorTimer {
     required Duration period,
     Duration? dueTime,
     dynamic data,
-    // Todo: Address the call back after understanding this api properly.
+    // TODO: Address the call back after understanding this api properly.
     // String callBack,
   }) = _ActorTimer;
   factory ActorTimer.fromJson(Map<String, dynamic> json) =>

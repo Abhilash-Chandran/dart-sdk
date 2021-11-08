@@ -18,7 +18,7 @@ abstract class ClientState {
   Future<dynamic> get({
     required String storeName,
     required String key,
-    // todo: add options for passing metadata and state options
+    // TODO: add options for passing metadata and state options
     // StateOptions? options,
   });
 
@@ -32,7 +32,7 @@ abstract class ClientState {
   Future<void> delete({
     required String storeName,
     required String key,
-    // todo: add options for passing metadata and state options
+    // TODO: add options for passing metadata and state options
     // StateOptions? options,
   });
 
