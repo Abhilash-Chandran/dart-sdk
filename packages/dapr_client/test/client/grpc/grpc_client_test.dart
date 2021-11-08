@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dapr_client/src/enums/communication_protocol.dart';
 import 'package:dapr_client/src/implementation/client/dapr_client.dart';
 import 'package:dapr_client/src/models/generated/secret_models.dart';
@@ -114,7 +112,7 @@ void main() {
       ];
       final result = await daprClient.state
           .getBulk(storeName: storeName, keys: ['key-1', 'key-2']);
-      expect(result, unorderedEquals(result));
+      expect(result, unorderedEquals(bulkStateObjects));
     });
 
     test('Delete state', () async {

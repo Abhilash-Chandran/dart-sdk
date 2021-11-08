@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dapr_client/src/implementation/client/dapr_client.dart';
 import 'package:dapr_client/src/models/generated/secret_models.dart';
 import 'package:dapr_client/src/models/generated/state_models.dart';
