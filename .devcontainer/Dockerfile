@@ -22,8 +22,9 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install -y docker-ce-cli \
     #
-    # Install Dapr CLI
+    # Install Dapr CLI and initialize it in slim mode.
     && wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O - | /bin/bash \
+    && dapr init --slim \
     # Create a non-root user to use if preferred - see https://aka.ms/vscode-remote/containers/non-root-user.
     && groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
@@ -44,8 +45,12 @@ RUN apt-get update \
     # Install Melos
     && flutter pub global activate melos \
     && flutter pub global activate protoc_plugin \
-    && flutter pub global activate coverage
-
+    && flutter pub global activate coverage \
+    #
+    # CirusCi flutter image sets the user name to cirus ci
+    # Clearing it to ensure the commit goes under the correct name.
+    && git config --global --unset user.name \
+    && git config --global --unset user.email
 # Setup pub bin cache in the path.
 # Need to find if this is the correct way to set melos in path.
 ENV PATH ${PATH}:/root/.pub-cache/bin
