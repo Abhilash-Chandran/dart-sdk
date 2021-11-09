@@ -135,6 +135,7 @@ generateGrpc "$PATH_ROOT/lib/src/proto" "google/protobuf/empty.proto"
 echo ""
 echo "DONE"
 
-#cleanup
+# Format generated dart source
+dart format lib/src
 
 generateGrpcSuccess
