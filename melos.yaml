@@ -11,12 +11,25 @@ scripts:
     #   - "*dapr_client"
     #   - "*dapr_flutter"
 
+  ##################################################
+  ## Regenerate freezed class definitions for all ##
+  ##################################################
+  freezed:build:
+    run : melos run freezed:build:client && melos run freezed:build:server
+      
   ##########################################################
-  ## Regennerate freezed class definitions of dapr_client ##
+  ## Regenerate freezed class definitions of dapr_client ##
   ########################################################## 
   freezed:build:client:
     run : |
       melos exec --scope="*dapr_client" -- dart run build_runner build --build-filter "package:dapr_client/src/models/generated/*" --delete-conflicting-outputs
+  
+  ##########################################################
+  ## Regenerate freezed class definitions of dapr_server ##
+  ########################################################## 
+  freezed:build:server:
+    run : |
+      melos exec --scope="*dapr_server" -- dart run build_runner build --build-filter "package:dapr_server/src/models/generated/*" --delete-conflicting-outputs
   
   ##################################################################
   ## Download latest proto files and generate stubs in dapr_proto ##

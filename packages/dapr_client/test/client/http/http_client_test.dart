@@ -286,6 +286,12 @@ void main() {
       expect(val2, 'updated-value-2');
       expect(val3, '');
     });
+
+    ///
+    /// TODO: Test [StateMetaData] in State Transactions.
+    ///
+    test('Test StateMetaData', () async {});
+
     // Removes all the keys/values stored in the state store.
     // Any future tests involving different keys should be removed here.
     tearDown(() async {

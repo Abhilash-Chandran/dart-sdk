@@ -3,3 +3,4 @@
 # Remove coverage files from tracking.
 coverage_client
 coverage.lcov
+demo_shef_server
