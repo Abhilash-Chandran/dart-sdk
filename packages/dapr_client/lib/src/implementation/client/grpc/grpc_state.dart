@@ -1,9 +1,9 @@
 import 'dart:convert';
-
-import 'package:dapr_client/src/abstractions/client/client_state.dart';
-import 'package:dapr_client/src/implementation/client/grpc/grpc_client.dart';
-import 'package:dapr_client/src/models/generated/state_models.dart';
+import 'package:dapr_common/dapr_common.dart';
 import 'package:dapr_proto/dapr_proto.dart' as dp;
+
+import '../../../abstractions/client/client_state.dart';
+import 'grpc_client.dart';
 
 class GrpcClientState implements ClientState {
   final DaprGrpcClient daprGrpcclient;

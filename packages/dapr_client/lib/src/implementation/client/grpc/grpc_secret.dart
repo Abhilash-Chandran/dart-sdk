@@ -1,7 +1,8 @@
-import 'package:dapr_client/src/abstractions/client/client_secrets.dart';
-import 'package:dapr_client/src/implementation/client/grpc/grpc_client.dart';
-import 'package:dapr_client/src/models/generated/secret_models.dart';
+import 'package:dapr_common/dapr_common.dart';
 import 'package:dapr_proto/dapr_proto.dart' as dp;
+
+import '../../../abstractions/client/client_secrets.dart';
+import 'grpc_client.dart';
 
 class GrpcClientSecret implements ClientSecret {
   final DaprGrpcClient daprGrpcClient;

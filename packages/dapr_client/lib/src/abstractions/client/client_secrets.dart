@@ -1,4 +1,4 @@
-import 'package:dapr_client/src/models/generated/secret_models.dart';
+import 'package:dapr_common/dapr_common.dart';
 
 abstract class ClientSecret {
   Future<Map<String, dynamic>> get({

@@ -1,14 +1,14 @@
-import 'package:dapr_client/src/abstractions/client/client.dart';
-import 'package:dapr_client/src/abstractions/client/client_secrets.dart';
-import 'package:dapr_client/src/abstractions/client/client_state.dart';
-import 'package:dapr_client/src/implementation/client/grpc/grpc_client.dart';
-import 'package:dapr_client/src/implementation/client/grpc/grpc_secret.dart';
-import 'package:dapr_client/src/implementation/client/grpc/grpc_state.dart';
-import 'package:dapr_client/src/implementation/client/http/http_client.dart';
-import 'package:dapr_client/src/implementation/client/http/http_secret.dart';
-import 'package:dapr_client/src/implementation/client/http/http_state.dart';
+import 'package:dapr_common/dapr_common.dart';
 
-import '../../enums/communication_protocol.dart';
+import '../../abstractions/client/client.dart';
+import '../../abstractions/client/client_secrets.dart';
+import '../../abstractions/client/client_state.dart';
+import 'grpc/grpc_client.dart';
+import 'grpc/grpc_secret.dart';
+import 'package:dapr_client/src/implementation/client/grpc/grpc_state.dart';
+import 'http/http_client.dart';
+import 'http/http_secret.dart';
+import 'http/http_state.dart';
 
 class DaprClient {
   final String daprHost;

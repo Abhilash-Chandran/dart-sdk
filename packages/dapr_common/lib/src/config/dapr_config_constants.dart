@@ -1,4 +1,4 @@
-import 'package:dapr_client/src/enums/communication_protocol.dart';
+import '../../dapr_common.dart';
 
 class DaprConf {
   static final String defDaprHost = "127.0.0.1";

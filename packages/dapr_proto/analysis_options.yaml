@@ -20,9 +20,9 @@ linter:
     constant_identifier_names: false
     avoid_renaming_method_parameters: false
   
-# analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+analyzer:
+  exclude:
+    - "**/*.pb.dart"
 
 # For more information about the core and recommended set of lints, see
 # https://dart.dev/go/core-lints

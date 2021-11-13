@@ -1,11 +1,9 @@
 import 'dart:convert';
 
-import 'package:dapr_client/src/abstractions/client/client.dart';
-import 'package:dapr_client/src/config/dap_config_constants.dart';
-import 'package:dapr_client/src/enums/communication_protocol.dart';
-import 'package:dapr_client/src/enums/http_method.dart';
-import 'package:dapr_client/src/utils/utils.dart';
+import 'package:dapr_common/dapr_common.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../abstractions/client/client.dart';
 
 ///
 /// A http client to access Dapr Side Car.

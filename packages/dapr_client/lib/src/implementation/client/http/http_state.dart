@@ -1,10 +1,9 @@
 import 'dart:convert';
 
-import 'package:dapr_client/src/abstractions/client/client_state.dart';
-import 'package:dapr_client/src/enums/http_method.dart';
-import 'package:dapr_client/src/implementation/client/http/http_client.dart';
-import 'package:dapr_client/src/models/generated/state_models.dart';
-import 'package:dapr_client/src/utils/utils.dart';
+import 'package:dapr_common/dapr_common.dart';
+
+import '../../../abstractions/client/client_state.dart';
+import 'http_client.dart';
 
 class HttpClientState implements ClientState {
   final DaprHttpClient daprHttpClient;

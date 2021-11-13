@@ -1,7 +1,7 @@
-import 'package:dapr_client/src/enums/communication_protocol.dart';
+
 import 'package:dapr_client/src/implementation/client/dapr_client.dart';
-import 'package:dapr_client/src/models/generated/secret_models.dart';
-import 'package:dapr_client/src/models/generated/state_models.dart';
+import 'package:dapr_common/dapr_common.dart';
+
 import 'package:test/test.dart';
 
 /// The tests in this file are organised based on the dapr api's sdk definition

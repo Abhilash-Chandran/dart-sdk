@@ -11,11 +11,11 @@ scripts:
     #   - "*dapr_client"
     #   - "*dapr_flutter"
 
-  ##################################################
-  ## Regenerate freezed class definitions for all ##
-  ##################################################
-  freezed:build:
-    run : melos run freezed:build:client && melos run freezed:build:server
+  #############################################################
+  ## Regenerate freezed class definitions for common package ##
+  #############################################################
+  freezed:build:common:
+    run : melos exec --scope="*dapr_common" -- dart run build_runner build --delete-conflicting-outputs
       
   ##########################################################
   ## Regenerate freezed class definitions of dapr_client ##

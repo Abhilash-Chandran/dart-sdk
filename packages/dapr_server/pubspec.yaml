@@ -7,13 +7,13 @@ environment:
   sdk: '>=2.14.4 <3.0.0'
 
 
+# TODO: Remove before publishing and change the dapr_common to a versioned 
+# dependency
+publish_to: none
 dependencies:
-  freezed_annotation:
-  json_annotation: ^4.3.0
+  dapr_common:
+    path: ../dapr_common
 
 dev_dependencies:
   lints: ^1.0.0
   test: ^1.16.0
-  build_runner:
-  freezed:
-  json_serializable:

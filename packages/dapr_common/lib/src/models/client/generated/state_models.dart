@@ -1,7 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../enums/state_option_enums.dart';
-import '../all_type_def.dart';
+import '../../../enum/state_option_enums.dart';
+import '../../../models/client/client_type_definitions.dart';
+
 
 part 'state_models.freezed.dart';
 part 'state_models.g.dart';

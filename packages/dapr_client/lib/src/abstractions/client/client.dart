@@ -1,4 +1,4 @@
-import 'package:dapr_client/src/enums/communication_protocol.dart';
+import 'package:dapr_common/dapr_common.dart';
 
 /// An abstract client which exposes client related information.
 ///

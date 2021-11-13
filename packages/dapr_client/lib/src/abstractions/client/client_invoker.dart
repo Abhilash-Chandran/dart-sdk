@@ -1,4 +1,4 @@
-import 'package:dapr_client/src/enums/http_method.dart';
+import 'package:dapr_common/dapr_common.dart';
 
 abstract class ClientInvoker {
   invoke({

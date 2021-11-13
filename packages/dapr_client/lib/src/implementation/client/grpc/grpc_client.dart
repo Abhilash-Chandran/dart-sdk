@@ -1,8 +1,9 @@
-import 'package:dapr_client/src/abstractions/client/client.dart';
-import 'package:dapr_client/src/enums/communication_protocol.dart';
+
+import 'package:dapr_common/dapr_common.dart';
 import 'package:dapr_proto/dapr_proto.dart' as dp;
 import 'package:grpc/grpc.dart' as grpc;
 
+import '../../../abstractions/client/client.dart';
 ///
 /// A grpc client to access Dapr Side Car.
 ///

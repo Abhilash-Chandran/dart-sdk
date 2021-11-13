@@ -1,5 +1,4 @@
-import 'package:dapr_client/src/enums/http_method.dart';
-import 'package:dapr_client/src/models/generated/state_models.dart';
+import 'package:dapr_common/dapr_common.dart';
 
 abstract class ClientActor {
   /// Based on the following api definition.

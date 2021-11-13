@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:dapr_client/src/models/generated/state_models.dart';
+import 'package:dapr_common/dapr_common.dart';
 
 // import '../../typedefs/all_type_def.dart';
 

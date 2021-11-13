@@ -13,6 +13,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+InvokerCallbackContent _$InvokerCallbackContentFromJson(
+    Map<String, dynamic> json) {
+  return _InvokerCallbackContent.fromJson(json);
+}
+
 /// @nodoc
 class _$InvokerCallbackContentTearOff {
   const _$InvokerCallbackContentTearOff();
@@ -26,6 +31,10 @@ class _$InvokerCallbackContentTearOff {
       method: method,
     );
   }
+
+  InvokerCallbackContent fromJson(Map<String, Object?> json) {
+    return InvokerCallbackContent.fromJson(json);
+  }
 }
 
 /// @nodoc
@@ -38,6 +47,7 @@ mixin _$InvokerCallbackContent {
   String? get metadata => throw _privateConstructorUsedError;
   HttpMethod? get method => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $InvokerCallbackContentCopyWith<InvokerCallbackContent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -140,10 +150,13 @@ class __$InvokerCallbackContentCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_InvokerCallbackContent implements _InvokerCallbackContent {
   const _$_InvokerCallbackContent(
       {this.body, this.query, this.metadata, this.method});
+
+  factory _$_InvokerCallbackContent.fromJson(Map<String, dynamic> json) =>
+      _$$_InvokerCallbackContentFromJson(json);
 
   @override
   final String? body;
@@ -179,6 +192,11 @@ class _$_InvokerCallbackContent implements _InvokerCallbackContent {
   _$InvokerCallbackContentCopyWith<_InvokerCallbackContent> get copyWith =>
       __$InvokerCallbackContentCopyWithImpl<_InvokerCallbackContent>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_InvokerCallbackContentToJson(this);
+  }
 }
 
 abstract class _InvokerCallbackContent implements InvokerCallbackContent {
@@ -187,6 +205,9 @@ abstract class _InvokerCallbackContent implements InvokerCallbackContent {
       String? query,
       String? metadata,
       HttpMethod? method}) = _$_InvokerCallbackContent;
+
+  factory _InvokerCallbackContent.fromJson(Map<String, dynamic> json) =
+      _$_InvokerCallbackContent.fromJson;
 
   @override
   String? get body;

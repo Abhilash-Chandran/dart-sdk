@@ -1,10 +1,9 @@
 import 'dart:convert';
 
-import 'package:dapr_client/src/abstractions/client/client_secrets.dart';
-import 'package:dapr_client/src/enums/http_method.dart';
-import 'package:dapr_client/src/implementation/client/http/http_client.dart';
-import 'package:dapr_client/src/models/generated/secret_models.dart';
-import 'package:dapr_client/src/utils/utils.dart';
+import 'package:dapr_common/dapr_common.dart';
+
+import '../../../abstractions/client/client_secrets.dart';
+import 'http_client.dart';
 
 class HttpClientSecret implements ClientSecret {
   final DaprHttpClient daprHttpClient;
@@ -36,7 +35,7 @@ class HttpClientSecret implements ClientSecret {
         headers: {
           'Content-Type': 'application/json',
         });
-    final _decodedResponse = jsonDecode(result) as Map<String, dynamic>;    
+    final _decodedResponse = jsonDecode(result) as Map<String, dynamic>;
     final _responseBulkSecrets = <String, SecretResponse>{};
     for (var bulkSecret in _decodedResponse.entries) {
       _responseBulkSecrets.putIfAbsent(

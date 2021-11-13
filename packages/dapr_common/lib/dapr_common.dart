@@ -3,6 +3,23 @@
 /// More dartdocs go here.
 library dapr_common;
 
-export 'src/dapr_common_base.dart';
+/// Exporting the common enumerations
+export 'src/enum/communication_protocol.dart';
+export 'src/enum/http_method.dart';
+export 'src/enum/state_option_enums.dart';
 
-// TODO: Export any libraries intended for clients of this package.
+/// Exporting the common configurations
+export 'src/config/dapr_config_constants.dart';
+
+/// Export utility methods.
+export 'src/utils//utils.dart';
+
+/// Export client models
+export 'src/models/client/generated/actor_models.dart';
+export 'src/models/client/generated/state_models.dart';
+export 'src/models/client/generated/secret_models.dart';
+export 'src/models/client/client_type_definitions.dart';
+
+/// Export server models
+export 'src/models/server/generated/invoker_models.dart';
+export 'src/models/server/generated/pub_sub_models.dart';
