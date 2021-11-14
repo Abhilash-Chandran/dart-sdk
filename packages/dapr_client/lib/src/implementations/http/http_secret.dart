@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dapr_common/dapr_common.dart';
 
-import '../../../abstractions/client/client_secrets.dart';
+import '../../abstractions/client_secrets.dart';
 import 'http_client.dart';
 
 class HttpClientSecret implements ClientSecret {

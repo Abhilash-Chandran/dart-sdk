@@ -1,4 +1,4 @@
-import 'package:dapr_client/src/implementation/client/dapr_client.dart';
+import 'package:dapr_client/src/implementations/dapr_client.dart';
 import 'package:dapr_common/dapr_common.dart';
 
 import 'package:test/test.dart';

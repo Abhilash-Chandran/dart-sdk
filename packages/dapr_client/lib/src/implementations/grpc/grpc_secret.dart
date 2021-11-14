@@ -1,7 +1,7 @@
 import 'package:dapr_common/dapr_common.dart';
 import 'package:dapr_proto/dapr_proto.dart' as dp;
 
-import '../../../abstractions/client/client_secrets.dart';
+import '../../abstractions/client_secrets.dart';
 import 'grpc_client.dart';
 
 class GrpcClientSecret implements ClientSecret {

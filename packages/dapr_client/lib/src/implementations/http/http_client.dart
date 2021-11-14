@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dapr_common/dapr_common.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../abstractions/client/client.dart';
+import '../../abstractions/client.dart';
 
 ///
 /// A http client to access Dapr Side Car.

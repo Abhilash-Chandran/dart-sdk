@@ -1,11 +1,13 @@
 import 'package:dapr_common/dapr_common.dart';
 
-import '../../abstractions/client/client.dart';
-import '../../abstractions/client/client_secrets.dart';
-import '../../abstractions/client/client_state.dart';
+import '../abstractions/client.dart';
+import '../abstractions/client_secrets.dart';
+import '../abstractions/client_state.dart';
+
 import 'grpc/grpc_client.dart';
+import 'grpc/grpc_state.dart';
 import 'grpc/grpc_secret.dart';
-import 'package:dapr_client/src/implementation/client/grpc/grpc_state.dart';
+
 import 'http/http_client.dart';
 import 'http/http_secret.dart';
 import 'http/http_state.dart';
