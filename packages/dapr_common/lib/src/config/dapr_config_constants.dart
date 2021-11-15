@@ -1,13 +1,14 @@
 import '../../dapr_common.dart';
 
 class DaprConf {
-  static final String defDaprHost = "127.0.0.1";
-  static final String defDaprHttpPort = "3500";
-  static final String defDaprGrpcPort = "50001";
-  static final String defDaprApiVersion = "v1.0";
-  static final CommunicationProtocol defCommunicationProtocol =
+  static const String defAppHost = "127.0.0.1";
+  static const String defDaprHost = "127.0.0.1";
+  static const String defDaprHttpPort = "3500";
+  static const String defDaprGrpcPort = "50001";
+  static const String defDaprApiVersion = "v1.0";
+  static const CommunicationProtocol defCommunicationProtocol =
       CommunicationProtocol.http;
-  static final String defHttpAppPort = "3000";
-  static final String defGrpcAppPort = "3000";
-  static final int defHttpTimeout = 60;
+  static const String defHttpAppPort = "3000";
+  static const String defGrpcAppPort = "3000";
+  static const int defHttpTimeout = 60;
 }

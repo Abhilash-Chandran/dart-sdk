@@ -1,5 +1,5 @@
 abstract class Server {
-  String get serverAddress;
+  // String get serverAddress;
   dynamic get server;
   dynamic get implementation;
 

@@ -11,8 +11,10 @@ _$_InvokerCallbackContent _$$_InvokerCallbackContentFromJson(
     _$_InvokerCallbackContent(
       body: json['body'] as String?,
       query: json['query'] as String?,
-      metadata: json['metadata'] as String?,
-      method: $enumDecodeNullable(_$HttpMethodEnumMap, json['method']),
+      metadata: json['metadata'] == null
+          ? null
+          : InvokerCallbackMetadata.fromJson(
+              json['metadata'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_InvokerCallbackContentToJson(
@@ -21,6 +23,29 @@ Map<String, dynamic> _$$_InvokerCallbackContentToJson(
       'body': instance.body,
       'query': instance.query,
       'metadata': instance.metadata,
+    };
+
+_$_InvokerCallbackMetadata _$$_InvokerCallbackMetadataFromJson(
+        Map<String, dynamic> json) =>
+    _$_InvokerCallbackMetadata(
+      contentType: json['contentType'] as String?,
+    );
+
+Map<String, dynamic> _$$_InvokerCallbackMetadataToJson(
+        _$_InvokerCallbackMetadata instance) =>
+    <String, dynamic>{
+      'contentType': instance.contentType,
+    };
+
+_$_InvokerCallbackOptions _$$_InvokerCallbackOptionsFromJson(
+        Map<String, dynamic> json) =>
+    _$_InvokerCallbackOptions(
+      method: $enumDecode(_$HttpMethodEnumMap, json['method']),
+    );
+
+Map<String, dynamic> _$$_InvokerCallbackOptionsToJson(
+        _$_InvokerCallbackOptions instance) =>
+    <String, dynamic>{
       'method': _$HttpMethodEnumMap[instance.method],
     };
 

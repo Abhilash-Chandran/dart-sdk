@@ -23,12 +23,11 @@ class _$InvokerCallbackContentTearOff {
   const _$InvokerCallbackContentTearOff();
 
   _InvokerCallbackContent call(
-      {String? body, String? query, String? metadata, HttpMethod? method}) {
+      {String? body, String? query, InvokerCallbackMetadata? metadata}) {
     return _InvokerCallbackContent(
       body: body,
       query: query,
       metadata: metadata,
-      method: method,
     );
   }
 
@@ -44,8 +43,7 @@ const $InvokerCallbackContent = _$InvokerCallbackContentTearOff();
 mixin _$InvokerCallbackContent {
   String? get body => throw _privateConstructorUsedError;
   String? get query => throw _privateConstructorUsedError;
-  String? get metadata => throw _privateConstructorUsedError;
-  HttpMethod? get method => throw _privateConstructorUsedError;
+  InvokerCallbackMetadata? get metadata => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,8 +56,9 @@ abstract class $InvokerCallbackContentCopyWith<$Res> {
   factory $InvokerCallbackContentCopyWith(InvokerCallbackContent value,
           $Res Function(InvokerCallbackContent) then) =
       _$InvokerCallbackContentCopyWithImpl<$Res>;
-  $Res call(
-      {String? body, String? query, String? metadata, HttpMethod? method});
+  $Res call({String? body, String? query, InvokerCallbackMetadata? metadata});
+
+  $InvokerCallbackMetadataCopyWith<$Res>? get metadata;
 }
 
 /// @nodoc
@@ -76,7 +75,6 @@ class _$InvokerCallbackContentCopyWithImpl<$Res>
     Object? body = freezed,
     Object? query = freezed,
     Object? metadata = freezed,
-    Object? method = freezed,
   }) {
     return _then(_value.copyWith(
       body: body == freezed
@@ -90,12 +88,19 @@ class _$InvokerCallbackContentCopyWithImpl<$Res>
       metadata: metadata == freezed
           ? _value.metadata
           : metadata // ignore: cast_nullable_to_non_nullable
-              as String?,
-      method: method == freezed
-          ? _value.method
-          : method // ignore: cast_nullable_to_non_nullable
-              as HttpMethod?,
+              as InvokerCallbackMetadata?,
     ));
+  }
+
+  @override
+  $InvokerCallbackMetadataCopyWith<$Res>? get metadata {
+    if (_value.metadata == null) {
+      return null;
+    }
+
+    return $InvokerCallbackMetadataCopyWith<$Res>(_value.metadata!, (value) {
+      return _then(_value.copyWith(metadata: value));
+    });
   }
 }
 
@@ -106,8 +111,10 @@ abstract class _$InvokerCallbackContentCopyWith<$Res>
           $Res Function(_InvokerCallbackContent) then) =
       __$InvokerCallbackContentCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {String? body, String? query, String? metadata, HttpMethod? method});
+  $Res call({String? body, String? query, InvokerCallbackMetadata? metadata});
+
+  @override
+  $InvokerCallbackMetadataCopyWith<$Res>? get metadata;
 }
 
 /// @nodoc
@@ -126,7 +133,6 @@ class __$InvokerCallbackContentCopyWithImpl<$Res>
     Object? body = freezed,
     Object? query = freezed,
     Object? metadata = freezed,
-    Object? method = freezed,
   }) {
     return _then(_InvokerCallbackContent(
       body: body == freezed
@@ -140,11 +146,7 @@ class __$InvokerCallbackContentCopyWithImpl<$Res>
       metadata: metadata == freezed
           ? _value.metadata
           : metadata // ignore: cast_nullable_to_non_nullable
-              as String?,
-      method: method == freezed
-          ? _value.method
-          : method // ignore: cast_nullable_to_non_nullable
-              as HttpMethod?,
+              as InvokerCallbackMetadata?,
     ));
   }
 }
@@ -152,8 +154,7 @@ class __$InvokerCallbackContentCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_InvokerCallbackContent implements _InvokerCallbackContent {
-  const _$_InvokerCallbackContent(
-      {this.body, this.query, this.metadata, this.method});
+  const _$_InvokerCallbackContent({this.body, this.query, this.metadata});
 
   factory _$_InvokerCallbackContent.fromJson(Map<String, dynamic> json) =>
       _$$_InvokerCallbackContentFromJson(json);
@@ -163,13 +164,11 @@ class _$_InvokerCallbackContent implements _InvokerCallbackContent {
   @override
   final String? query;
   @override
-  final String? metadata;
-  @override
-  final HttpMethod? method;
+  final InvokerCallbackMetadata? metadata;
 
   @override
   String toString() {
-    return 'InvokerCallbackContent(body: $body, query: $query, metadata: $metadata, method: $method)';
+    return 'InvokerCallbackContent(body: $body, query: $query, metadata: $metadata)';
   }
 
   @override
@@ -180,12 +179,11 @@ class _$_InvokerCallbackContent implements _InvokerCallbackContent {
             (identical(other.body, body) || other.body == body) &&
             (identical(other.query, query) || other.query == query) &&
             (identical(other.metadata, metadata) ||
-                other.metadata == metadata) &&
-            (identical(other.method, method) || other.method == method));
+                other.metadata == metadata));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, body, query, metadata, method);
+  int get hashCode => Object.hash(runtimeType, body, query, metadata);
 
   @JsonKey(ignore: true)
   @override
@@ -203,8 +201,7 @@ abstract class _InvokerCallbackContent implements InvokerCallbackContent {
   const factory _InvokerCallbackContent(
       {String? body,
       String? query,
-      String? metadata,
-      HttpMethod? method}) = _$_InvokerCallbackContent;
+      InvokerCallbackMetadata? metadata}) = _$_InvokerCallbackContent;
 
   factory _InvokerCallbackContent.fromJson(Map<String, dynamic> json) =
       _$_InvokerCallbackContent.fromJson;
@@ -214,11 +211,313 @@ abstract class _InvokerCallbackContent implements InvokerCallbackContent {
   @override
   String? get query;
   @override
-  String? get metadata;
-  @override
-  HttpMethod? get method;
+  InvokerCallbackMetadata? get metadata;
   @override
   @JsonKey(ignore: true)
   _$InvokerCallbackContentCopyWith<_InvokerCallbackContent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+InvokerCallbackMetadata _$InvokerCallbackMetadataFromJson(
+    Map<String, dynamic> json) {
+  return _InvokerCallbackMetadata.fromJson(json);
+}
+
+/// @nodoc
+class _$InvokerCallbackMetadataTearOff {
+  const _$InvokerCallbackMetadataTearOff();
+
+  _InvokerCallbackMetadata call({String? contentType}) {
+    return _InvokerCallbackMetadata(
+      contentType: contentType,
+    );
+  }
+
+  InvokerCallbackMetadata fromJson(Map<String, Object?> json) {
+    return InvokerCallbackMetadata.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $InvokerCallbackMetadata = _$InvokerCallbackMetadataTearOff();
+
+/// @nodoc
+mixin _$InvokerCallbackMetadata {
+  String? get contentType => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $InvokerCallbackMetadataCopyWith<InvokerCallbackMetadata> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $InvokerCallbackMetadataCopyWith<$Res> {
+  factory $InvokerCallbackMetadataCopyWith(InvokerCallbackMetadata value,
+          $Res Function(InvokerCallbackMetadata) then) =
+      _$InvokerCallbackMetadataCopyWithImpl<$Res>;
+  $Res call({String? contentType});
+}
+
+/// @nodoc
+class _$InvokerCallbackMetadataCopyWithImpl<$Res>
+    implements $InvokerCallbackMetadataCopyWith<$Res> {
+  _$InvokerCallbackMetadataCopyWithImpl(this._value, this._then);
+
+  final InvokerCallbackMetadata _value;
+  // ignore: unused_field
+  final $Res Function(InvokerCallbackMetadata) _then;
+
+  @override
+  $Res call({
+    Object? contentType = freezed,
+  }) {
+    return _then(_value.copyWith(
+      contentType: contentType == freezed
+          ? _value.contentType
+          : contentType // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$InvokerCallbackMetadataCopyWith<$Res>
+    implements $InvokerCallbackMetadataCopyWith<$Res> {
+  factory _$InvokerCallbackMetadataCopyWith(_InvokerCallbackMetadata value,
+          $Res Function(_InvokerCallbackMetadata) then) =
+      __$InvokerCallbackMetadataCopyWithImpl<$Res>;
+  @override
+  $Res call({String? contentType});
+}
+
+/// @nodoc
+class __$InvokerCallbackMetadataCopyWithImpl<$Res>
+    extends _$InvokerCallbackMetadataCopyWithImpl<$Res>
+    implements _$InvokerCallbackMetadataCopyWith<$Res> {
+  __$InvokerCallbackMetadataCopyWithImpl(_InvokerCallbackMetadata _value,
+      $Res Function(_InvokerCallbackMetadata) _then)
+      : super(_value, (v) => _then(v as _InvokerCallbackMetadata));
+
+  @override
+  _InvokerCallbackMetadata get _value =>
+      super._value as _InvokerCallbackMetadata;
+
+  @override
+  $Res call({
+    Object? contentType = freezed,
+  }) {
+    return _then(_InvokerCallbackMetadata(
+      contentType: contentType == freezed
+          ? _value.contentType
+          : contentType // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_InvokerCallbackMetadata implements _InvokerCallbackMetadata {
+  const _$_InvokerCallbackMetadata({this.contentType});
+
+  factory _$_InvokerCallbackMetadata.fromJson(Map<String, dynamic> json) =>
+      _$$_InvokerCallbackMetadataFromJson(json);
+
+  @override
+  final String? contentType;
+
+  @override
+  String toString() {
+    return 'InvokerCallbackMetadata(contentType: $contentType)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _InvokerCallbackMetadata &&
+            (identical(other.contentType, contentType) ||
+                other.contentType == contentType));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, contentType);
+
+  @JsonKey(ignore: true)
+  @override
+  _$InvokerCallbackMetadataCopyWith<_InvokerCallbackMetadata> get copyWith =>
+      __$InvokerCallbackMetadataCopyWithImpl<_InvokerCallbackMetadata>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_InvokerCallbackMetadataToJson(this);
+  }
+}
+
+abstract class _InvokerCallbackMetadata implements InvokerCallbackMetadata {
+  const factory _InvokerCallbackMetadata({String? contentType}) =
+      _$_InvokerCallbackMetadata;
+
+  factory _InvokerCallbackMetadata.fromJson(Map<String, dynamic> json) =
+      _$_InvokerCallbackMetadata.fromJson;
+
+  @override
+  String? get contentType;
+  @override
+  @JsonKey(ignore: true)
+  _$InvokerCallbackMetadataCopyWith<_InvokerCallbackMetadata> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+InvokerCallbackOptions _$InvokerCallbackOptionsFromJson(
+    Map<String, dynamic> json) {
+  return _InvokerCallbackOptions.fromJson(json);
+}
+
+/// @nodoc
+class _$InvokerCallbackOptionsTearOff {
+  const _$InvokerCallbackOptionsTearOff();
+
+  _InvokerCallbackOptions call({required HttpMethod method}) {
+    return _InvokerCallbackOptions(
+      method: method,
+    );
+  }
+
+  InvokerCallbackOptions fromJson(Map<String, Object?> json) {
+    return InvokerCallbackOptions.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $InvokerCallbackOptions = _$InvokerCallbackOptionsTearOff();
+
+/// @nodoc
+mixin _$InvokerCallbackOptions {
+  HttpMethod get method => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $InvokerCallbackOptionsCopyWith<InvokerCallbackOptions> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $InvokerCallbackOptionsCopyWith<$Res> {
+  factory $InvokerCallbackOptionsCopyWith(InvokerCallbackOptions value,
+          $Res Function(InvokerCallbackOptions) then) =
+      _$InvokerCallbackOptionsCopyWithImpl<$Res>;
+  $Res call({HttpMethod method});
+}
+
+/// @nodoc
+class _$InvokerCallbackOptionsCopyWithImpl<$Res>
+    implements $InvokerCallbackOptionsCopyWith<$Res> {
+  _$InvokerCallbackOptionsCopyWithImpl(this._value, this._then);
+
+  final InvokerCallbackOptions _value;
+  // ignore: unused_field
+  final $Res Function(InvokerCallbackOptions) _then;
+
+  @override
+  $Res call({
+    Object? method = freezed,
+  }) {
+    return _then(_value.copyWith(
+      method: method == freezed
+          ? _value.method
+          : method // ignore: cast_nullable_to_non_nullable
+              as HttpMethod,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$InvokerCallbackOptionsCopyWith<$Res>
+    implements $InvokerCallbackOptionsCopyWith<$Res> {
+  factory _$InvokerCallbackOptionsCopyWith(_InvokerCallbackOptions value,
+          $Res Function(_InvokerCallbackOptions) then) =
+      __$InvokerCallbackOptionsCopyWithImpl<$Res>;
+  @override
+  $Res call({HttpMethod method});
+}
+
+/// @nodoc
+class __$InvokerCallbackOptionsCopyWithImpl<$Res>
+    extends _$InvokerCallbackOptionsCopyWithImpl<$Res>
+    implements _$InvokerCallbackOptionsCopyWith<$Res> {
+  __$InvokerCallbackOptionsCopyWithImpl(_InvokerCallbackOptions _value,
+      $Res Function(_InvokerCallbackOptions) _then)
+      : super(_value, (v) => _then(v as _InvokerCallbackOptions));
+
+  @override
+  _InvokerCallbackOptions get _value => super._value as _InvokerCallbackOptions;
+
+  @override
+  $Res call({
+    Object? method = freezed,
+  }) {
+    return _then(_InvokerCallbackOptions(
+      method: method == freezed
+          ? _value.method
+          : method // ignore: cast_nullable_to_non_nullable
+              as HttpMethod,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_InvokerCallbackOptions implements _InvokerCallbackOptions {
+  const _$_InvokerCallbackOptions({required this.method});
+
+  factory _$_InvokerCallbackOptions.fromJson(Map<String, dynamic> json) =>
+      _$$_InvokerCallbackOptionsFromJson(json);
+
+  @override
+  final HttpMethod method;
+
+  @override
+  String toString() {
+    return 'InvokerCallbackOptions(method: $method)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _InvokerCallbackOptions &&
+            (identical(other.method, method) || other.method == method));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, method);
+
+  @JsonKey(ignore: true)
+  @override
+  _$InvokerCallbackOptionsCopyWith<_InvokerCallbackOptions> get copyWith =>
+      __$InvokerCallbackOptionsCopyWithImpl<_InvokerCallbackOptions>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_InvokerCallbackOptionsToJson(this);
+  }
+}
+
+abstract class _InvokerCallbackOptions implements InvokerCallbackOptions {
+  const factory _InvokerCallbackOptions({required HttpMethod method}) =
+      _$_InvokerCallbackOptions;
+
+  factory _InvokerCallbackOptions.fromJson(Map<String, dynamic> json) =
+      _$_InvokerCallbackOptions.fromJson;
+
+  @override
+  HttpMethod get method;
+  @override
+  @JsonKey(ignore: true)
+  _$InvokerCallbackOptionsCopyWith<_InvokerCallbackOptions> get copyWith =>
       throw _privateConstructorUsedError;
 }
