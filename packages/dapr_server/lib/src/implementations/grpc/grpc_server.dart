@@ -10,7 +10,7 @@ class DaprGrpcServer implements Server {
   get server => throw UnimplementedError();
 
   @override
-  Future<void> start(String host, String port) {
+  Future<void> start(String host, int port) {
     // TODO: implement start
     throw UnimplementedError();
   }

@@ -23,7 +23,9 @@ class _$InvokerCallbackContentTearOff {
   const _$InvokerCallbackContentTearOff();
 
   _InvokerCallbackContent call(
-      {String? body, String? query, InvokerCallbackMetadata? metadata}) {
+      {String? body,
+      Map<String, String>? query,
+      InvokerCallbackMetadata? metadata}) {
     return _InvokerCallbackContent(
       body: body,
       query: query,
@@ -42,7 +44,7 @@ const $InvokerCallbackContent = _$InvokerCallbackContentTearOff();
 /// @nodoc
 mixin _$InvokerCallbackContent {
   String? get body => throw _privateConstructorUsedError;
-  String? get query => throw _privateConstructorUsedError;
+  Map<String, String>? get query => throw _privateConstructorUsedError;
   InvokerCallbackMetadata? get metadata => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,7 +58,10 @@ abstract class $InvokerCallbackContentCopyWith<$Res> {
   factory $InvokerCallbackContentCopyWith(InvokerCallbackContent value,
           $Res Function(InvokerCallbackContent) then) =
       _$InvokerCallbackContentCopyWithImpl<$Res>;
-  $Res call({String? body, String? query, InvokerCallbackMetadata? metadata});
+  $Res call(
+      {String? body,
+      Map<String, String>? query,
+      InvokerCallbackMetadata? metadata});
 
   $InvokerCallbackMetadataCopyWith<$Res>? get metadata;
 }
@@ -84,7 +89,7 @@ class _$InvokerCallbackContentCopyWithImpl<$Res>
       query: query == freezed
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Map<String, String>?,
       metadata: metadata == freezed
           ? _value.metadata
           : metadata // ignore: cast_nullable_to_non_nullable
@@ -111,7 +116,10 @@ abstract class _$InvokerCallbackContentCopyWith<$Res>
           $Res Function(_InvokerCallbackContent) then) =
       __$InvokerCallbackContentCopyWithImpl<$Res>;
   @override
-  $Res call({String? body, String? query, InvokerCallbackMetadata? metadata});
+  $Res call(
+      {String? body,
+      Map<String, String>? query,
+      InvokerCallbackMetadata? metadata});
 
   @override
   $InvokerCallbackMetadataCopyWith<$Res>? get metadata;
@@ -142,7 +150,7 @@ class __$InvokerCallbackContentCopyWithImpl<$Res>
       query: query == freezed
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Map<String, String>?,
       metadata: metadata == freezed
           ? _value.metadata
           : metadata // ignore: cast_nullable_to_non_nullable
@@ -162,7 +170,7 @@ class _$_InvokerCallbackContent implements _InvokerCallbackContent {
   @override
   final String? body;
   @override
-  final String? query;
+  final Map<String, String>? query;
   @override
   final InvokerCallbackMetadata? metadata;
 
@@ -177,13 +185,14 @@ class _$_InvokerCallbackContent implements _InvokerCallbackContent {
         (other.runtimeType == runtimeType &&
             other is _InvokerCallbackContent &&
             (identical(other.body, body) || other.body == body) &&
-            (identical(other.query, query) || other.query == query) &&
+            const DeepCollectionEquality().equals(other.query, query) &&
             (identical(other.metadata, metadata) ||
                 other.metadata == metadata));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, body, query, metadata);
+  int get hashCode => Object.hash(
+      runtimeType, body, const DeepCollectionEquality().hash(query), metadata);
 
   @JsonKey(ignore: true)
   @override
@@ -200,7 +209,7 @@ class _$_InvokerCallbackContent implements _InvokerCallbackContent {
 abstract class _InvokerCallbackContent implements InvokerCallbackContent {
   const factory _InvokerCallbackContent(
       {String? body,
-      String? query,
+      Map<String, String>? query,
       InvokerCallbackMetadata? metadata}) = _$_InvokerCallbackContent;
 
   factory _InvokerCallbackContent.fromJson(Map<String, dynamic> json) =
@@ -209,7 +218,7 @@ abstract class _InvokerCallbackContent implements InvokerCallbackContent {
   @override
   String? get body;
   @override
-  String? get query;
+  Map<String, String>? get query;
   @override
   InvokerCallbackMetadata? get metadata;
   @override

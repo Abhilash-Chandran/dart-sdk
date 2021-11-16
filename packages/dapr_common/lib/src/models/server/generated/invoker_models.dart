@@ -9,7 +9,7 @@ part 'invoker_models.g.dart';
 class InvokerCallbackContent with _$InvokerCallbackContent {
   const factory InvokerCallbackContent({
     String? body,
-    String? query,
+    Map<String, String>? query,
     InvokerCallbackMetadata? metadata,
   }) = _InvokerCallbackContent;
 
@@ -23,7 +23,8 @@ class InvokerCallbackMetadata with _$InvokerCallbackMetadata {
     String? contentType,
   }) = _InvokerCallbackMetadata;
 
-  factory InvokerCallbackMetadata.fromJson(Map<String, dynamic> json) => _$InvokerCallbackMetadataFromJson(json);
+  factory InvokerCallbackMetadata.fromJson(Map<String, dynamic> json) =>
+      _$InvokerCallbackMetadataFromJson(json);
 }
 
 @freezed

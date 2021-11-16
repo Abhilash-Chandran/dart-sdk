@@ -13,7 +13,7 @@ List removeNullsFromList(List list) => list
 String mapToQueryParams(Map<String, String> metadataMap) {
   var _queryParam = '';
   for (var entry in metadataMap.entries) {
-    _queryParam += '${entry.key}=${entry.value}';
+    _queryParam += '${entry.key}=${entry.value}&';
   }
-  return _queryParam;
+  return _queryParam.substring(0, _queryParam.length - 1);
 }

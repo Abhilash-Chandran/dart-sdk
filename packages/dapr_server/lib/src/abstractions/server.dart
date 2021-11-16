@@ -7,5 +7,5 @@ abstract class Server {
   Future<void> stop();
 
   /// Start the server with the provided host and port bindings.
-  Future<void> start(String host, String port);
+  Future<void> start(String host, int port);
 }

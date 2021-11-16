@@ -10,7 +10,9 @@ _$_InvokerCallbackContent _$$_InvokerCallbackContentFromJson(
         Map<String, dynamic> json) =>
     _$_InvokerCallbackContent(
       body: json['body'] as String?,
-      query: json['query'] as String?,
+      query: (json['query'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
       metadata: json['metadata'] == null
           ? null
           : InvokerCallbackMetadata.fromJson(
