@@ -18,6 +18,7 @@ include: package:lints/recommended.yaml
 linter:
   rules:
     - prefer_relative_imports
+    - public_member_api_docs
 
 # analyzer:
 #   exclude:

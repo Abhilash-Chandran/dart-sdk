@@ -15,5 +15,7 @@ String mapToQueryParams(Map<String, String> metadataMap) {
   for (var entry in metadataMap.entries) {
     _queryParam += '${entry.key}=${entry.value}&';
   }
-  return _queryParam.substring(0, _queryParam.length - 1);
+  return _queryParam.length > 0
+      ? _queryParam.substring(0, _queryParam.length - 1)
+      : _queryParam;
 }

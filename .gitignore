@@ -1,6 +1,6 @@
 .idea
 
 # Remove coverage files from tracking.
-coverage_client
+coverage
 coverage.lcov
 demo_shef_server

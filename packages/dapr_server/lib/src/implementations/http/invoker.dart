@@ -14,34 +14,11 @@ class HttpServerInvoker implements ServerInvoker {
     required InvokerCallback callback,
     required InvokerCallbackOptions callbackOptions,
   }) async {
-    // TODO: replace this swich case with an extension based approach for
-    //  enums and use invokeHandler.add method using the verb name.
-    switch (callbackOptions.method) {
-      case HttpMethod.get:
-        invokerHandler.get(
-          '/$methodName',
-          _genericHandler(callback),
-        );
-        break;
-      case HttpMethod.post:
-        invokerHandler.post(
-          '/$methodName',
-          _genericHandler(callback),
-        );
-        break;
-      case HttpMethod.put:
-        invokerHandler.put(
-          '/$methodName',
-          _genericHandler(callback),
-        );
-        break;
-      case HttpMethod.delete:
-        invokerHandler.delete(
-          '/$methodName',
-          _genericHandler(callback),
-        );
-        break;
-    }
+    invokerHandler.add(
+      callbackOptions.method.name,
+      '/$methodName',
+      _genericHandler(callback),
+    );
   }
 
   /// A generic handler for all the http methods.

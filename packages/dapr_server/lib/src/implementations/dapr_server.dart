@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dapr_common/dapr_common.dart';
+import 'package:dapr_server/src/abstractions/server_pub_sub.dart';
 import 'package:dapr_server/src/exceptions/dapr_server_exceptions.dart';
 import 'package:dapr_server/src/implementations/http/invoker.dart';
+import 'package:dapr_server/src/implementations/http/pub_sub.dart';
 import '../abstractions/server_invoker.dart';
 import 'package:shelf_plus/shelf_plus.dart' as shp;
 
@@ -31,6 +34,7 @@ class DaprServer {
   late final Server server;
 
   late final ServerInvoker invoker;
+  late final ServrePubSub pubsub;
 
   final List<shp.Handler> _externalHttpRouteHandlers = [];
 
@@ -66,17 +70,22 @@ class DaprServer {
       default:
         server = DaprHttpServer();
         invoker = HttpServerInvoker();
+        pubsub = HttpPubSub();
     }
   }
   Future<void> startServer() async {
     if (communicationProtocol == CommunicationProtocol.http) {
       var _server = server as DaprHttpServer;
       var _invoker = invoker as HttpServerInvoker;
+      var _pubsub = pubsub as HttpPubSub;
+
+      /// Start the http server.
       await _server.start(
         serverHost,
         _serverPort,
         handlers: [
           _invoker.invokerHandler,
+          _pubsub.pubSubHandler,
           ..._externalHttpRouteHandlers,
         ],
       );

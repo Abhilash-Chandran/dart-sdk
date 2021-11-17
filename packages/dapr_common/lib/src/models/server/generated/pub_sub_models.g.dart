@@ -8,14 +8,19 @@ part of 'pub_sub_models.dart';
 
 _$_PubSubRoute _$$_PubSubRouteFromJson(Map<String, dynamic> json) =>
     _$_PubSubRoute(
-      pubSubName: json['pubSubName'] as String,
-      topicName: json['topicName'] as String,
+      pubSubName: json['pubsubname'] as String,
+      topic: json['topic'] as String,
       route: json['route'] as String,
+      metadata: (json['metadata'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          {},
     );
 
 Map<String, dynamic> _$$_PubSubRouteToJson(_$_PubSubRoute instance) =>
     <String, dynamic>{
-      'pubSubName': instance.pubSubName,
-      'topicName': instance.topicName,
+      'pubsubname': instance.pubSubName,
+      'topic': instance.topic,
       'route': instance.route,
+      'metadata': instance.metadata,
     };
