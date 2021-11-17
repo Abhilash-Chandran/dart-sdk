@@ -67,7 +67,7 @@ scripts:
     description: Runs end to end tests on both http client and grpc client
   test:server:e2e:http:
     run : |
-      melos exec --scope="*dapr_server" -- dapr run --app-id http-test-suite --app-protocol http --app-port 3000 --dapr-http-port 3500 --components-path ./test/components -- dart run test 'test/http/' --coverage="\$MELOS_ROOT_PATH/coverage/server"
+      melos exec --scope="*dapr_server" -- dapr run --app-id http-test-suite --app-protocol http --app-port 3000 --dapr-http-port 3500 --components-path ./test/components -- dart run test 'test/http/http_test.dart' --coverage="\$MELOS_ROOT_PATH/coverage/server"
     description: Runs end to end tests on http client
   
   

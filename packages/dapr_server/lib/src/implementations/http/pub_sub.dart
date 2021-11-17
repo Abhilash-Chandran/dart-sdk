@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:dapr_common/dapr_common.dart';
-import 'package:dapr_common/src/models/server/server_type_definitions.dart';
-import 'package:dapr_server/src/abstractions/server_pub_sub.dart';
 import 'package:shelf_plus/shelf_plus.dart';
+
+import '../../abstractions/server_pub_sub.dart';
 
 class HttpPubSub implements ServrePubSub {
   /// The router plus handler to which the new routes related to pubsub will
@@ -17,7 +17,6 @@ class HttpPubSub implements ServrePubSub {
   HttpPubSub() {
     pubSubHandler.get('/dapr/subscribe', (req) async {
       final result = jsonEncode(pubSubRoutes);
-      print(result);
       return Response.ok(result);
     });
   }
@@ -43,22 +42,23 @@ class HttpPubSub implements ServrePubSub {
         },
       ),
     );
-    print('added subscriptions $pubSubRoutes');
+
+    // Setup post route for the subscription.
     pubSubHandler.add(
       'post',
       '/$_route',
       (Request request) async {
         try {
           final body = await request.body.asString;
+          print(body);
           final result = await callback(body);
           // Send back response to dapr.
           //  ref: https://github.com/dapr/go-sdk/blob/d9ad49d2a6/service/http/topic.go#L186
           // https://github.com/dapr/go-sdk/blob/d9ad49d2a6/service/http/topic.go#L186
-          print('Result inside handler $result');
-          return result.when(
-            success: () => Response.ok(jsonEncode({'status': 'SUCCESS'})),
-            drop: () => Response.ok(jsonEncode({'status': 'DROP'})),
-            retry: () => Response.ok(jsonEncode({'status': 'RETRY'})),
+          return result.when<Response>(
+            success: () => Response.ok('SUCCESS'),
+            drop: () => Response.ok('DROP'),
+            retry: () => Response.ok('RETRY'),
             error: () => Response.internalServerError(),
           );
         } on Exception {
@@ -66,8 +66,5 @@ class HttpPubSub implements ServrePubSub {
         }
       },
     );
-
-    print(
-        'registering /$_route for subscriptio topic $topic in pub sub $pubSubName');
   }
 }
