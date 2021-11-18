@@ -50,15 +50,15 @@ class HttpPubSub implements ServrePubSub {
       (Request request) async {
         try {
           final body = await request.body.asString;
-          print(body);
+          // print(body);
           final result = await callback(body);
           // Send back response to dapr.
           //  ref: https://github.com/dapr/go-sdk/blob/d9ad49d2a6/service/http/topic.go#L186
           // https://github.com/dapr/go-sdk/blob/d9ad49d2a6/service/http/topic.go#L186
           return result.when<Response>(
-            success: () => Response.ok('SUCCESS'),
-            drop: () => Response.ok('DROP'),
-            retry: () => Response.ok('RETRY'),
+            success: () => Response.ok(jsonEncode({'status': 'SUCCESS'})),
+            drop: () => Response.ok(jsonEncode({'status': 'DROP'})),
+            retry: () => Response.ok(jsonEncode({'status': 'RETRY'})),
             error: () => Response.internalServerError(),
           );
         } on Exception {

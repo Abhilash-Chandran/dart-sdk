@@ -14,4 +14,4 @@ spec:
   - name: consumerID
     value: "myGroup"
   - name: enableTLS
-    value: "false"
+    value: "false"  

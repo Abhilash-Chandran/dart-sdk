@@ -149,13 +149,18 @@ Future<void> main() async {
   });
 
   group('Test PubSub subscribe mechanism', () {
+    setUp(() async {
+      // Reset the mock after every test.
+      print('reset of mock object is called');
+      reset(mockTestPubSub);
+    });
     test('Call back is called once', () async {
       when(mockTestPubSub.testCallBack(any)).thenAnswer((_) async {
         return PubSubResponse.success();
       });
 
       final uri = Uri.parse('$publishBaseUrl/$topicName1');
-      final resp = await httpClient.post(uri, body: 'Hello World');
+      await httpClient.post(uri, body: 'Hello World');
 
       /// Wait for the even to be processed.
       await Future.delayed(Duration(seconds: 1));
@@ -178,9 +183,9 @@ Future<void> main() async {
       /// Verify that the call back was called 3 times.
       verify(mockTestPubSub.testCallBack(any)).called(3);
     });
-    test('Call back is called once', () async {
+    test('Call back is called only once when a DROP is returned', () async {
       when(mockTestPubSub.testCallBack(any)).thenAnswer((_) async {
-        return PubSubResponse.success();
+        return PubSubResponse.drop();
       });
 
       final uri = Uri.parse('$publishBaseUrl/$topicName1');
@@ -189,11 +194,63 @@ Future<void> main() async {
       /// Wait for the even to be processed.
       await Future.delayed(Duration(seconds: 1));
       verify(mockTestPubSub.testCallBack(any)).called(1);
+      // Ensure that there is no more retries from the dapr side.
+      verifyNoMoreInteractions(mockTestPubSub);
     });
+
+    /// Currently being skipped.
+    /// issue tracked in #4
+    group('Test retry pubsub delivery', () {
+      test('Call back is called more than once when a RETRY is returned',
+          () async {
+        when(mockTestPubSub.testCallBack(any)).thenAnswer((_) async {
+          return PubSubResponse.retry();
+        });
+
+        final uri = Uri.parse('$publishBaseUrl/$topicName1');
+        await httpClient.post(uri, body: 'Hello World');
+
+        /// Wait for the even to be processed.
+        await Future.delayed(Duration(seconds: 15));
+        // verify(mockTestPubSub.testCallBack(any)).called(1);
+        // Ensure that there is no more retries from the dapr side.
+        verify(mockTestPubSub.testCallBack(any)).called(greaterThan(1));
+      });
+      test('Message is redelivered when a internal server error is returned',
+          () async {
+        when(mockTestPubSub.testCallBack(any)).thenAnswer((_) async {
+          return PubSubResponse.error();
+        });
+
+        final uri = Uri.parse('$publishBaseUrl/$topicName1');
+        await httpClient.post(uri, body: 'Hello World');
+
+        /// Wait for the even to be processed.
+        await Future.delayed(Duration(seconds: 15));
+        // verify(mockTestPubSub.testCallBack(any)).called(1);
+        // Ensure that there is no more retries from the dapr side.
+        verify(mockTestPubSub.testCallBack(any)).called(greaterThan(1));
+      });
+      test(
+          'Message is redelivered when a internal server error is returned due to an exception in the callback',
+          () async {
+        when(mockTestPubSub.testCallBack(any)).thenAnswer((_) async {
+          throw Exception();
+        });
+
+        final uri = Uri.parse('$publishBaseUrl/$topicName1');
+        await httpClient.post(uri, body: 'Hello World');
+
+        /// Wait for the even to be processed.
+        await Future.delayed(Duration(seconds: 15));
+        // verify(mockTestPubSub.testCallBack(any)).called(1);
+        // Ensure that there is no more retries from the dapr side.
+        verify(mockTestPubSub.testCallBack(any)).called(greaterThan(1));
+      });
+    }, skip: 'Currently skipping and will tracked in issue #4  ');
   });
 
   tearDownAll(() async {
-    reset(mockTestPubSub);
     await daprServer.stop();
   });
 }
