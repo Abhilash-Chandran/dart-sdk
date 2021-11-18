@@ -4,5 +4,6 @@ import 'package:dapr_common/dapr_common.dart';
 abstract class ServerBinding {
   /// A method to setup the input binding using a callback method of type
   /// [BindingCallback].
-  Future<dynamic> receive(String bindingName, BindingCallback callback);
+  Future<dynamic> receive(
+      {required String bindingName, required BindingCallback callback});
 }

@@ -5,3 +5,8 @@ import 'package:mockito/annotations.dart';
 abstract class TestPubSub {
   Future<PubSubResponse> testCallBack(dynamic data);
 }
+
+@GenerateMocks([TestBinding])
+abstract class TestBinding {
+  Future<dynamic> testCallBack(BindingEvent bindingEvent);
+}

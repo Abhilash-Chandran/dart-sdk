@@ -10,7 +10,10 @@ class HttpServerBinding implements ServerBinding {
   /// All the http endpoints related to binding is registered in this handler.
   RouterPlus bindingHandler = RouterPlus();
   @override
-  Future<dynamic> receive(String bindingName, BindingCallback callback) async {
+  Future<dynamic> receive({
+    required String bindingName,
+    required BindingCallback callback,
+  }) async {
     // Register a options endpoint with this binding name which will be used by // Dapr.
     //
     // Ref: https://docs.dapr.io/developing-applications/building-blocks/bindings/bindings-overview/#input-bindings

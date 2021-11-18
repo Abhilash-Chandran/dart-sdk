@@ -36,3 +36,19 @@ class MockTestPubSub extends _i1.Mock implements _i3.TestPubSub {
   @override
   String toString() => super.toString();
 }
+
+/// A class which mocks [TestBinding].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTestBinding extends _i1.Mock implements _i3.TestBinding {
+  MockTestBinding() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<dynamic> testCallBack(_i2.BindingEvent? bindingEvent) =>
+      (super.noSuchMethod(Invocation.method(#testCallBack, [bindingEvent]),
+          returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
+  @override
+  String toString() => super.toString();
+}

@@ -1,18 +1,33 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dapr_common/dapr_common.dart';
-import 'package:dapr_server/src/abstractions/server_pub_sub.dart';
-import 'package:dapr_server/src/exceptions/dapr_server_exceptions.dart';
-import 'package:dapr_server/src/implementations/http/http_invoker.dart';
-import 'package:dapr_server/src/implementations/http/http_pub_sub.dart';
-import '../abstractions/server_invoker.dart';
 import 'package:shelf_plus/shelf_plus.dart' as shp;
 
-import 'grpc/grpc_server.dart';
-import 'http/http_server.dart';
 import '../abstractions/server.dart';
+import '../abstractions/server_binding.dart';
+import '../abstractions/server_invoker.dart';
+import '../abstractions/server_pub_sub.dart';
+import 'grpc/grpc_server.dart';
+import 'http/http_bindings.dart';
+import 'http/http_invoker.dart';
+import 'http/http_pub_sub.dart';
+import 'http/http_server.dart';
 
+/// This provides the necessary api's to create the Invoker, Binding, and
+/// Pubsub building blocks using both http and grpc protocols.
+///
+/// This api takes care of adhering to the specifications of Dapr API for each
+/// building block providing a unified experience of creating different building
+/// blocks using Dart.
+///
+/// When [communicationProtocol] is http, then a shelf server is started with
+/// different building blocks exposed as REST endpoints which will be accessed
+/// by the Dapr sidecar on various events from components configured while
+/// while running the [DaprServer].
+///
+/// When [communicationProtocol] is set as grpc, the building blocks are exposed
+/// as grpc services can be accessed by the Dapr side car using the grpc
+/// protocol.
 class DaprServer {
   /// Defaults to 127.0.0.1
   final String serverHost;
@@ -33,11 +48,26 @@ class DaprServer {
   /// The server instance depending on the choice of [communicationProtocol].
   late final Server server;
 
+  /// Provides api to create a service invoker building block
   late final ServerInvoker invoker;
+
+  /// Provides api to subscribe to a topic via a pubsub component.
   late final ServrePubSub pubsub;
 
+  /// Provides api to create an Input binding.
+  late final ServerBinding binding;
+
+  /// A list of [Shelfplus.Handler] which can be additionally deployed
+  /// alongside the rest endpoints of different building blocks.
+  ///
+  /// Note: This handlers are only used when the [communicationProtocol] is
+  /// [CommunicationProtocol.http].
   final List<shp.Handler> _externalHttpRouteHandlers = [];
 
+  /// Creates a [DaprServer] instance based on the [communicationProtocol].
+  ///
+  /// Additionally bootstraps the properties [invoker], [pubsub], [binding]
+  /// which provides helper methods to create the respective building blocks.
   DaprServer({
     this.serverHost = DaprConf.defAppHost,
     int? serverPort,
@@ -70,14 +100,18 @@ class DaprServer {
       default:
         server = DaprHttpServer();
         invoker = HttpServerInvoker();
-        pubsub = HttpPubSub();
+        pubsub = HttpServerPubSub();
+        binding = HttpServerBinding();
     }
   }
+
+  /// Start the underlying server based on the [communicationProtocol].
   Future<void> startServer() async {
     if (communicationProtocol == CommunicationProtocol.http) {
       var _server = server as DaprHttpServer;
       var _invoker = invoker as HttpServerInvoker;
-      var _pubsub = pubsub as HttpPubSub;
+      var _pubsub = pubsub as HttpServerPubSub;
+      var _binding = binding as HttpServerBinding;
 
       /// Start the http server.
       await _server.start(
@@ -86,6 +120,7 @@ class DaprServer {
         handlers: [
           _invoker.invokerHandler,
           _pubsub.pubSubHandler,
+          _binding.bindingHandler,
           ..._externalHttpRouteHandlers,
         ],
       );
@@ -94,7 +129,7 @@ class DaprServer {
     }
   }
 
-  /// Stops the underlying server.
+  /// Stops the underlying server and releases the server resources.
   Future<void> stop() async {
     await server.stop();
   }

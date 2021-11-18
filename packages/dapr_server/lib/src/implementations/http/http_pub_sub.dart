@@ -5,7 +5,7 @@ import 'package:shelf_plus/shelf_plus.dart';
 
 import '../../abstractions/server_pub_sub.dart';
 
-class HttpPubSub implements ServrePubSub {
+class HttpServerPubSub implements ServrePubSub {
   /// The router plus handler to which the new routes related to pubsub will
   /// be added.
   final RouterPlus pubSubHandler = RouterPlus();
@@ -14,7 +14,7 @@ class HttpPubSub implements ServrePubSub {
   /// deployed pubsub components
   final List<PubSubRoute> pubSubRoutes = <PubSubRoute>[];
 
-  HttpPubSub() {
+  HttpServerPubSub() {
     pubSubHandler.get('/dapr/subscribe', (req) async {
       final result = jsonEncode(pubSubRoutes);
       return Response.ok(result);

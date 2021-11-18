@@ -22,6 +22,8 @@ Future<void> main() async {
   /// check the `test/componets/pubsub-redis.yaml` file.
   final pubsubName = 'pubsub-redis';
 
+  final bindingEventName = 'binding-rabit';
+
   /// Our test suite should interact with the dapr sidecar not the server app
   /// itself.
   final baseUrl = 'http://localhost:$daprPort/v1.0';
@@ -29,13 +31,21 @@ Future<void> main() async {
   /// BaseUrl for invoke api
   final invokerBaseUrl = '$baseUrl/invoke/$appId/method';
 
-  /// BaseUrl for invoke api
+  /// BaseUrl for pubslish api
   /// https://docs.dapr.io/reference/api/pubsub_api/#http-request
   final publishBaseUrl = '$baseUrl/publish/$pubsubName';
+
+  /// BaseUrl for binding api
+  /// https://docs.dapr.io/reference/api/bindings_api/#http-request-2
+  final bindingBaseUrl = '$baseUrl/bindings/$pubsubName';
 
   /// A mock Pubsub class to hold the call back function to be passed to the
   /// subscriber method of the dapr server.
   final mockTestPubSub = MockTestPubSub();
+
+  /// A mock [MockTestBinding] class to hold the call back function to be
+  /// used as an input binding call back method of the dapr server.
+  final mockTestBinding = MockTestBinding();
 
   /// Set of topic names to be used in the following tests
   final topicName1 = 'test-topic-1';
@@ -61,8 +71,6 @@ Future<void> main() async {
     );
     await daprServer.invoker.listen(
       callback: (content) async {
-        /// simulate delay of 2 seconds
-        Future.delayed(Duration(seconds: 2));
         return 'Post Invoker invoked with ${content.body}';
       },
       methodName: 'test-invoker-post',
@@ -70,8 +78,6 @@ Future<void> main() async {
     );
     await daprServer.invoker.listen(
       callback: (content) async {
-        /// simulate delay of 2 seconds
-        Future.delayed(Duration(seconds: 2));
         return 'Put Invoker invoked with ${content.body}';
       },
       methodName: 'test-invoker-put',
@@ -79,8 +85,6 @@ Future<void> main() async {
     );
     await daprServer.invoker.listen(
       callback: (content) async {
-        /// simulate delay of 2 seconds
-        Future.delayed(Duration(seconds: 2));
         return 'Delete Invoker invoked with ${content.body}';
       },
       methodName: 'test-invoker-delete',
@@ -88,8 +92,6 @@ Future<void> main() async {
     );
     await daprServer.invoker.listen(
       callback: (content) async {
-        /// simulate delay of 2 seconds
-        Future.delayed(Duration(seconds: 2));
         return 'Invoker received params with ${content.query}';
       },
       methodName: 'test-invoker-params',
@@ -102,6 +104,12 @@ Future<void> main() async {
       topic: topicName1,
       callback: mockTestPubSub.testCallBack,
       route: 'route1',
+    );
+
+    // Setup binding callback - register subscriptions.
+    daprServer.binding.receive(
+      bindingName: 'test-binding-1',
+      callback: mockTestBinding.testCallBack,
     );
     await daprServer.startServer();
   });
@@ -151,7 +159,7 @@ Future<void> main() async {
   group('Test PubSub subscribe mechanism', () {
     setUp(() async {
       // Reset the mock after every test.
-      print('reset of mock object is called');
+      print('reset of pubsub mock object is called');
       reset(mockTestPubSub);
     });
     test('Call back is called once', () async {
@@ -250,6 +258,21 @@ Future<void> main() async {
     }, skip: 'Currently skipping and will tracked in issue #4  ');
   });
 
+  group('Test Binding Invoking', () {
+    setUp(() async {
+      // Reset the mock after every test.
+      print('reset of pubsub mock object is called');
+      reset(mockTestBinding);
+    });
+    test('Input Binding call back is called once', () async {
+      when(mockTestBinding.testCallBack(any)).thenAnswer((_) async {
+        return 'Everything ok';
+      });
+      final uri = Uri.parse('$bindingBaseUrl/$bindingEventName');
+      await httpClient.post(uri, body: 'Hello World');
+      verify(mockTestBinding.testCallBack(any)).called(1);
+    });
+  });
   tearDownAll(() async {
     await daprServer.stop();
   });
