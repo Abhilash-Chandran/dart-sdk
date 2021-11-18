@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:dapr_common/dapr_common.dart';
 import 'package:dapr_server/src/abstractions/server_pub_sub.dart';
 import 'package:dapr_server/src/exceptions/dapr_server_exceptions.dart';
-import 'package:dapr_server/src/implementations/http/invoker.dart';
-import 'package:dapr_server/src/implementations/http/pub_sub.dart';
+import 'package:dapr_server/src/implementations/http/http_invoker.dart';
+import 'package:dapr_server/src/implementations/http/http_pub_sub.dart';
 import '../abstractions/server_invoker.dart';
 import 'package:shelf_plus/shelf_plus.dart' as shp;
 

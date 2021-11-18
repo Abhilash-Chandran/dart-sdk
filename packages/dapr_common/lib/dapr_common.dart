@@ -23,6 +23,7 @@ export 'src/models/client/client_type_definitions.dart';
 /// Export server models
 export 'src/models/server/generated/invoker_models.dart';
 export 'src/models/server/generated/pub_sub_models.dart';
+export 'src/models/server/generated/bindings_models.dart';
 export 'src/models/server/server_type_definitions.dart';
 
 /// Export mock models for testing in other packages.
