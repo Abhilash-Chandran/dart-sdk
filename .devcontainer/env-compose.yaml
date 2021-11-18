@@ -11,6 +11,16 @@ services:
       - "6380:6379"
     networks:
       - dart-sdk-network
+  ##########################################
+  ## Rabbit MQTT message broker for bindings
+  ##########################################
+  rabbit:
+    container_name: "test-rabbit"
+    image: "rabbitmq:3-management-alpine"
+    ports:
+      - "1884:1883"
+    networks:
+      - dart-sdk-network
   ############################
   ## Dapr placement service
   ############################
