@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-Future<void> main() async {
+void main() {
   /// Name of app provided while running the app.
   final appId = 'http-test-suite';
 
@@ -22,7 +22,7 @@ Future<void> main() async {
   /// check the `test/componets/pubsub-redis.yaml` file.
   final pubsubName = 'pubsub-redis';
 
-  final bindingEventName = 'binding-rabit';
+  final bindingEventName = 'binding-mosquitto';
 
   /// Our test suite should interact with the dapr sidecar not the server app
   /// itself.
@@ -37,7 +37,7 @@ Future<void> main() async {
 
   /// BaseUrl for binding api
   /// https://docs.dapr.io/reference/api/bindings_api/#http-request-2
-  final bindingBaseUrl = '$baseUrl/bindings/$pubsubName';
+  final bindingBaseUrl = '$baseUrl/bindings/$bindingEventName';
 
   /// A mock Pubsub class to hold the call back function to be passed to the
   /// subscriber method of the dapr server.
@@ -99,7 +99,7 @@ Future<void> main() async {
     );
 
     // Setup pubsub - register subscriptions.
-    daprServer.pubsub.subscribe(
+    await daprServer.pubsub.subscribe(
       pubSubName: pubsubName,
       topic: topicName1,
       callback: mockTestPubSub.testCallBack,
@@ -107,11 +107,12 @@ Future<void> main() async {
     );
 
     // Setup binding callback - register subscriptions.
-    daprServer.binding.receive(
-      bindingName: 'test-binding-1',
+    await daprServer.binding.receive(
+      bindingName: bindingEventName,
       callback: mockTestBinding.testCallBack,
     );
     await daprServer.startServer();
+    await Future.delayed(Duration(milliseconds: 500));
   });
   group('Invoker api tests', () {
     group('Test all http method types for invoker', () {
@@ -261,15 +262,24 @@ Future<void> main() async {
   group('Test Binding Invoking', () {
     setUp(() async {
       // Reset the mock after every test.
-      print('reset of pubsub mock object is called');
+      print('reset of Binding mock object is called');
       reset(mockTestBinding);
     });
     test('Input Binding call back is called once', () async {
       when(mockTestBinding.testCallBack(any)).thenAnswer((_) async {
         return 'Everything ok';
       });
-      final uri = Uri.parse('$bindingBaseUrl/$bindingEventName');
-      await httpClient.post(uri, body: 'Hello World');
+      final uri = Uri.parse(bindingBaseUrl);
+      await httpClient.post(
+        uri,
+        body: jsonEncode({
+          'data': {'message': "hello world"},
+          'metadata': {"key": "something"},
+          'operation': 'create'
+        }),
+        headers: {'Content-Type': 'application/json'},
+      );
+      await Future.delayed(Duration(seconds: 2));
       verify(mockTestBinding.testCallBack(any)).called(1);
     });
   });

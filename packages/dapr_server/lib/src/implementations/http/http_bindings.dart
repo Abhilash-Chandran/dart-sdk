@@ -8,7 +8,7 @@ import '../../abstractions/server_binding.dart';
 /// A http based implementation of [ServerBinding].
 class HttpServerBinding implements ServerBinding {
   /// All the http endpoints related to binding is registered in this handler.
-  RouterPlus bindingHandler = RouterPlus();
+  RouterPlus bindingsHandler = RouterPlus();
   @override
   Future<dynamic> receive({
     required String bindingName,
@@ -17,21 +17,25 @@ class HttpServerBinding implements ServerBinding {
     // Register a options endpoint with this binding name which will be used by // Dapr.
     //
     // Ref: https://docs.dapr.io/developing-applications/building-blocks/bindings/bindings-overview/#input-bindings
-    bindingHandler.options('/$bindingName', (req) => Response.ok(null));
+    bindingsHandler.options('/$bindingName', (req) {
+      print('Options request is called.');
+      Response.ok('');
+    });
 
     // Register the binding enpoint and assign the handler performing the
     // callback.
     // Return status code is doumented in the following.
     // https://docs.dapr.io/reference/api/bindings_api/#binding-payload
-    bindingHandler.post('/$bindingName', (Request req) async {
+    bindingsHandler.post('/$bindingName', (Request req) async {
       try {
         final body = await req.body.asString;
+        print(body);
         final bindingEvent = BindingEvent(
           data: body,
           metadata: req.headers,
         );
         await callback(bindingEvent);
-        return Response.ok(null);
+        return Response.ok('');
       } catch (e) {
         return Response.internalServerError(
           body: jsonEncode(

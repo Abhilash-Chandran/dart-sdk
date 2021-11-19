@@ -11,14 +11,19 @@ services:
       - "6380:6379"
     networks:
       - dart-sdk-network
-  ##########################################
-  ## Rabbit MQTT message broker for bindings
-  ##########################################
-  rabbit:
-    container_name: "test-rabbit"
-    image: "rabbitmq:3-management-alpine"
+  #############################################
+  ## Mosquitto MQTT message broker for bindings
+  #############################################
+  mosquitto:
+    container_name: "test-mosquitto"
+    image: "eclipse-mosquitto"
     ports:
       - "1884:1883"
+      - "9000:9001"
+    volumes:
+      - type: bind
+        source: ../infrastructure/mosquitto.conf
+        target: /mosquitto/config/mosquitto.conf
     networks:
       - dart-sdk-network
   ############################

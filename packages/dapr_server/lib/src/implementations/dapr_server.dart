@@ -120,7 +120,7 @@ class DaprServer {
         handlers: [
           _invoker.invokerHandler,
           _pubsub.pubSubHandler,
-          _binding.bindingHandler,
+          _binding.bindingsHandler,
           ..._externalHttpRouteHandlers,
         ],
       );
