@@ -18,7 +18,7 @@ services:
     container_name: "test-mosquitto"
     image: "eclipse-mosquitto"
     ports:
-      - "1884:1883"
+      - "1883:1883"
       - "9000:9001"
     volumes:
       - type: bind

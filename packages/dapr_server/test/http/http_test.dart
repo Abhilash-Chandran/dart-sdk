@@ -267,10 +267,11 @@ void main() {
     });
     test('Input Binding call back is called once', () async {
       when(mockTestBinding.testCallBack(any)).thenAnswer((_) async {
-        return 'Everything ok';
+        print(_.namedArguments);
+        return _.namedArguments;
       });
       final uri = Uri.parse(bindingBaseUrl);
-      await httpClient.post(
+      final result = await httpClient.post(
         uri,
         body: jsonEncode({
           'data': {'message': "hello world"},

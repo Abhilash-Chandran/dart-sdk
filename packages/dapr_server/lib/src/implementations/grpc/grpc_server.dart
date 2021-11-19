@@ -1,9 +1,7 @@
 import '../../abstractions/server.dart';
 
 class DaprGrpcServer implements Server {
-  @override
-  // TODO: implement implementation
-  get implementation => throw UnimplementedError();
+  late final dynamic implementation;
 
   @override
   // TODO: implement server

@@ -118,9 +118,9 @@ class DaprServer {
         serverHost,
         _serverPort,
         handlers: [
-          _invoker.invokerHandler,
-          _pubsub.pubSubHandler,
           _binding.bindingsHandler,
+          _pubsub.pubSubHandler,
+          _invoker.invokerHandler,
           ..._externalHttpRouteHandlers,
         ],
       );

@@ -13,4 +13,4 @@ spec:
   - name: topic
     value: test-topic
   - name: consumerID
-    value: "{uuid}"
+    value: "myGroup"
