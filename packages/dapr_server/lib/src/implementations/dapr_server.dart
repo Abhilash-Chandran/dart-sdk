@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:dapr_common/dapr_common.dart';
+import 'package:dapr_server/src/implementations/grpc/grpc_binding.dart';
+import 'package:dapr_server/src/implementations/grpc/grpc_invoker.dart';
+import 'package:dapr_server/src/implementations/grpc/grpc_pubsub.dart';
 import 'package:shelf_plus/shelf_plus.dart' as shp;
 
 import '../abstractions/server.dart';
@@ -46,7 +49,7 @@ class DaprServer {
   final CommunicationProtocol communicationProtocol;
 
   /// The server instance depending on the choice of [communicationProtocol].
-  late final Server server;
+  late final dynamic server;
 
   /// Provides api to create a service invoker building block
   late final ServerInvoker invoker;
@@ -95,13 +98,16 @@ class DaprServer {
     switch (communicationProtocol) {
       case CommunicationProtocol.grpc:
         server = DaprGrpcServer();
+        invoker = GrpcServerInvoker(server: server);
+        binding = GrpcServerBinding(server: server);
+        pubsub = GrpcServerPubSub(server: server);
         break;
       case CommunicationProtocol.http:
       default:
         server = DaprHttpServer();
-        invoker = HttpServerInvoker();
-        pubsub = HttpServerPubSub();
-        binding = HttpServerBinding();
+        invoker = HttpServerInvoker(server: server);
+        pubsub = HttpServerPubSub(server: server);
+        binding = HttpServerBinding(server: server);
     }
   }
 
@@ -125,7 +131,8 @@ class DaprServer {
         ],
       );
     } else {
-      server.start(serverHost, _serverPort);
+      var _server = server as DaprGrpcServer;
+      _server.start(serverHost, _serverPort);
     }
   }
 

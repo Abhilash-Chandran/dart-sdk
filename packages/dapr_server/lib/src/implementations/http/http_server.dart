@@ -19,7 +19,7 @@ import 'http_server_impl.dart';
 ///
 /// In addition to component specific routes, this class also adds endpoints for
 /// Dapr's generic services such as `/healthz`.
-class DaprHttpServer implements Server {
+class DaprHttpServer implements Server<DaprHttpServer, HttpServerImpl> {
   /// Server host address eg: 127.0.0.1, my-custom-domain
   late final String serverHost;
 
@@ -29,7 +29,7 @@ class DaprHttpServer implements Server {
   /// Holds the ShelfRunContext instance which allows to control the server.
   late final shp.ShelfRunContext _shelfRunContext;
   @override
-  late final Server server;
+  late final DaprHttpServer server;
 
   @override
   late final HttpServerImpl implementation;

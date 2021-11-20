@@ -15,7 +15,21 @@ String mapToQueryParams(Map<String, String> metadataMap) {
   for (var entry in metadataMap.entries) {
     _queryParam += '${entry.key}=${entry.value}&';
   }
-  return _queryParam.length > 0
+  return _queryParam.isNotEmpty
       ? _queryParam.substring(0, _queryParam.length - 1)
       : _queryParam;
+}
+
+Map<String, String> queryParamStringToMap(String queryParams) {
+  var _queryParam = <String, String>{};
+  if (queryParams.isNotEmpty) {
+    final splitByAmpresand = queryParams.split('&');
+    for (var qp in splitByAmpresand) {
+      var splitByEq = qp.split('=');
+      if (splitByEq.isNotEmpty) {
+        _queryParam.putIfAbsent(splitByEq[0], () => splitByEq[1]);
+      }
+    }
+  }
+  return _queryParam;
 }

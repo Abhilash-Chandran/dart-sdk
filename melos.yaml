@@ -69,8 +69,14 @@ scripts:
     run : |      
       melos exec --scope="*dapr_server" -- dapr run --app-id http-test-suite --app-protocol http --app-port 3000 --dapr-http-port 3500 --components-path ./test/components -- dart run test 'test/http/http_test.dart' --coverage="\$MELOS_ROOT_PATH/coverage/server"
     description: Runs end to end tests on http client
+  test:server:e2e:grpc:
+    run : |      
+      melos exec --scope="*dapr_server" -- dapr run --app-id http-test-suite --app-protocol grpc --app-port 3000 --dapr-http-port 3500 --components-path ./test/components -- dart run test 'test/grpc/grpc_test.dart' --coverage="\$MELOS_ROOT_PATH/coverage/server"
+    description: Runs end to end tests on http client
   
-  
+  ################################
+  ## Code Coverage related scripts
+  ################################
   lcov:
     run : |
       melos run lcov:client &&

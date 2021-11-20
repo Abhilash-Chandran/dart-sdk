@@ -12,6 +12,7 @@ environment:
 publish_to: none
 dependencies:  
   grpc: ^3.0.2
+  dapr_proto: ^0.0.3  
   dapr_common:
     path: ../dapr_common
   shelf_plus: ^1.0.0

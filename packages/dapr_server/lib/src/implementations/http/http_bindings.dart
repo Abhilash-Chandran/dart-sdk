@@ -7,6 +7,11 @@ import '../../abstractions/server_binding.dart';
 
 /// A http based implementation of [ServerBinding].
 class HttpServerBinding implements ServerBinding {
+  @override
+  final dynamic server;
+
+  HttpServerBinding({required this.server});
+
   /// All the http endpoints related to binding is registered in this handler.
   RouterPlus bindingsHandler = RouterPlus();
   @override
@@ -48,6 +53,5 @@ class HttpServerBinding implements ServerBinding {
         );
       }
     });
-    
   }
 }

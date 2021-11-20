@@ -1,9 +1,15 @@
 import 'package:dapr_common/dapr_common.dart';
+import 'package:dapr_server/src/implementations/http/http_server.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
 import '../../abstractions/server_invoker.dart';
 
-class HttpServerInvoker implements ServerInvoker {
+class HttpServerInvoker implements ServerInvoker<DaprHttpServer> {
+  @override
+  final DaprHttpServer server;
+
+  HttpServerInvoker({required this.server});
+
   /// The router plus handler to which the new routes related to invoker will
   /// be added.
   final RouterPlus invokerHandler = RouterPlus();
