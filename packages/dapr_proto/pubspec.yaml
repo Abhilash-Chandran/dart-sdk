@@ -1,6 +1,6 @@
 name: dapr_proto
 description: An assiting package for dapr_client package.
-version: 0.0.2
+version: 0.0.3
 
 homepage: https://abhilash-chandran.com
 repository: https://github.com/Abhilash-Chandran/dart-sdk
