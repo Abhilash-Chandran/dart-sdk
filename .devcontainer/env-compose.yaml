@@ -14,18 +14,29 @@ services:
   #############################################
   ## Mosquitto MQTT message broker for bindings
   #############################################
-  mosquitto:
-    container_name: "test-mosquitto"
-    image: "eclipse-mosquitto"
+  # mosquitto:
+  #   container_name: "test-mosquitto"
+  #   image: "eclipse-mosquitto"
+  #   ports:
+  #     - "1883:1883"
+  #     - "9000:9001"
+  #   volumes:
+  #     - type: bind
+  #       source: ../infrastructure/mosquitto.conf
+  #       target: /mosquitto/config/mosquitto.conf
+  #   networks:
+  #     - dart-sdk-network
+  ###################################
+  ## Rabitt MQ 
+  ###################################
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'test-rabbitmq'
     ports:
-      - "1883:1883"
-      - "9000:9001"
-    volumes:
-      - type: bind
-        source: ../infrastructure/mosquitto.conf
-        target: /mosquitto/config/mosquitto.conf
+        - 5672:5672
+        - 15672:15672
     networks:
-      - dart-sdk-network
+        - dart-sdk-network
   ############################
   ## Dapr placement service
   ############################

@@ -5,12 +5,18 @@ metadata:
   name: binding-mosquitto
   namespace: default
 spec:
-  type: bindings.mqtt
+  type: bindings.rabbitmq
   version: v1
   metadata:
-  - name: url
-    value: mqtt://test-mosquitto:1883
-  - name: topic
-    value: test-topic
   - name: consumerID
-    value: "myGroup"
+    value: "{uuid}"
+  - name: host
+    value: "amqp://guest:guest@test-rabbitmq:5672"
+  - name: queueName
+    value: "test-queue"
+  - name: qos
+    value: 1
+  - name: retain
+    value: "false"
+  - name: cleanSession
+    value: "false"
