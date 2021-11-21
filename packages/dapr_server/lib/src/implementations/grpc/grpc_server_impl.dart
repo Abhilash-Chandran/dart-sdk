@@ -24,6 +24,8 @@ class GrpcServerImplementation extends AppCallbackServiceBase {
   ) async {
     var bindingNames = bindingsCallbackMap.keys;
     bindingNames = bindingNames.isEmpty ? [] : bindingNames;
+    print('=====Lsit input bindings called-====');
+    print('=====Responded with $bindingNames====');
     return ListInputBindingsResponse(
       bindings: bindingNames,
     );
@@ -40,7 +42,7 @@ class GrpcServerImplementation extends AppCallbackServiceBase {
           metadata: pubSubRoute.metadata,
           topic: pubSubRoute.topic,
           // TODO: Verify if routes needs to be set here. In go-sdk routes are
-          //  not set. Neither in js-sdk.
+          //  not set. Neither in js-sdk. But Python-sdk sets this routes.
           //
           // Currently not setting routes.
           // As per the specifitcation Dapr only needs to know the topics which
@@ -49,7 +51,9 @@ class GrpcServerImplementation extends AppCallbackServiceBase {
           // onTopicEvent which contains the route information which can then
           // be parsed and mapped to the correct callback.
           //
-          // routes: TopicRoutes(default_2: e.route),
+          routes: TopicRoutes(rules: [
+            TopicRule(path: pubSubRoute.route),
+          ], default_2: pubSubRoute.route),
         ),
       );
     }
@@ -60,9 +64,20 @@ class GrpcServerImplementation extends AppCallbackServiceBase {
 
   @override
   Future<BindingEventResponse> onBindingEvent(
-      ServiceCall call, BindingEventRequest request) {
-    // TODO: implement onBindingEvent
-    throw UnimplementedError();
+      ServiceCall call, BindingEventRequest request) async {
+    print('=====binding on invoker called ==== ');
+    final bindingName = request.name;
+
+    if (bindingsCallbackMap.containsKey(bindingName)) {
+      final _callback = bindingsCallbackMap[bindingName];
+      final _bindingEvent = BindingEvent(
+        data: utf8.decode(request.data),
+        metadata: request.metadata,
+      );
+      final _result = await _callback!(_bindingEvent);
+      return BindingEventResponse();
+    }
+    throw UnimplementedError('Input binding for $bindingName is not found');
   }
 
   @override
@@ -100,8 +115,35 @@ class GrpcServerImplementation extends AppCallbackServiceBase {
 
   @override
   Future<TopicEventResponse> onTopicEvent(
-      ServiceCall call, TopicEventRequest request) {
-    // TODO: implement onTopicEvent
-    throw UnimplementedError();
+    ServiceCall call,
+    TopicEventRequest request,
+  ) async {
+    final pubsubName = request.pubsubName;
+    final topic = request.topic;
+    final route = request.path;
+    // final metaData = request.;
+    final pubSubRoute = PubSubRoute(
+      pubSubName: pubsubName,
+      route: route,
+      topic: topic,
+      // metadata: metaData ?? {},
+    );
+
+    // print('on Topic event called');
+    // print(request.data);
+    if (pubSubCallbackMap.containsKey(pubSubRoute)) {
+      final _callback = pubSubCallbackMap[pubSubRoute];
+
+      final _result = await _callback!(request.data);
+      final _status = _result.when(
+        success: () => TopicEventResponse_TopicEventResponseStatus.SUCCESS,
+        drop: () => TopicEventResponse_TopicEventResponseStatus.DROP,
+        retry: () => TopicEventResponse_TopicEventResponseStatus.RETRY,
+        error: () => TopicEventResponse_TopicEventResponseStatus.RETRY,
+      );
+      return TopicEventResponse(status: _status);
+    }
+    throw UnimplementedError(
+        'The topic $topic in the PubSub component $pubsubName is not subscribed by any callback with this route name $route');
   }
 }

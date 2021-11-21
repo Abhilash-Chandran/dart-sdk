@@ -18,7 +18,11 @@ class GrpcServerPubSub implements ServrePubSub<DaprGrpcServer> {
     bool rawEvents = false,
   }) async {
     server.implementation.pubSubCallbackMap.putIfAbsent(
-      PubSubRoute(pubSubName: pubSubName, topic: topic, route: route ?? ''),
+      PubSubRoute(
+        pubSubName: pubSubName,
+        topic: topic,
+        route: route ?? '',
+      ),
       () => callback,
     );
   }
