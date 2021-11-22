@@ -24,8 +24,6 @@ class GrpcServerImplementation extends AppCallbackServiceBase {
   ) async {
     var bindingNames = bindingsCallbackMap.keys;
     bindingNames = bindingNames.isEmpty ? [] : bindingNames;
-    print('=====Lsit input bindings called-====');
-    print('=====Responded with $bindingNames====');
     return ListInputBindingsResponse(
       bindings: bindingNames,
     );
@@ -65,7 +63,6 @@ class GrpcServerImplementation extends AppCallbackServiceBase {
   @override
   Future<BindingEventResponse> onBindingEvent(
       ServiceCall call, BindingEventRequest request) async {
-    print('=====binding on invoker called ==== ');
     final bindingName = request.name;
 
     if (bindingsCallbackMap.containsKey(bindingName)) {

@@ -22,7 +22,7 @@ void main() {
   /// check the `test/componets/pubsub-redis.yaml` file.
   final pubsubName = 'pubsub-redis';
 
-  final bindingEventName = 'binding-mosquitto';
+  final bindingEventName = 'binding-rabbit';
 
   /// Our test suite should interact with the dapr sidecar not the server app
   /// itself.
@@ -120,7 +120,7 @@ void main() {
       callback: mockTestBinding.testCallBack,
     );
     await daprServer.startServer();
-    // await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 100));
   });
   group('Invoker api tests', () {
     group('Test all http method types for invoker', () {
@@ -296,7 +296,7 @@ void main() {
     });
     test('Input Binding call back is called once', () async {
       when(mockTestBinding.testCallBack(any)).thenAnswer((_) async {
-        print(_.namedArguments);
+        // print('named arguments of binding call back ${_.namedArguments}');
         return _.namedArguments;
       });
       final uri = Uri.parse(bindingBaseUrl);
@@ -309,7 +309,9 @@ void main() {
         }),
         headers: {'Content-Type': 'application/json'},
       );
-      // await Future.delayed(Duration(seconds: 2));
+      // without this wait the test would fail as the binding event might not
+      // have propagated to the http server callback.
+      await Future.delayed(Duration(milliseconds: 10));
       verify(mockTestBinding.testCallBack(any)).called(1);
     });
   });

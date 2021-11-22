@@ -6,11 +6,9 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-void main(List<String> args) {
-  print(args);
-
+void main() {
   /// Name of app provided while running the app.
-  final appId = 'http-test-suite';
+  final appId = 'grpc-test-suite';
 
   /// Port where the server application is running.
   final serverPort = 3000;
@@ -29,7 +27,7 @@ void main(List<String> args) {
   /// check the `test/componets/pubsub-redis.yaml` file.
   final pubsubName = 'pubsub-redis';
 
-  final bindingEventName = 'binding-mosquitto';
+  final bindingEventName = 'binding-rabbit';
 
   /// Our test suite should interact with the dapr sidecar not the server app
   /// itself.
@@ -305,13 +303,13 @@ void main(List<String> args) {
   group('Test Binding Invoking', () {
     setUp(() async {
       // Reset the mock after every test.
-      print('reset of Binding mock object is called');
+      // print('reset of Binding mock object is called');
       reset(mockTestBinding);
     });
     test('Input Binding call back is called once', () async {
       when(mockTestBinding.testCallBack(any)).thenAnswer((_) async {
-        print('====Printing-positional args');
-        print(_.positionalArguments);
+        // print('====Printing-positional args');
+        // print(_.positionalArguments);
         return _.namedArguments;
       });
       final uri = Uri.parse(bindingBaseUrl);

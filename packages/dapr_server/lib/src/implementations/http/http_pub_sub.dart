@@ -53,7 +53,7 @@ class HttpServerPubSub implements ServrePubSub {
       (Request request) async {
         try {
           final body = await request.body.asString;
-          print('for route $_route body is $body');
+          // print('for route $_route body is $body');
           final result = await callback(body);
           // Send back response to dapr.
           //  ref: https://github.com/dapr/go-sdk/blob/d9ad49d2a6/service/http/topic.go#L186

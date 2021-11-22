@@ -2,7 +2,7 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: binding-mosquitto
+  name: binding-rabbit
   namespace: default
 spec:
   type: bindings.rabbitmq
