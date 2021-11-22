@@ -4,14 +4,15 @@ import 'package:dapr_proto/dapr_proto.dart' as dp;
 import '../../abstractions/client_secrets.dart';
 import 'grpc_client.dart';
 
-class GrpcClientSecret implements ClientSecret {
-  final DaprGrpcClient daprGrpcClient;
+class GrpcClientSecret implements ClientSecret<DaprGrpcClient> {
+  @override
+  final DaprGrpcClient client;
 
   /// Note this is DaprClient from the dapr_proto package which enables a
   /// client communication with the dapr grpc sidecar server.
   late final dp.DaprClient _daprClient;
-  GrpcClientSecret({required this.daprGrpcClient}) {
-    _daprClient = daprGrpcClient.client;
+  GrpcClientSecret({required this.client}) {
+    _daprClient = client.client;
   }
 
   @override

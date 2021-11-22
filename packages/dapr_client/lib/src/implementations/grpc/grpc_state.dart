@@ -5,15 +5,16 @@ import 'package:dapr_proto/dapr_proto.dart' as dp;
 import '../../abstractions/client_state.dart';
 import 'grpc_client.dart';
 
-class GrpcClientState implements ClientState {
-  final DaprGrpcClient daprGrpcclient;
+class GrpcClientState implements ClientState<DaprGrpcClient> {
+  @override
+  final DaprGrpcClient client;
 
   /// Note this is DaprClient from the dapr_proto package which enables a
   /// client communication with the dapr grpc sidecar server.
   late final dp.DaprClient _daprClient;
 
-  GrpcClientState({required this.daprGrpcclient}) {
-    _daprClient = daprGrpcclient.client;
+  GrpcClientState({required this.client}) {
+    _daprClient = client.client;
   }
 
   @override

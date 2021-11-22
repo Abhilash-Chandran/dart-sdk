@@ -18,6 +18,7 @@ export 'src/utils//utils.dart';
 export 'src/models/client/generated/actor_models.dart';
 export 'src/models/client/generated/state_models.dart';
 export 'src/models/client/generated/secret_models.dart';
+export 'src/models/client/generated/bindings_models.dart';
 export 'src/models/client/client_type_definitions.dart';
 
 /// Export server models

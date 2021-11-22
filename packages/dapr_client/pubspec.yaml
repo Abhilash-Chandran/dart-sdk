@@ -13,10 +13,13 @@ publish_to: none
 dependencies:
   http: ^0.13.4  
   grpc: ^3.0.2
-  dapr_proto: ^0.0.2
-  dapr_common:
+  dapr_proto: ^0.0.3
+  dapr_common: 
     path: ../dapr_common
 
 dev_dependencies:
   lints: ^1.0.0
-  test: ^1.16.0  
+  test: ^1.16.0
+  dapr_server: 
+    path: ../dapr_server
+  mockito: ^5.0.16

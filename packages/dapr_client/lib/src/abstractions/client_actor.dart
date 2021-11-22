@@ -1,6 +1,9 @@
 import 'package:dapr_common/dapr_common.dart';
 
-abstract class ClientActor {
+abstract class ClientActor<T> {
+  /// The client for the chose protocol.
+  T get client;
+
   /// Based on the following api definition.
   ///
   /// https://docs.dapr.io/reference/api/actors_api/#invoke-actor-method

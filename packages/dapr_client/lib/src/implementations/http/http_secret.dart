@@ -5,9 +5,10 @@ import 'package:dapr_common/dapr_common.dart';
 import '../../abstractions/client_secrets.dart';
 import 'http_client.dart';
 
-class HttpClientSecret implements ClientSecret {
-  final DaprHttpClient daprHttpClient;
-  HttpClientSecret({required this.daprHttpClient});
+class HttpClientSecret implements ClientSecret<DaprHttpClient> {
+  @override
+  final DaprHttpClient client;
+  HttpClientSecret({required this.client});
 
   @override
   Future<Map<String, dynamic>> get({
@@ -16,12 +17,13 @@ class HttpClientSecret implements ClientSecret {
     Map<String, String>? metadata,
   }) async {
     final _queryParams = mapToQueryParams(metadata ?? {});
-    final result = await daprHttpClient.executeDaprApiCall(
+    final result = await client.executeDaprApiCall(
       apiUrl:
           '/secrets/$secretStoreName/$key${_queryParams.isEmpty ? _queryParams : '?$_queryParams'}',
       httpMethod: HttpMethod.get,
     );
-    return jsonDecode(result);
+    final _body = result.body;
+    return jsonDecode(_body);
   }
 
   @override
@@ -29,13 +31,14 @@ class HttpClientSecret implements ClientSecret {
     required String secretStoreName,
     Map<String, String>? metadata,
   }) async {
-    final result = await daprHttpClient.executeDaprApiCall(
+    final result = await client.executeDaprApiCall(
         apiUrl: '/secrets/$secretStoreName/bulk',
         httpMethod: HttpMethod.get,
         headers: {
           'Content-Type': 'application/json',
         });
-    final _decodedResponse = jsonDecode(result) as Map<String, dynamic>;
+    final _body = result.body;
+    final _decodedResponse = jsonDecode(_body) as Map<String, dynamic>;
     final _responseBulkSecrets = <String, SecretResponse>{};
     for (var bulkSecret in _decodedResponse.entries) {
       _responseBulkSecrets.putIfAbsent(

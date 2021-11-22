@@ -5,25 +5,29 @@ import 'package:dapr_common/dapr_common.dart';
 import '../../abstractions/client_state.dart';
 import 'http_client.dart';
 
-class HttpClientState implements ClientState {
-  final DaprHttpClient daprHttpClient;
-  HttpClientState({required this.daprHttpClient});
+class HttpClientState implements ClientState<DaprHttpClient> {
+  @override
+  final DaprHttpClient client;
+
+  HttpClientState({required this.client});
 
   @override
   Future<void> delete({required String storeName, required String key}) async {
-    await daprHttpClient.executeDaprApiCall(
+    await client.executeDaprApiCall(
       apiUrl: '/state/$storeName/$key',
       httpMethod: HttpMethod.delete,
     );
+    return;
   }
 
   @override
   Future<dynamic> get({required String storeName, required String key}) async {
-    final _result = await daprHttpClient.executeDaprApiCall(
+    final _result = await client.executeDaprApiCall(
       apiUrl: '/state/$storeName/$key',
       httpMethod: HttpMethod.get,
     );
-    final finalResult = _result.isEmpty ? _result : jsonDecode(_result);
+    final _body = _result.body;
+    final finalResult = _body.isEmpty ? _body : jsonDecode(_body);
     return finalResult;
   }
 
@@ -31,7 +35,7 @@ class HttpClientState implements ClientState {
   Future<void> save(
       {required String storeName,
       required List<SaveStateItem> stateObjects}) async {
-    await daprHttpClient.executeDaprApiCall(
+    final _result = await client.executeDaprApiCall(
       apiUrl: '/state/$storeName',
       httpMethod: HttpMethod.post,
       headers: {
@@ -39,6 +43,9 @@ class HttpClientState implements ClientState {
       },
       body: jsonEncode(stateObjects),
     );
+    final _body = _result.body;
+    final finalResult = _body.isEmpty ? _body : jsonDecode(_body);
+    return finalResult;
   }
 
   @override
@@ -57,7 +64,7 @@ class HttpClientState implements ClientState {
       );
       // Convert metadata map into query parameters.
       final metadataString = mapToQueryParams(metadata);
-      final result = await daprHttpClient.executeDaprApiCall(
+      final _result = await client.executeDaprApiCall(
         apiUrl:
             '/state/$storeName/bulk${metadataString.isEmpty ? metadataString : '?$metadataString'}',
         httpMethod: HttpMethod.post,
@@ -66,12 +73,13 @@ class HttpClientState implements ClientState {
         },
         body: encodedBody,
       );
+      final _body = _result.body;
       // Return an empty array if no values are found for the provided keys.
       final bulkStateItems = <BulkStateItem>[];
 
       // Fill the empty array with [SaveStateItem] objects extracted from the result.
-      if (result.isNotEmpty) {
-        final decodeResult = jsonDecode(result) as List<dynamic>;
+      if (_body.isNotEmpty) {
+        final decodeResult = jsonDecode(_body) as List<dynamic>;
         for (var element in decodeResult) {
           bulkStateItems.add(BulkStateItem.fromJson(element));
         }
@@ -94,11 +102,12 @@ class HttpClientState implements ClientState {
         'metadata': metadata,
       },
     );
-    await daprHttpClient.executeDaprApiCall(
+    await client.executeDaprApiCall(
       apiUrl: '/state/$storeName/transaction',
       httpMethod: HttpMethod.post,
       headers: {'Content-Type': 'application/json'},
       body: encodedBody,
     );
+    return;
   }
 }

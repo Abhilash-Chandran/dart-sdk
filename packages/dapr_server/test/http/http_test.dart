@@ -22,6 +22,9 @@ void main() {
   /// check the `test/componets/pubsub-redis.yaml` file.
   final pubsubName = 'pubsub-redis';
 
+  /// Set of topic names to be used in the following tests
+  final topicName1 = 'test-topic-1';
+
   final bindingEventName = 'binding-rabbit';
 
   /// Our test suite should interact with the dapr sidecar not the server app
@@ -46,9 +49,6 @@ void main() {
   /// A mock [MockTestBinding] class to hold the call back function to be
   /// used as an input binding call back method of the dapr server.
   final mockTestBinding = MockTestBinding();
-
-  /// Set of topic names to be used in the following tests
-  final topicName1 = 'test-topic-1';
 
   var httpClient = http.Client();
 

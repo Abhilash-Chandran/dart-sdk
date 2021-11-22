@@ -59,11 +59,11 @@ scripts:
     description: Runs end to end tests on both http client and grpc client
   test:client:e2e:http:
     run : |
-      melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id test-suite --app-protocol http --app-port 50001 --dapr-http-port 50000 --components-path ./test/components -- dart run test 'test/client/http/http_client_test.dart' --coverage="\$MELOS_ROOT_PATH/coverage/client"
+      melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id http-test-suite --app-protocol http --app-port 50001 --dapr-http-port 50000 --components-path ./test/components -- dart run test 'test/client/http/http_test.dart' --coverage="\$MELOS_ROOT_PATH/coverage/client"
     description: Runs end to end tests on http client
   test:client:e2e:grpc:
     run : |
-      melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id test-suite --app-protocol grpc --app-port 50001 --dapr-grpc-port 50000 --components-path ./test/components -- dart run test 'test/client/grpc/grpc_client_test.dart' --coverage="\$MELOS_ROOT_PATH/coverage/client"
+      melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id grpc-test-suite --app-protocol grpc --app-port 50001 --dapr-grpc-port 50000 --components-path ./test/components -- dart run test 'test/client/grpc/grpc_test.dart' --coverage="\$MELOS_ROOT_PATH/coverage/client"
     description: Runs end to end tests on grpc client
 
 
@@ -90,9 +90,9 @@ scripts:
     run : |
       melos run lcov:client &&
       melos run lcov:server 
-      # curl -Os https://uploader.codecov.io/latest/linux/codecov &&
-      # chmod +x codecov &&
-      # ./codecov -t ${CODECOV_TOKEN}
+      curl -Os https://uploader.codecov.io/latest/linux/codecov &&
+      chmod +x codecov &&
+      ./codecov -t ${CODECOV_TOKEN}
   lcov:client:
     run : |
        melos exec --scope="*dapr_client" -- format_coverage --lcov --in="../../coverage" --out="../../coverage/coverage_client.lcov"  --packages=".packages" --report-on=lib

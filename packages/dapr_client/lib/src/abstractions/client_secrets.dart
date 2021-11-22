@@ -1,6 +1,9 @@
 import 'package:dapr_common/dapr_common.dart';
 
-abstract class ClientSecret {
+abstract class ClientSecret<T> {
+  /// The client for the chose protocol.
+  T get client;
+
   Future<Map<String, dynamic>> get({
     required String secretStoreName,
     required String key,
@@ -12,8 +15,3 @@ abstract class ClientSecret {
     Map<String, String>? metadata,
   });
 }
-
-// export default interface IClientSecret {
-//     get(secretStoreName: string, key: string, metadata?: string): Promise<object>;
-//     getBulk(secretStoreName: string): Promise<object>;
-// }

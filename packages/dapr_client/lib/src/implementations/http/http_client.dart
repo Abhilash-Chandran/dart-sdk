@@ -12,13 +12,13 @@ import '../../abstractions/client.dart';
 ///
 /// An ideal use case to use a Http Client is when the app is deployed as web app.
 ///
-class DaprHttpClient implements Client {
+class DaprHttpClient implements Client<http.Client> {
   @override
   late final http.Client client;
   @override
   final String clientHost;
   @override
-  final String clientPort;
+  final int clientPort;
   @override
   final CommunicationProtocol communicationProtocol =
       CommunicationProtocol.http;
@@ -57,7 +57,7 @@ class DaprHttpClient implements Client {
   /// The types of headers and body is based on the definitions mentioned in the http package from dart.
   /// Check this class for the more details.
   /// https://github.com/dart-lang/http/blob/master/lib/src/base_client.dart#L20
-  Future<String> executeDaprApiCall({
+  Future<http.Response> executeDaprApiCall({
     required String apiUrl,
     required HttpMethod httpMethod,
     Map<String, String>? headers,
@@ -115,16 +115,17 @@ class DaprHttpClient implements Client {
       if (response.statusCode >= 400) {
         // TODO: Decide how to throw an exception and what information needs to
         //  be passed.
-        // TODO: Define Exception classes.
       }
 
       // Note we do not parse the response here.
       // It is the responsibility of the caller to parse the reponse and convert
       // it to the internal object types.
-      return response.body;
+      return response;
     } catch (e) {
       print(e);
-      return '';
+      // TODO: Decide how to throw an exception and what information needs to
+      //  be passed.
+      throw '';
     }
   }
 }

@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:dapr_common/dapr_common.dart';
 
-// import '../../typedefs/all_type_def.dart';
+abstract class ClientState<T> {
+  /// The client for the chose protocol.
+  T get client;
 
-abstract class ClientState {
   Future<void> save({
     required String storeName,
     required List<SaveStateItem> stateObjects,
@@ -43,10 +44,3 @@ abstract class ClientState {
   });
 }
 
-// export default interface IClientState {
-//     save(storeName: string, stateObjects: KeyValuePairType[]): Promise<void>;
-//     get(storeName: string, key: string): Promise<KeyValueType | string>;
-//     getBulk(storeName: string, keys: string[], parallelism?: number, metadata?: string): Promise<KeyValueType[]>;
-//     delete(storeName: string, key: string): Promise<void>;
-//     transaction(storeName: string, operations?: OperationType[], metadata?: IRequestMetadata | null): Promise<void>;
-// }
