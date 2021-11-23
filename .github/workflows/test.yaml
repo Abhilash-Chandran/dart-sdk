@@ -15,25 +15,23 @@ on:
 jobs:
   run-all-tests:
     runs-on: ubuntu-latest
+    container: dart:stable
     env:
       DAPR_INSTALL_URL: https://raw.githubusercontent.com/dapr/cli/master/install/install.sh
     services:
       # Use the following services instead of dapr's for testing.
       # This is to keep the naming of the containers consistent across tests.
       # Maybe in future we can avoid and use Dapr's services directly.
-      redis:
-        container_name: "test-redis"
+      test-redis:        
         image: "redis:alpine"
         ports:
           - "6380:6379"
-      rabbitmq:
-        container_name: 'test-rabbitmq'
+      test-rabbitmq:        
         image: rabbitmq:3-management-alpine
         ports:
           - 5672:5672
           - 15672:15672
-      placement:
-        container_name: "test-dapr-placement"
+      test-dapr-placement:        
         image: "daprio/dapr"
         command: ["./placement", "-port", "50006"]
         ports:
