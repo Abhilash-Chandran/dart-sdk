@@ -32,10 +32,7 @@ jobs:
           - 5672:5672
           - 15672:15672
       test-dapr-placement:        
-        image: "daprio/dapr"
-        command: ["./placement", "-port", "50006"]
-        ports:
-          - "50006:50006"
+        image: "daprio/dapr"        
     steps:
       - uses: actions/checkout@v2
 
