@@ -16,7 +16,7 @@ jobs:
   run-all-tests:
     runs-on: ubuntu-latest
     container: dart:stable
-      network: dart_net
+      - network: dart_net
     env:
       DAPR_INSTALL_URL: https://raw.githubusercontent.com/dapr/cli/master/install/install.sh
     services:
