@@ -1,4 +1,4 @@
-FROM cirrusci/flutter:latest
+FROM dart:stable
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -43,14 +43,14 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     #
     # Install Melos
-    && flutter pub global activate melos \
-    && flutter pub global activate protoc_plugin \
-    && flutter pub global activate coverage \
-    #
-    # CirusCi flutter image sets the user name to cirus ci
-    # Clearing it to ensure the commit goes under the correct name.
-    && git config --global --unset user.name \
-    && git config --global --unset user.email
+    && dart pub global activate melos \
+    && dart pub global activate protoc_plugin \
+    && dart pub global activate coverage
+#
+# CirusCi flutter image sets the user name to cirus ci
+# Clearing it to ensure the commit goes under the correct name.
+# && git config --global --unset user.name \
+# && git config --global --unset user.email
 # Setup pub bin cache in the path.
 # Need to find if this is the correct way to set melos in path.
 ENV PATH ${PATH}:/root/.pub-cache/bin
