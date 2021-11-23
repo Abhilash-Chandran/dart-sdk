@@ -4,13 +4,13 @@ services:
   ###############################
   ## Redis state store service
   ###############################
-  redis:
-    container_name: "test-redis"
-    image: "redis:alpine"
-    ports:
-      - "6380:6379"
-    networks:
-      - dart-sdk-network
+  # redis:
+  #   container_name: "test-redis"
+  #   image: "redis:alpine"
+  #   ports:
+  #     - "6380:6379"
+  #   networks:
+  #     - dart-sdk-network
   #############################################
   ## Mosquitto MQTT message broker for bindings
   #############################################
@@ -31,23 +31,23 @@ services:
   ###################################
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: 'test-rabbitmq'
+    container_name: 'dapr_rabbitmq'
     ports:
         - 5672:5672
         - 15672:15672
     networks:
-        - dart-sdk-network
+        - dart_net
   ############################
   ## Dapr placement service
   ############################
-  placement:
-    container_name: "test-dapr-placement"
-    image: "daprio/dapr"
-    command: ["./placement", "-port", "50006"]
-    ports:
-      - "50006:50006"
-    networks:
-      - dart-sdk-network
+  # placement:
+  #   container_name: "test-dapr-placement"
+  #   image: "daprio/dapr"
+  #   command: ["./placement", "-port", "50006"]
+  #   ports:
+  #     - "50006:50006"
+  #   networks:
+  #     - dart-sdk-network
   ###################################
   ##
   ## Dapr dart-sdk dev environment
@@ -55,12 +55,11 @@ services:
   ## Builds the environtment from 
   ## the Dockerfile in this directory
   ###################################
-  dart-sdk-dev-env:    
+  dart-sdk-dev-env:
+    container_name: "dart-sdk-dev-env"    
     build: 
       context: .
-      dockerfile: Dockerfile
-    environment:
-      DAPR_NETWORK: dart-sdk-network
+      dockerfile: Dockerfile    
     volumes:
       # Forwards the local Docker socket to the container.
       - /var/run/docker.sock:/var/run/docker.sock
@@ -70,8 +69,8 @@ services:
     # entrypoint: /usr/local/share/docker-init.sh
     command: sleep infinity 
     networks:
-      - dart-sdk-network
+      - dart_net
 # volumes:
 networks:
-  dart-sdk-network:
-    name: "dart-sdk-network"
+  dart_net:
+    name: "dart_net"
