@@ -52,8 +52,8 @@ jobs:
       - name: Run all end-to-end tests        
         run: melos run test:e2e
         env:
-          SRV_COMP_DIR: ../../infrastructure/gh_actions_components/client
-          CLNT_COMP_DIR: ../../infrastructure/gh_actions_composnents/client
+          SRV_COMP_DIR: ../../infrastructure/gh_actions_components/server
+          CLNT_COMP_DIR: ../../infrastructure/gh_actions_components/client
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
