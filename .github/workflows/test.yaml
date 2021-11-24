@@ -33,11 +33,11 @@ jobs:
         run: docker network create dart_net
         
       - name: Dapr - Initialize
-        run: dapr init --network dart_net
+        run: dapr init
         
       - name: Run RabbitMQ container
-        run: docker run -d -p 5672:5672 --network dart_net --name dapr_rabbitmq rabbitmq:3-management-alpine
-      
+        run: docker run -d -p 5672:5672 --name dapr_rabbitmq rabbitmq:3-management-alpine
+            
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: stable    
