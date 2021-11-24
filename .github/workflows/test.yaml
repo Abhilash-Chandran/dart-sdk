@@ -14,8 +14,7 @@ on:
 
 jobs:
   run-all-tests:
-    runs-on: ubuntu-latest
-    container: dart:stable    
+    runs-on: ubuntu-latest        
     env:
       DAPR_INSTALL_URL: https://raw.githubusercontent.com/dapr/cli/master/install/install.sh
     services:
@@ -34,6 +33,11 @@ jobs:
       
       - name: Dapr - Initialize inside dart_net network
         run: dapr init --network dart_net
+      
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+              
       
       - name: Install Melos
         run: dart pub global activate melos
