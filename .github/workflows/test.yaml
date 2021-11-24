@@ -15,8 +15,7 @@ on:
 jobs:
   run-all-tests:
     runs-on: ubuntu-latest
-    container: dart:stable
-      - network: dart_net
+    container: dart:stable    
     env:
       DAPR_INSTALL_URL: https://raw.githubusercontent.com/dapr/cli/master/install/install.sh
     services:
@@ -25,16 +24,23 @@ jobs:
         ports:
           - 5672:5672
           - 15672:15672
-        network: dart_net
-       
+        options:
+          hostname: dapr_rabbitmq
+
     steps:
       - uses: actions/checkout@v2
+
+      - name: list docker containers
+        run: docker ps
 
       - name: Dapr - Install CLI
         run: wget -q ${{ env.DAPR_INSTALL_URL }} -O - | /bin/bash -s ${{ env.DAPR_CLI_VER }}
       
       - name: Dapr - Initialize inside dart_net network
         run: dapr init --network dart_net
+        
+      - name: list docker containers
+        run: docker ps
       
       - name: Install Melos
         run: dart pub global activate melos
