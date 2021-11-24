@@ -37,20 +37,21 @@ jobs:
         
       - name: Run RabbitMQ container
         run: docker run -d -p 5672:5672 --name dapr_rabbitmq rabbitmq:3-management-alpine
-            
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable    
+      - name: List docker containers
+        run: docker ps
+#       - uses: dart-lang/setup-dart@v1
+#         with:
+#           sdk: stable    
       
-      - name: Install Melos
-        run: dart pub global activate melos
+#       - name: Install Melos
+#         run: dart pub global activate melos
       
-      - name: Install coverage package for dart
-        run: dart pub global activate coverage
+#       - name: Install coverage package for dart
+#         run: dart pub global activate coverage
     
-      - name: Run all end-to-end tests
-        run: melos run test:e2e
+#       - name: Run all end-to-end tests
+#         run: melos run test:e2e
       
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+#       - name: Upload coverage to Codecov
+#         uses: codecov/codecov-action@v2
 
