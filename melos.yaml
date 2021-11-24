@@ -40,9 +40,9 @@ scripts:
   start:dapr:
     run : |
       melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id test-suite --app-protocol grpc --app-port 50001 --dapr-http-port 50000 --dapr-grpc-port 50002 --components-path ./test/components
-  ###########################
-  ## End to End test - ALL ##
-  ###########################
+  #######################################
+  ## End to End test - dev environment ##
+  #######################################
   test:e2e:
     run : |
       melos run test:server:e2e:http &&
@@ -59,16 +59,16 @@ scripts:
     description: Runs end to end tests on both http client and grpc client
   test:client:e2e:http:
     run : |
-      melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id http-test-suite --app-protocol http --app-port 50001 --dapr-http-port 50000 --components-path ./test/components -- dart run test 'test/client/http/http_test.dart' --coverage="\$MELOS_ROOT_PATH/coverage/client"
+      melos exec --fail-fast --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id http-test-suite --app-protocol http --app-port 50001 --dapr-http-port 50000 --components-path ./test/components dart run test 'test/client/http/http_test.dart' -- --coverage="\$MELOS_ROOT_PATH/coverage/client"
     description: Runs end to end tests on http client
   test:client:e2e:grpc:
     run : |
-      melos exec --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id grpc-test-suite --app-protocol grpc --app-port 50001 --dapr-grpc-port 50000 --components-path ./test/components -- dart run test 'test/client/grpc/grpc_test.dart' --coverage="\$MELOS_ROOT_PATH/coverage/client"
+      melos exec --fail-fast --scope="*dapr_client" -- TEST_SECRET_1=secret_val_1 TEST_SECRET_2=secret_val_2 dapr run --app-id grpc-test-suite --app-protocol grpc --app-port 50001 --dapr-grpc-port 50000 --components-path ./test/components dart run test 'test/client/grpc/grpc_test.dart' -- --coverage="\$MELOS_ROOT_PATH/coverage/client"
     description: Runs end to end tests on grpc client
 
 
   ############################################
-  ## End to End test scritps for dapr_client##
+  ## End to End test scritps for dapr_server##
   ############################################  
   test:server:e2e:    
     run: |
@@ -76,11 +76,11 @@ scripts:
     description: Runs end to end tests on both http client and grpc client
   test:server:e2e:http:
     run : |      
-      melos exec --scope="*dapr_server" -- dapr run --app-id http-test-suite --app-protocol http --app-port 3000 --dapr-http-port 3500 --components-path ./test/components dart run test "test/http/http_test.dart" -- --coverage="\$MELOS_ROOT_PATH/coverage/server" --debug
+      melos exec --fail-fast --scope="*dapr_server" -- dapr run --app-id http-test-suite --app-protocol http --app-port 3000 --dapr-http-port 3500 --components-path ./test/components dart run test "test/http/http_test.dart" -- --coverage="\$MELOS_ROOT_PATH/coverage/server" --debug
     description: Runs end to end tests on http client
   test:server:e2e:grpc:
     run : |      
-      melos exec --scope="*dapr_server" -- dapr run --app-id grpc-test-suite --app-protocol grpc --app-port 3000 --dapr-http-port 3500 --components-path ./test/components -- dart run test 'test/grpc/grpc_test.dart' --coverage="\$MELOS_ROOT_PATH/coverage/server"
+      melos exec --fail-fast --scope="*dapr_server" -- dapr run --app-id grpc-test-suite --app-protocol grpc --app-port 3000 --dapr-http-port 3500 --components-path ./test/components dart run test 'test/grpc/grpc_test.dart' -- --coverage="\$MELOS_ROOT_PATH/coverage/server"
     description: Runs end to end tests on http client
   
   ################################

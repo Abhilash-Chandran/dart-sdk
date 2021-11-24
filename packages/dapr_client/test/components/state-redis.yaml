@@ -9,7 +9,7 @@ spec:
   version: v1
   metadata:
   - name: redisHost
-    value: dapr_redis_dart_net:6379
+    value: dapr_redis:6379
   - name: redisPassword
     value: ""
   - name: enableTLS
