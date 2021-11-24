@@ -47,9 +47,13 @@
     // See : https://melos.invertase.dev/    
     // Melos is installed as part of Docker setup. See Dockerfile.
     // This command installs melos and bootstraps all the packages by run pub get on all the dart packages.    
-    "postAttachCommand": "dapr init --network dart_net && melos bootstrap",
+    "postAttachCommand": "dapr init --network dart_net && melos bootstrap && docker rename dapr_redis_dart_net dapr_redis",
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
     // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
     // "remoteUser": "vscode",
+    "remoteEnv": {
+        "CLNT_COMP_DIR": "./test/components",
+        "SRV_COMP_DIR": "./test/components",
+    }
 }

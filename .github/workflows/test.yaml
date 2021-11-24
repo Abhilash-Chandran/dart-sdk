@@ -14,42 +14,46 @@ on:
 
 jobs:
   run-all-tests:
-    runs-on: ubuntu-latest
-    container: dart:stable    
+    runs-on: ubuntu-latest          
     env:
       DAPR_INSTALL_URL: https://raw.githubusercontent.com/dapr/cli/master/install/install.sh
     services:
-      test-rabbitmq:        
-        image: rabbitmq:3-management-alpine
+      dapr_rabbitmq:        
+        image: rabbitmq:3-management-alpine        
         ports:
           - 5672:5672
           - 15672:15672
-        options:
-          hostname: dapr_rabbitmq
-
     steps:
       - uses: actions/checkout@v2
 
-      - name: list docker containers
-        run: docker ps
-
       - name: Dapr - Install CLI
         run: wget -q ${{ env.DAPR_INSTALL_URL }} -O - | /bin/bash -s ${{ env.DAPR_CLI_VER }}
-      
-      - name: Dapr - Initialize inside dart_net network
-        run: dapr init --network dart_net
         
-      - name: list docker containers
+      # - name: create docker network named dart_net
+      #   run: docker network create dart_net
+        
+      - name: Dapr - Initialize
+        run: dapr init
+        
+      # - name: Run RabbitMQ container
+      #   run: docker run -d -p 5672:5672 --name dapr_rabbitmq rabbitmq:3-management-alpine
+      - name: List docker containers
         run: docker ps
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable    
       
       - name: Install Melos
         run: dart pub global activate melos
       
       - name: Install coverage package for dart
         run: dart pub global activate coverage
-    
-      - name: Run all end-to-end tests
+      
+      - name: Run all end-to-end tests        
         run: melos run test:e2e
+        env:
+          SRV_COMP_DIR: ../../infrastructure/gh_actions_components/server
+          CLNT_COMP_DIR: ../../infrastructure/gh_actions_components/client
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
