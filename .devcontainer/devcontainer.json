@@ -52,4 +52,8 @@
     // "forwardPorts": [],
     // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
     // "remoteUser": "vscode",
+    "remoteEnv": {
+        "CLNT_COMP_DIR": "./test/components",
+        "SRV_COMP_DIR": "./test/components",
+    }
 }
