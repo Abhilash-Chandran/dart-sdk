@@ -21,11 +21,10 @@ jobs:
     services:
       test-rabbitmq:        
         image: rabbitmq:3-management-alpine
+        options: --hostname=dapr_rabbitmq
         ports:
           - 5672:5672
-          - 15672:15672
-        options:
-          hostname: dapr_rabbitmq
+          - 15672:15672                  
 
     steps:
       - uses: actions/checkout@v2
