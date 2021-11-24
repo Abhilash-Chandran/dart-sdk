@@ -18,26 +18,23 @@ jobs:
     env:
       DAPR_INSTALL_URL: https://raw.githubusercontent.com/dapr/cli/master/install/install.sh
     services:
-      test-rabbitmq:        
-        image: rabbitmq:3-management-alpine
-        options: --hostname=dapr_rabbitmq
+      dapr_rabbitmq:        
+        image: rabbitmq:3-management-alpine        
         ports:
           - 5672:5672
-          - 15672:15672                  
-
+          - 15672:15672
     steps:
       - uses: actions/checkout@v2
 
       - name: Dapr - Install CLI
         run: wget -q ${{ env.DAPR_INSTALL_URL }} -O - | /bin/bash -s ${{ env.DAPR_CLI_VER }}
       
-      - name: Dapr - Initialize inside dart_net network
-        run: dapr init --network dart_net
-      
+      - name: Dapr - Initialize
+        run: dapr init
+        
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: stable
-              
+          sdk: stable    
       
       - name: Install Melos
         run: dart pub global activate melos
