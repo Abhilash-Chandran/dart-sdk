@@ -1,4 +1,4 @@
-name: Run Dapr Dart-sdk E2E & unit tests.
+name: E2E & unit tests
 
 on:
   push:
