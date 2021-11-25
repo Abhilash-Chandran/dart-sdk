@@ -72,16 +72,16 @@ scripts:
   ############################################  
   test:server:e2e:    
     run: |
-      melos run test:client:e2e:http && melos run test:client:e2e:grpc
-    description: Runs end to end tests on both http client and grpc client
+      melos run test:server:e2e:http && melos run test:server:e2e:grpc
+    description: Runs end to end tests on both http server and grpc server
   test:server:e2e:http:
     run : |            
       melos exec --fail-fast --scope="*dapr_server" -- dapr run --app-id http-test-suite --app-protocol http --app-port 3000 --dapr-http-port 3500 --components-path=$SRV_COMP_DIR dart run test "test/http/http_test.dart" -- --coverage="\$MELOS_ROOT_PATH/coverage/server" --debug
-    description: Runs end to end tests on http client
+    description: Runs end to end tests on http server
   test:server:e2e:grpc:
     run : |
       melos exec --fail-fast --scope="*dapr_server" -- dapr run --app-id grpc-test-suite --app-protocol grpc --app-port 3000 --dapr-http-port 3500 --components-path=$SRV_COMP_DIR dart run test 'test/grpc/grpc_test.dart' -- --coverage="\$MELOS_ROOT_PATH/coverage/server"
-    description: Runs end to end tests on http client
+    description: Runs end to end tests on grpc server
   
   ################################
   ## Code Coverage related scripts

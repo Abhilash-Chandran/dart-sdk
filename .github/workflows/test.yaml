@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest          
     env:
       DAPR_INSTALL_URL: https://raw.githubusercontent.com/dapr/cli/master/install/install.sh
+      SRV_COMP_DIR: ../../infrastructure/gh_actions_components/server
+      CLNT_COMP_DIR: ../../infrastructure/gh_actions_components/client
     services:
       dapr_rabbitmq:        
         image: rabbitmq:3-management-alpine        
@@ -29,9 +31,6 @@ jobs:
       - name: Dapr - Install CLI
         run: wget -q ${{ env.DAPR_INSTALL_URL }} -O - | /bin/bash -s ${{ env.DAPR_CLI_VER }}
         
-      # - name: create docker network named dart_net
-      #   run: docker network create dart_net
-        
       - name: Dapr - Initialize
         run: dapr init
         
@@ -39,7 +38,9 @@ jobs:
       #   run: docker run -d -p 5672:5672 --name dapr_rabbitmq rabbitmq:3-management-alpine
       - name: List docker containers
         run: docker ps
-      - uses: dart-lang/setup-dart@v1
+
+      - name: Install dart
+        uses: dart-lang/setup-dart@v1
         with:
           sdk: stable    
       
@@ -49,12 +50,41 @@ jobs:
       - name: Install coverage package for dart
         run: dart pub global activate coverage
       
-      - name: Run all end-to-end tests        
-        run: melos run test:e2e
-        env:
-          SRV_COMP_DIR: ../../infrastructure/gh_actions_components/server
-          CLNT_COMP_DIR: ../../infrastructure/gh_actions_components/client
+      - name: Run client http e2e tests        
+        run: |
+          melos run test:client:e2e:http | tee cln_http.txt
+          if grep "Some tests failed." -i cln_http.txt -q; then
+            exit 1;
+          else
+            echo "No error found: All tests passed";
+          fi
+
+      - name: Run client grpc e2e tests        
+        run: |
+          melos run test:client:e2e:grpc | tee cln_grpc.txt
+          if grep "Some tests failed." -i cln_grpc.txt -q; then
+            exit 1;
+          else
+            echo "No error found: All tests passed";
+          fi
+
+      - name: Run server http e2e tests        
+        run: |
+          melos run test:server:e2e:http | tee srv_http.txt
+          if grep "Some tests failed." -i srv_http.txt -q; then
+            exit 1;
+          else
+            echo "No error found: All tests passed";
+          fi
+
+      - name: Run server grpc e2e tests        
+        run: |
+          melos run test:server:e2e:grpc | tee srv_grpc.txt
+          if grep "Some tests failed." -i cln_grpc.txt -q; then
+            exit 1;
+          else
+            echo "No error found: All tests passed";
+          fi
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
-
