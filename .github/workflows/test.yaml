@@ -3,13 +3,13 @@ name: E2E & unit tests
 on:
   push:
     branches:
-      - master
+      - main
       - release-*
     tags:
       - v*
   pull_request:
     branches:
-      - master
+      - main
       - release-*
 
 jobs:
@@ -42,7 +42,7 @@ jobs:
       - name: Install dart
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: stable    
+          sdk: stable
       
       - name: Install Melos
         run: dart pub global activate melos
@@ -50,40 +50,53 @@ jobs:
       - name: Install coverage package for dart
         run: dart pub global activate coverage
       
+      - name: Install jq for processing json in terminal
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq
+      
       - name: Run client http e2e tests        
         run: |
-          melos run test:client:e2e:http | tee cln_http.txt
-          if grep "Some tests failed." -i cln_http.txt -q; then
-            exit 1;
-          else
+          melos run test:client:e2e:http
+          export test_result=$(tail -1 packages/dapr_client/test/reports/tests_client_http.json)        
+          if $(echo $test_result | jq '.success') == true; then
             echo "No error found: All tests passed";
+          else
+            echo "Some test have failed. Pleas verify the logs"
+            exit 1;
           fi
 
       - name: Run client grpc e2e tests        
         run: |
           melos run test:client:e2e:grpc | tee cln_grpc.txt
-          if grep "Some tests failed." -i cln_grpc.txt -q; then
-            exit 1;
-          else
+          export test_result=$(tail -1 packages/dapr_client/test/reports/tests_client_grpc.json)        
+          if $(echo $test_result | jq '.success') == true; then
             echo "No error found: All tests passed";
+          else
+            echo "Some test have failed. Pleas verify the logs"
+            exit 1;
           fi
 
       - name: Run server http e2e tests        
         run: |
           melos run test:server:e2e:http | tee srv_http.txt
-          if grep "Some tests failed." -i srv_http.txt -q; then
-            exit 1;
-          else
+          export test_result=$(tail -1 packages/dapr_server/test/reports/tests_server_http.json)        
+          if $(echo $test_result | jq '.success') == true; then
             echo "No error found: All tests passed";
+          else
+            echo "Some test have failed. Pleas verify the logs"
+            exit 1;
           fi
 
       - name: Run server grpc e2e tests        
         run: |
           melos run test:server:e2e:grpc | tee srv_grpc.txt
-          if grep "Some tests failed." -i cln_grpc.txt -q; then
-            exit 1;
-          else
+          export test_result=$(tail -1 packages/dapr_server/test/reports/tests_server_grpc.json)        
+          if $(echo $test_result | jq '.success') == true; then
             echo "No error found: All tests passed";
+          else
+            echo "Some test have failed. Pleas verify the logs"
+            exit 1;
           fi
       
       - name: Upload coverage to Codecov
