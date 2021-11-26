@@ -57,7 +57,7 @@ jobs:
         run: |
           melos run test:client:e2e:http
           export test_result=$(tail -1 packages/dapr_client/test/reports/tests_client_http.json)        
-          if echo $test_result | jq '.success'
+          if $(echo $test_result | jq '.success') == true; then
             echo "No error found: All tests passed";
           else
             exit 1;
