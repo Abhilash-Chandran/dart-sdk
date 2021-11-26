@@ -53,7 +53,8 @@ jobs:
       - name: Run client http e2e tests        
         run: |
           melos run test:client:e2e:http
-          export test_result=$(tail -1 package/dapr_client/test/reports/tests_client_http.json)
+          pwd
+          export test_result=$(tail -1 packages/dapr_client/test/reports/tests_client_http.json)
           if fromJSON(${test_result}).success
             echo "No error found: All tests passed";
           else
