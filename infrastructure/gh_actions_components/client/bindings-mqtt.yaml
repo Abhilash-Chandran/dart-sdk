@@ -11,7 +11,7 @@ spec:
   - name: consumerID
     value: "{uuid}"
   - name: host
-    value: "amqp://guest:guest@localhost:5672"
+    value: "amqp://guest:guest@localhost:562"
   - name: queueName
     value: "test-queue"
   - name: qos
