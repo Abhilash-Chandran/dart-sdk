@@ -53,9 +53,8 @@ jobs:
       - name: Run client http e2e tests        
         run: |
           melos run test:client:e2e:http
-          export test_result=$(tail -1 packages/dapr_client/test/reports/tests_client_http.json)
-          echo "::set-env name=test_result::$test_result"
-          if fromJSON(${{ env.test_result }}).success
+          export test_result=$(tail -1 packages/dapr_client/test/reports/tests_client_http.json)        
+          if fromJSON(echo $test_result).success
             echo "No error found: All tests passed";
           else
             exit 1;
