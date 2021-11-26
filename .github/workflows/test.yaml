@@ -3,13 +3,13 @@ name: E2E & unit tests
 on:
   push:
     branches:
-      - master
+      - main
       - release-*
     tags:
       - v*
   pull_request:
     branches:
-      - master
+      - main
       - release-*
 
 jobs:
@@ -52,39 +52,41 @@ jobs:
       
       - name: Run client http e2e tests        
         run: |
-          melos run test:client:e2e:http | tee cln_http.txt
-          if grep "Some tests failed." -i cln_http.txt -q; then
-            exit 1;
-          else
+          melos run test:client:e2e:http
+          test_status = fromJSON(${{ tail -1 package/dapr_client/test/reports/tests_client_http.json }})
+          echo ${{ test_status.success }}
+          if test_status.success
             echo "No error found: All tests passed";
+          else
+            exit 1;
           fi
 
-      - name: Run client grpc e2e tests        
-        run: |
-          melos run test:client:e2e:grpc | tee cln_grpc.txt
-          if grep "Some tests failed." -i cln_grpc.txt -q; then
-            exit 1;
-          else
-            echo "No error found: All tests passed";
-          fi
+#       - name: Run client grpc e2e tests        
+#         run: |
+#           melos run test:client:e2e:grpc | tee cln_grpc.txt
+#           if grep "Some tests failed." -i cln_grpc.txt -q; then
+#             exit 1;
+#           else
+#             echo "No error found: All tests passed";
+#           fi
 
-      - name: Run server http e2e tests        
-        run: |
-          melos run test:server:e2e:http | tee srv_http.txt
-          if grep "Some tests failed." -i srv_http.txt -q; then
-            exit 1;
-          else
-            echo "No error found: All tests passed";
-          fi
+#       - name: Run server http e2e tests        
+#         run: |
+#           melos run test:server:e2e:http | tee srv_http.txt
+#           if grep "Some tests failed." -i srv_http.txt -q; then
+#             exit 1;
+#           else
+#             echo "No error found: All tests passed";
+#           fi
 
-      - name: Run server grpc e2e tests        
-        run: |
-          melos run test:server:e2e:grpc | tee srv_grpc.txt
-          if grep "Some tests failed." -i cln_grpc.txt -q; then
-            exit 1;
-          else
-            echo "No error found: All tests passed";
-          fi
+#       - name: Run server grpc e2e tests        
+#         run: |
+#           melos run test:server:e2e:grpc | tee srv_grpc.txt
+#           if grep "Some tests failed." -i cln_grpc.txt -q; then
+#             exit 1;
+#           else
+#             echo "No error found: All tests passed";
+#           fi
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
