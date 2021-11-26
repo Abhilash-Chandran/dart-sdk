@@ -53,7 +53,8 @@ jobs:
       - name: Run client http e2e tests        
         run: |
           melos run test:client:e2e:http
-          test_status = fromJSON(${{ tail -1 package/dapr_client/test/reports/tests_client_http.json }})
+          test_result = tail -1 package/dapr_client/test/reports/tests_client_http.json
+          test_status = fromJSON(test_result)
           echo ${{ test_status.success }}
           if test_status.success
             echo "No error found: All tests passed";
