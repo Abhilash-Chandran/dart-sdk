@@ -1,5 +1,4 @@
 import 'package:dapr_common/dapr_common.dart';
-import 'server.dart';
 
 /// Abstract definition for Service Invoker.
 abstract class ServerInvoker<T> {

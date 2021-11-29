@@ -1,7 +1,5 @@
 import 'package:dapr_common/dapr_common.dart';
 
-import 'server.dart';
-
 /// Provides the necessary api to subscribe to different topics of a pubsub
 /// component.
 abstract class ServrePubSub<T> {

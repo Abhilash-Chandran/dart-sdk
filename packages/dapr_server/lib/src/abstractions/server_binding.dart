@@ -1,5 +1,4 @@
 import 'package:dapr_common/dapr_common.dart';
-import 'server.dart';
 
 /// Class defining the methods to create Inputbindings.
 abstract class ServerBinding<T> {

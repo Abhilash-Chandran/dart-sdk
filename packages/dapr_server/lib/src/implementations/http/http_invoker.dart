@@ -1,5 +1,5 @@
 import 'package:dapr_common/dapr_common.dart';
-import 'package:dapr_server/src/implementations/http/http_server.dart';
+import 'http_server.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
 import '../../abstractions/server_invoker.dart';

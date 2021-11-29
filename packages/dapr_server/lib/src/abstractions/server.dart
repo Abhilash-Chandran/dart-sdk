@@ -1,6 +1,6 @@
-import 'package:dapr_server/src/abstractions/server_binding.dart';
-import 'package:dapr_server/src/abstractions/server_invoker.dart';
-import 'package:dapr_server/src/abstractions/server_pub_sub.dart';
+import 'server_binding.dart';
+import 'server_invoker.dart';
+import 'server_pub_sub.dart';
 
 /// A server wrapping various user defined services such as topic subscritions,
 /// remote method invokation and input binding.
