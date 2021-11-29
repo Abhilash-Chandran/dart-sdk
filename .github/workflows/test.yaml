@@ -54,7 +54,11 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y jq
-      
+
+      - name: Run client unit tests
+        run: |
+          melos run test:client:unit
+          
       - name: Run client http e2e tests        
         run: |
           melos run test:client:e2e:http
