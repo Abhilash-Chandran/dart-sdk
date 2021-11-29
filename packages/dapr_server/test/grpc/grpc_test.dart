@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:dapr_common/dapr_common.dart';
-import 'package:dapr_server/src/implementations/dapr_server.dart';
+import 'package:dapr_server/dapr_server.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';

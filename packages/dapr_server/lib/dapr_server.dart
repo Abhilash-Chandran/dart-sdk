@@ -4,3 +4,4 @@
 library dapr_server;
 
 export 'src/implementations/dapr_server.dart';
+export 'package:dapr_common/dapr_common.dart';
