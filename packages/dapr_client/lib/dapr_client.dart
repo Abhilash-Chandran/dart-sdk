@@ -3,6 +3,6 @@
 /// More dartdocs go here.
 library dapr_client;
 
-// export 'src/clients/dapr_client.dart';
+export 'src/implementations/dapr_client.dart';
+export 'package:dapr_common/dapr_common.dart';
 
-// TODO: Export any libraries intended for clients of this package.
