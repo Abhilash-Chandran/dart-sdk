@@ -126,7 +126,7 @@ void main() {
         final resp = await daprClient.invoker.invoke(
           appId: appId,
           data: '',
-          methodName: methodName,
+          methodName: methodName, 
           httpMethod: HttpMethod.get,
         );
         expect(resp, 'Get Invoker invoked with ');
@@ -159,7 +159,7 @@ void main() {
         final resp = await daprClient.invoker.invoke(
           appId: appId,
           data: testBody,
-          methodName: methodName,
+          methodName: methodName,          
           httpMethod: HttpMethod.delete,
         );
         expect(resp, 'Delete Invoker invoked with ${jsonEncode(testBody)}');
@@ -194,6 +194,27 @@ void main() {
 
       /// Wait for the even to be processed.
       await Future.delayed(Duration(seconds: 1));
+      verify(mockTestPubSub.testCallBack(any)).called(1);
+    });
+
+    test('publish data', () async {
+      late final Map _subscribedData;
+      when(mockTestPubSub.testCallBack(any)).thenAnswer((_) async {
+        final _decodedMessage =
+            jsonDecode(_.positionalArguments[0]) as Map<String, dynamic>;
+        _subscribedData = _decodedMessage["data"];
+        return PubSubResponse.success();
+      });
+      final _publishedData = {'hello': 'world'};
+      await daprClient.pubSub.publish(
+        pubSubName: pubsubName,
+        topicName: topicName1,
+        data: _publishedData,
+      );
+
+      /// Wait for the even to be processed.
+      await Future.delayed(Duration(seconds: 1));
+      expect(_subscribedData, _publishedData);
       verify(mockTestPubSub.testCallBack(any)).called(1);
     });
     test('Call back is called more than once', () async {
