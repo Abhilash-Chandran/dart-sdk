@@ -821,3 +821,345 @@ class _$Error implements Error {
 abstract class Error implements PubSubResponse {
   const factory Error() = _$Error;
 }
+
+CloudEvent _$CloudEventFromJson(Map<String, dynamic> json) {
+  return _CloudEvent.fromJson(json);
+}
+
+/// @nodoc
+class _$CloudEventTearOff {
+  const _$CloudEventTearOff();
+
+  _CloudEvent call(
+      {required String id,
+      required Uri source,
+      @JsonKey(name: 'specversion') required String specVersion,
+      required String type,
+      @JsonKey(name: 'datacontenttype') String? dataContentType,
+      Object? data,
+      @JsonKey(name: 'dataschema') Uri? dataSchema,
+      String? subject,
+      DateTime? time}) {
+    return _CloudEvent(
+      id: id,
+      source: source,
+      specVersion: specVersion,
+      type: type,
+      dataContentType: dataContentType,
+      data: data,
+      dataSchema: dataSchema,
+      subject: subject,
+      time: time,
+    );
+  }
+
+  CloudEvent fromJson(Map<String, Object?> json) {
+    return CloudEvent.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $CloudEvent = _$CloudEventTearOff();
+
+/// @nodoc
+mixin _$CloudEvent {
+  String get id => throw _privateConstructorUsedError;
+  Uri get source => throw _privateConstructorUsedError;
+  @JsonKey(name: 'specversion')
+  String get specVersion => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
+  @JsonKey(name: 'datacontenttype')
+  String? get dataContentType => throw _privateConstructorUsedError;
+  Object? get data => throw _privateConstructorUsedError;
+  @JsonKey(name: 'dataschema')
+  Uri? get dataSchema => throw _privateConstructorUsedError;
+  String? get subject => throw _privateConstructorUsedError;
+  DateTime? get time => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CloudEventCopyWith<CloudEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CloudEventCopyWith<$Res> {
+  factory $CloudEventCopyWith(
+          CloudEvent value, $Res Function(CloudEvent) then) =
+      _$CloudEventCopyWithImpl<$Res>;
+  $Res call(
+      {String id,
+      Uri source,
+      @JsonKey(name: 'specversion') String specVersion,
+      String type,
+      @JsonKey(name: 'datacontenttype') String? dataContentType,
+      Object? data,
+      @JsonKey(name: 'dataschema') Uri? dataSchema,
+      String? subject,
+      DateTime? time});
+}
+
+/// @nodoc
+class _$CloudEventCopyWithImpl<$Res> implements $CloudEventCopyWith<$Res> {
+  _$CloudEventCopyWithImpl(this._value, this._then);
+
+  final CloudEvent _value;
+  // ignore: unused_field
+  final $Res Function(CloudEvent) _then;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? source = freezed,
+    Object? specVersion = freezed,
+    Object? type = freezed,
+    Object? dataContentType = freezed,
+    Object? data = freezed,
+    Object? dataSchema = freezed,
+    Object? subject = freezed,
+    Object? time = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      source: source == freezed
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as Uri,
+      specVersion: specVersion == freezed
+          ? _value.specVersion
+          : specVersion // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      dataContentType: dataContentType == freezed
+          ? _value.dataContentType
+          : dataContentType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      data: data == freezed ? _value.data : data,
+      dataSchema: dataSchema == freezed
+          ? _value.dataSchema
+          : dataSchema // ignore: cast_nullable_to_non_nullable
+              as Uri?,
+      subject: subject == freezed
+          ? _value.subject
+          : subject // ignore: cast_nullable_to_non_nullable
+              as String?,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CloudEventCopyWith<$Res> implements $CloudEventCopyWith<$Res> {
+  factory _$CloudEventCopyWith(
+          _CloudEvent value, $Res Function(_CloudEvent) then) =
+      __$CloudEventCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String id,
+      Uri source,
+      @JsonKey(name: 'specversion') String specVersion,
+      String type,
+      @JsonKey(name: 'datacontenttype') String? dataContentType,
+      Object? data,
+      @JsonKey(name: 'dataschema') Uri? dataSchema,
+      String? subject,
+      DateTime? time});
+}
+
+/// @nodoc
+class __$CloudEventCopyWithImpl<$Res> extends _$CloudEventCopyWithImpl<$Res>
+    implements _$CloudEventCopyWith<$Res> {
+  __$CloudEventCopyWithImpl(
+      _CloudEvent _value, $Res Function(_CloudEvent) _then)
+      : super(_value, (v) => _then(v as _CloudEvent));
+
+  @override
+  _CloudEvent get _value => super._value as _CloudEvent;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? source = freezed,
+    Object? specVersion = freezed,
+    Object? type = freezed,
+    Object? dataContentType = freezed,
+    Object? data = freezed,
+    Object? dataSchema = freezed,
+    Object? subject = freezed,
+    Object? time = freezed,
+  }) {
+    return _then(_CloudEvent(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      source: source == freezed
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as Uri,
+      specVersion: specVersion == freezed
+          ? _value.specVersion
+          : specVersion // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      dataContentType: dataContentType == freezed
+          ? _value.dataContentType
+          : dataContentType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      data: data == freezed ? _value.data : data,
+      dataSchema: dataSchema == freezed
+          ? _value.dataSchema
+          : dataSchema // ignore: cast_nullable_to_non_nullable
+              as Uri?,
+      subject: subject == freezed
+          ? _value.subject
+          : subject // ignore: cast_nullable_to_non_nullable
+              as String?,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_CloudEvent implements _CloudEvent {
+  const _$_CloudEvent(
+      {required this.id,
+      required this.source,
+      @JsonKey(name: 'specversion') required this.specVersion,
+      required this.type,
+      @JsonKey(name: 'datacontenttype') this.dataContentType,
+      this.data,
+      @JsonKey(name: 'dataschema') this.dataSchema,
+      this.subject,
+      this.time});
+
+  factory _$_CloudEvent.fromJson(Map<String, dynamic> json) =>
+      _$$_CloudEventFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final Uri source;
+  @override
+  @JsonKey(name: 'specversion')
+  final String specVersion;
+  @override
+  final String type;
+  @override
+  @JsonKey(name: 'datacontenttype')
+  final String? dataContentType;
+  @override
+  final Object? data;
+  @override
+  @JsonKey(name: 'dataschema')
+  final Uri? dataSchema;
+  @override
+  final String? subject;
+  @override
+  final DateTime? time;
+
+  @override
+  String toString() {
+    return 'CloudEvent(id: $id, source: $source, specVersion: $specVersion, type: $type, dataContentType: $dataContentType, data: $data, dataSchema: $dataSchema, subject: $subject, time: $time)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _CloudEvent &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.source, source) || other.source == source) &&
+            (identical(other.specVersion, specVersion) ||
+                other.specVersion == specVersion) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.dataContentType, dataContentType) ||
+                other.dataContentType == dataContentType) &&
+            const DeepCollectionEquality().equals(other.data, data) &&
+            (identical(other.dataSchema, dataSchema) ||
+                other.dataSchema == dataSchema) &&
+            (identical(other.subject, subject) || other.subject == subject) &&
+            (identical(other.time, time) || other.time == time));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      source,
+      specVersion,
+      type,
+      dataContentType,
+      const DeepCollectionEquality().hash(data),
+      dataSchema,
+      subject,
+      time);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CloudEventCopyWith<_CloudEvent> get copyWith =>
+      __$CloudEventCopyWithImpl<_CloudEvent>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_CloudEventToJson(this);
+  }
+}
+
+abstract class _CloudEvent implements CloudEvent {
+  const factory _CloudEvent(
+      {required String id,
+      required Uri source,
+      @JsonKey(name: 'specversion') required String specVersion,
+      required String type,
+      @JsonKey(name: 'datacontenttype') String? dataContentType,
+      Object? data,
+      @JsonKey(name: 'dataschema') Uri? dataSchema,
+      String? subject,
+      DateTime? time}) = _$_CloudEvent;
+
+  factory _CloudEvent.fromJson(Map<String, dynamic> json) =
+      _$_CloudEvent.fromJson;
+
+  @override
+  String get id;
+  @override
+  Uri get source;
+  @override
+  @JsonKey(name: 'specversion')
+  String get specVersion;
+  @override
+  String get type;
+  @override
+  @JsonKey(name: 'datacontenttype')
+  String? get dataContentType;
+  @override
+  Object? get data;
+  @override
+  @JsonKey(name: 'dataschema')
+  Uri? get dataSchema;
+  @override
+  String? get subject;
+  @override
+  DateTime? get time;
+  @override
+  @JsonKey(ignore: true)
+  _$CloudEventCopyWith<_CloudEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}

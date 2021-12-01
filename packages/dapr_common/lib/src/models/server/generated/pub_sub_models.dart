@@ -34,3 +34,21 @@ class PubSubResponse with _$PubSubResponse {
   const factory PubSubResponse.retry() = Retry;
   const factory PubSubResponse.error() = Error;
 }
+
+@freezed
+class CloudEvent with _$CloudEvent {
+  const factory CloudEvent({
+    required String id,
+    required Uri source,
+    @JsonKey(name: 'specversion') required String specVersion,
+    required String type,
+    @JsonKey(name: 'datacontenttype') String? dataContentType,
+    Object? data,
+    @JsonKey(name: 'dataschema') Uri? dataSchema,
+    String? subject,
+    DateTime? time,
+  }) = _CloudEvent;
+
+  factory CloudEvent.fromJson(Map<String, dynamic> json) =>
+      _$CloudEventFromJson(json);
+}
