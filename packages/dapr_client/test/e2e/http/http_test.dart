@@ -126,7 +126,7 @@ void main() {
         final resp = await daprClient.invoker.invoke(
           appId: appId,
           data: '',
-          methodName: methodName, 
+          methodName: methodName,
           httpMethod: HttpMethod.get,
         );
         expect(resp, 'Get Invoker invoked with ');
@@ -159,7 +159,7 @@ void main() {
         final resp = await daprClient.invoker.invoke(
           appId: appId,
           data: testBody,
-          methodName: methodName,          
+          methodName: methodName,
           httpMethod: HttpMethod.delete,
         );
         expect(resp, 'Delete Invoker invoked with ${jsonEncode(testBody)}');
@@ -214,6 +214,7 @@ void main() {
 
       /// Wait for the even to be processed.
       await Future.delayed(Duration(seconds: 1));
+      expect(_subscribedData, isNotNull);
       expect(_subscribedData, _publishedData);
       verify(mockTestPubSub.testCallBack(any)).called(1);
     });

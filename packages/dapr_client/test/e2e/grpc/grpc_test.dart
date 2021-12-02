@@ -200,13 +200,13 @@ void main() {
     });
     test('publish data', () async {
       late final Map _subscribedData;
-      when(mockTestPubSub.testCallBack(any)).thenAnswer((_) async {
-        final _decodedMessage =
-            jsonDecode(_.positionalArguments[0]) as Map<String, dynamic>;
+      when(mockTestPubSub.testCallBack(dynamic)).thenAnswer((_) async {
+        print(_.positionalArguments);
+        final _decodedMessage = _.positionalArguments[0];
         _subscribedData = _decodedMessage["data"];
         return PubSubResponse.success();
       });
-      final _publishedData = {'hello': 'world'};
+      final _publishedData = {'hello': 'world2'};
       await daprClient.pubSub.publish(
         pubSubName: pubsubName,
         topicName: topicName1,
@@ -215,6 +215,7 @@ void main() {
 
       /// Wait for the even to be processed.
       await Future.delayed(Duration(seconds: 1));
+      expect(_subscribedData, isNotNull);
       expect(_subscribedData, _publishedData);
       verify(mockTestPubSub.testCallBack(any)).called(1);
     });

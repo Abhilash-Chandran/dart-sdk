@@ -54,7 +54,13 @@ class DaprHttpClient implements Client<http.Client> {
   ///
   /// If not possible the reason should be documented in the respective method.
   ///
-  /// The types of headers and body is based on the definitions mentioned in the http package from dart.
+  /// Query params should be added to the [apiUrl] by the caller. This is
+  /// because the specification for query params varies for various building
+  /// blocks.
+  ///
+  /// The types of headers and body is based on the definitions mentioned in
+  /// the http package from dart.
+  ///
   /// Check this class for the more details.
   /// https://github.com/dart-lang/http/blob/master/lib/src/base_client.dart#L20
   Future<http.Response> executeDaprApiCall({
@@ -68,13 +74,15 @@ class DaprHttpClient implements Client<http.Client> {
     // Set up the content-type for the request if its not already provided.
     // Do this only if the body is not null. If the body is null then no need to set the content type in headers.
     if (body != null && headers[_contentType] == null) {
-      if (body is Map<String, dynamic>) {
+      if (body is String) {
+        headers[_contentType] = "text/plain; charset=UTF-8";
+      } else if (body is Map<String, dynamic>) {
         headers[_contentType] = "application/json";
         // This needs to be configurable.
         body = removeNullsFromMap(body);
         body = jsonEncode(body);
-      } else if (body is String) {
-        headers[_contentType] = "text/plain; charset=UTF-8";
+      } else if (body is List<int>) {
+        headers[_contentType] = 'application/octet-stream';
       } else {
         headers[_contentType] = "text/plain; charset=UTF-8";
       }
