@@ -6,7 +6,7 @@ weight: 20000
 description: How to get up and running with the Dapr server sdk for Dart
 no_list: true
 ---
-## Dapr Service SDK for Dart
+## Dapr Server SDK for Dart
 Dapr dart sdk provides a **dapr_server** package to bootstrap a daperised dart micro services defined using function callbacks.
 These services can be deployed either using gRPC or HTTP protocol.
 
@@ -15,7 +15,7 @@ These services can be deployed either using gRPC or HTTP protocol.
 - Initialized [Dapr environment]({{< ref install-dapr-selfhost.md >}})
 - [Dart installed](https://dart.dev/get-dart) or [Flutter installed](https://docs.flutter.dev/get-started/install)
 
-## Install dapr_client dependency
+### Install dapr_client dependency
 Install the `dapr_server` package as a dependency in your `pubspec.yaml` directly or using `pub add` command.
 
 {{< tabs "In pubspec.yaml" Dart Flutter>}}
@@ -42,7 +42,7 @@ flutter pub add dapr_server
 {{< /tabs >}}
 
 
-## Import the server package 
+### Import the server package 
 ```dart
 import 'pacakge:dapr_server/dapr_server.dart'
 ```
