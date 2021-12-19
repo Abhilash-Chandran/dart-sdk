@@ -176,6 +176,93 @@ await daprClient.invoker.invoke(
 
 ### State Management
 
+Dapr enables saving the state of an application using State-management building block.
+It provides a set of standard api to `Save`, `Get`, `GetBulk` and `Delete` these states. 
+Following example shows how a state can be saved, retrieved and deleted. 
+
+
+{{< tabs Save Get GetBulk Delete Transaction >}}
+
+{{% codetab %}}
+```dart
+/// dart-sdk expects state to be saved in the form of [SaveStateItem] instances.
+final stateItem1 = SaveStateItem(key: 'key-1', value: 'value-1');
+
+
+/// save method expects the store name which should match the component name 
+/// defined for state store.
+await daprClient.state.save(
+    storeName: 'state-redis',
+    stateObjects: [stateItem1],
+);
+
+/// Save multiple state items at once.
+final stateItem2 = SaveStateItem(key: 'key-2', value: 'value-2');
+final stateItem3 = SaveStateItem(key: 'key-3', value: 'value-3');
+await daprClient.state.save(
+    storeName: 'state-redis',
+    stateObjects: [
+      stateItem1,
+      stateItem2,
+      stateItem3,
+    ],
+);
+```
+{{% /codetab %}}
+
+{{% codetab %}}
+```dart
+await daprClient.state.get(
+    storeName: 'state-redis',   
+    key: 'key-1',
+);
+```
+{{% /codetab %}}
+
+{{% codetab %}}
+```dart
+final List<BulkStateItem> bulkStateItems = await daprClient.state.getBulk(
+    storeName: 'state-redis',
+    keys: [
+        'key-1',
+        'key-2',
+        'key-3',
+    ],
+);
+```
+{{% /codetab %}}
+
+{{% codetab %}}
+```dart
+await daprClient.state.delete(
+    storeName: 'state-redis',   
+    key: 'key-1',
+);
+```
+{{% /codetab %}}
+
+{{% codetab %}}
+```dart
+await daprClient.state.transaction(storeName: storeName, operations: [
+    StateOperation(
+        operation: 'upsert',
+        request:
+            StateOperationRequest(key: 'key-1', value: 'updated-value-1'),
+    ),
+    StateOperation(
+        operation: 'upsert',
+        request:
+            StateOperationRequest(key: 'key-2', value: 'updated-value-2'),
+    ),
+    StateOperation(
+        operation: 'delete',
+        request: StateOperationRequest(key: 'key-3'),
+    ),
+]);
+```
+{{% /codetab %}}
+
+{{< /tabs >}}
 
 ### Publish Messages
 To publish data onto a topic, the Dapr dart client provides a simple method:
