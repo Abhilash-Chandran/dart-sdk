@@ -21,11 +21,11 @@ environment.
 
 ### Using VSCode devcontainers [Recommended]
 
-{{% alert title="Note" color="warning"}}
+{{% alert title="Note" color="warning" %}}
 The following step are only tested in a Windows 10 system. If there is a difference in other platforms, please raise an Issue/PR with the required steps.
 {{% /alert %}}
 
-{{% alert title="Prequisites" color="primary"}}
+{{% alert title="Prequisites" color="primary" %}}
 Docker desktop is already installed.
 {{% /alert %}}
 
