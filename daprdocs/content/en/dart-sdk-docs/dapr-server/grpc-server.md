@@ -7,7 +7,7 @@ description: How to get up and running with the Dapr server sdk for Dart
 no_list: true
 ---
 
-## Dapr gRPC Service SDK for Go
+## Dapr gRPC Service SDK for Dart
 
 ### Prerequisite
 

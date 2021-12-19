@@ -9,10 +9,43 @@ description: Guidelines for contributing to the Dapr Dart SDK
 When contributing to the [Dart SDK](https://github.com/dapr/dart-sdk) the following rules and best-practices should be followed.
 
 ## Development Environment setup
-
+Following steps could easily allow a willing contributor to bootstrap a development 
+environment.
 ### Using github codespace [Highly recommended]
+
+#### Steps
+1. Fork the [dapr/dart-sdk](https://github.com/dapr/dart-sdk) repo.
+2. On the main page, click on the *Code* dropdown and then select *Codespaces* tab.
+3. Click on the **New codespace** button. This will setup a code space based with all the necessary settings.
+4. Validate the environment by running `melos run test:all` command.
+
 ### Using VSCode devcontainers [Recommended]
+
+{{% alert title="Note" color="warning"}}
+The following step are only tested in a Windows 10 system. If there is a difference in other platforms, please raise an Issue/PR with the required steps.
+{{% /alert %}}
+
+{{% alert title="Prequisites" color="primary"}}
+Docker desktop is already installed.
+{{% /alert %}}
+
+1. Fork the [dapr/dart-sdk](https://github.com/dapr/dart-sdk) repo.
+2. Checkout the repository into your Windows-10 system.
+3. Open your local clone in VS-Code. It will automatically detects `.devcontainer` configuration and pops a notification to `open in container`. Click on open.
+4. Wait for docker desktop to build and setup the container.
+5. Validate the build by running `melos run test:all` command.
+
 ### Using local setup [least recommended]
+
+_documentation work in progress_
+
+### General instructions and hints
+
+After any of the above mentioned environment is setup successfully, contributors can proceed by making changes. The repository is maintained in mono-repo style using the [melos package](https://pub.dev/packages/melos). For a detailed documentation about melos check this [site](https://docs.page/invertase/melos). Ensure all the new changes are tested as and when necessary before making PR. Most importantly, ensure existing tests doesn't break unless there is logical reason e.g. adapting to the correct specification of dapr.
+
+Keep all the public facing api's documented :-).
+
+Use `dapr_common` package to hold all the generated data classes. Then the `dapr_server` or `dapr_client` related data classes can be exported respectively in thos packages.
 
 ## Commit Guidelines
 
