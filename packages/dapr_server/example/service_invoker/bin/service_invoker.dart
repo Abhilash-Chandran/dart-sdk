@@ -37,5 +37,6 @@ void main(List<String> arguments) async {
   print("==================");
   print("Invoker result $invokerResult");
   print("==================");
+  await daprServer.stop();
 }
 // dapr run --app-id myapp --dapr-http-port 3500 --dapr-grpc-port 50000 dart run
