@@ -4,10 +4,13 @@ import 'package:shelf_plus/shelf_plus.dart';
 
 import '../../abstractions/server_invoker.dart';
 
+/// A http based implementation of [ServerInvoker]
 class HttpServerInvoker implements ServerInvoker<DaprHttpServer> {
   @override
   final DaprHttpServer server;
 
+  /// A constructor to intialize the [HttpServerInvoker] with the server passed
+  /// down from [DaprServer].
   HttpServerInvoker({required this.server});
 
   /// The router plus handler to which the new routes related to invoker will

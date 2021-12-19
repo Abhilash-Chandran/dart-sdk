@@ -19,19 +19,19 @@ void main(List<String> arguments) async {
   );
 
   // Retrieve and print an existing state.
-  final state_key_2 =
+  final stateKey2 =
       await daprClient.state.get(storeName: 'state-redis', key: 'key-2');
 
   print("======================================");
-  print("State value for key-2 is $state_key_2");
+  print("State value for key-2 is $stateKey2");
   print("======================================");
 
   // Fetch bulk state key-value pairs.
-  final all_keys = await daprClient.state
+  final allKeys = await daprClient.state
       .getBulk(storeName: 'state-redis', keys: ['key-1', 'key-3']);
 
   print("======================================");
-  print("Bulk Key value pair is is $all_keys");
+  print("Bulk Key value pair is is $allKeys");
   print("======================================");
 
   // Perform transactions on state store
@@ -51,10 +51,10 @@ void main(List<String> arguments) async {
   ]);
 
   // verify the transaction result
-  final all_keys_2 = await daprClient.state
+  final allKeys2 = await daprClient.state
       .getBulk(storeName: 'state-redis', keys: ['key-1', 'key-2']);
   print("======================================");
-  print("Bulk Key value pair is is $all_keys_2");
+  print("Bulk Key value pair is is $allKeys2");
   print("======================================");
 
   // delete existing key-value pairs

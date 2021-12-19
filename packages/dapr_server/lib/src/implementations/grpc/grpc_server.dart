@@ -3,6 +3,8 @@ import 'package:grpc/grpc.dart' as grpc;
 import '../../abstractions/server.dart';
 import 'grpc_server_impl.dart';
 
+/// A grpc based implementation of [Server] to provide API to write daperized
+/// grpc services.
 class DaprGrpcServer implements Server<grpc.Server, GrpcServerImplementation> {
   /// Server host address eg: 127.0.0.1, my-custom-domain
   late final String serverHost;

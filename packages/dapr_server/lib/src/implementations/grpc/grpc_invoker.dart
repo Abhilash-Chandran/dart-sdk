@@ -4,14 +4,15 @@ import 'grpc_server_impl.dart';
 import '../../abstractions/server_invoker.dart';
 import 'grpc_server.dart';
 
-/// A grpc protocol based implementation of ServerInvoker.
+/// A grpc protocol based implementation of [serverInvoker].
 ///
-/// Provides api to register callback for methof invokation event.
+/// Provides api to register callback for method invokation event.
 class GrpcServerInvoker implements ServerInvoker<DaprGrpcServer> {
   @override
   final DaprGrpcServer server;
 
-  /// Sets up the grpc server invoker.
+  /// A constructor to intialize the [GrpcServerPubSub] with the server passed
+  /// down from [DaprServer].
   GrpcServerInvoker({required this.server});
 
   /// Simply maps the callback to the method name in a map maintained by the

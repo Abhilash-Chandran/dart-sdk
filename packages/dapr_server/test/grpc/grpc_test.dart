@@ -215,7 +215,7 @@ void main() {
       });
 
       final uri = Uri.parse('$publishBaseUrl/$topicName1');
-      final resp = await httpClient.post(uri,
+      await httpClient.post(uri,
           headers: {"Content-Type": "text/plain"}, body: 'Hello World');
 
       /// Wait for the even to be processed.
@@ -232,7 +232,7 @@ void main() {
 
       final uri =
           Uri.parse('$publishBaseUrl/$topicName1?metadata.rawPayload=true');
-      final resp = await httpClient.post(
+      await httpClient.post(
         uri,
         body: jsonEncode({'Hello': 'world'}),
         headers: {
@@ -317,7 +317,7 @@ void main() {
         return _.namedArguments;
       });
       final uri = Uri.parse(bindingBaseUrl);
-      final result = await httpClient.post(
+      await httpClient.post(
         uri,
         body: jsonEncode({
           'data': {'message': "hello world"},

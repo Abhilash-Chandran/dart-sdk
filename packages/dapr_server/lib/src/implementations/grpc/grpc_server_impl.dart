@@ -71,7 +71,7 @@ class GrpcServerImplementation extends AppCallbackServiceBase {
         data: utf8.decode(request.data),
         metadata: request.metadata,
       );
-      final _result = await _callback!(_bindingEvent);
+      await _callback!(_bindingEvent);
       return BindingEventResponse();
     }
     throw UnimplementedError('Input binding for $bindingName is not found');

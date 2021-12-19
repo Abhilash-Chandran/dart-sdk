@@ -3,7 +3,10 @@
 /// Maybe used for general errors related to server startup, initialization,
 /// and configuration exceptions.
 class DaprServerException implements Exception {
+  /// A string message detailing the exception.
   final String message;
+
+  /// A base exception for Dapr server api.
   DaprServerException({required this.message});
   @override
   String toString() => 'A DaprServerException occured : \n $message';

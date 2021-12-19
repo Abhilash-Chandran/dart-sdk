@@ -1,15 +1,18 @@
 import 'dart:convert';
 
+import 'http_server.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 import 'package:dapr_common/dapr_common.dart';
 
 import '../../abstractions/server_binding.dart';
 
 /// A http based implementation of [ServerBinding].
-class HttpServerBinding implements ServerBinding {
+class HttpServerBinding implements ServerBinding<DaprHttpServer> {
   @override
-  final dynamic server;
+  final DaprHttpServer server;
 
+  /// A constructor to intialize the [HttpServerBinding] with the server passed
+  /// down from [DaprServer].
   HttpServerBinding({required this.server});
 
   /// All the http endpoints related to binding is registered in this handler.

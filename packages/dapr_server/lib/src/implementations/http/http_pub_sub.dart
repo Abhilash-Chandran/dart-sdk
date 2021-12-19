@@ -1,13 +1,15 @@
 import 'dart:convert';
 
 import 'package:dapr_common/dapr_common.dart';
+import 'http_server.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
 import '../../abstractions/server_pub_sub.dart';
 
-class HttpServerPubSub implements ServrePubSub {
+/// A http based implementation of [ServerPubSub]
+class HttpServerPubSub implements ServrePubSub<DaprHttpServer> {
   @override
-  final dynamic server;
+  final DaprHttpServer server;
 
   /// The router plus handler to which the new routes related to pubsub will
   /// be added.
@@ -17,6 +19,12 @@ class HttpServerPubSub implements ServrePubSub {
   /// deployed pubsub components
   final List<PubSubRoute> pubSubRoutes = <PubSubRoute>[];
 
+  /// A constructor to intialize the [HttpServerPubSub] with the server passed
+  /// down from [DaprServer].
+  ///
+  /// Also adds the list of
+  /// subscriber as a handler as per the requirement of dapr under the endpoint
+  /// '/dapr/subscribe/'.
   HttpServerPubSub({required this.server}) {
     pubSubHandler.get('/dapr/subscribe', (req) async {
       final result = jsonEncode(pubSubRoutes);
