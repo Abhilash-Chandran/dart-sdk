@@ -98,7 +98,7 @@ final daprServer = DaprServer(
 );
 ```
 {{% /codetab %}}
-
+{{< /tabs >}}
 <!-- #### Adding additional http endpoints
 When using `http` as communication protocol, it is possible to add additional http
 endpoints along with handler for the same which will be deployed along with the http server.
