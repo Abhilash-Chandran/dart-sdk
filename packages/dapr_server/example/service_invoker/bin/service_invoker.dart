@@ -1,12 +1,14 @@
+import 'dart:io';
+
 import 'package:dapr_client/dapr_client.dart';
 import 'package:dapr_server/dapr_server.dart';
 
 void main(List<String> arguments) async {
   // Create dapr Server instance
   final daprServer = DaprServer(
-    daprPort: 50000,
+    daprPort: 3500,
     serverPort: 2500,
-    communicationProtocol: CommunicationProtocol.grpc,
+    communicationProtocol: CommunicationProtocol.http,
   );
 
   // Create a dapr client instance to invoke the service
@@ -17,12 +19,13 @@ void main(List<String> arguments) async {
 
   // Register a service to be invoked using the daprServer instance
   await daprServer.invoker.listen(
-      methodName: 'hello-world',
-      callback: (inkCbCont) async {
-        print('Sending Hellow world from the sevice cb');
-        return 'Hello daprerised world';
-      },
-      callbackOptions: InvokerCallbackOptions(method: HttpMethod.get));
+    methodName: 'hello-world',
+    callback: (inkCbCont) async {
+      print('Sending Hellow world from the sevice cb');
+      return 'Hello daprerised world';
+    },
+    callbackOptions: InvokerCallbackOptions(method: HttpMethod.get),
+  );
 
   // Start the dapr server to register the service to be invoked.
   await daprServer.startServer();
@@ -33,10 +36,13 @@ void main(List<String> arguments) async {
     appId: 'myapp',
     methodName: 'hello-world',
     httpMethod: HttpMethod.get,
+    data: "Hello from invoker",
   );
   print("==================");
   print("Invoker result $invokerResult");
   print("==================");
   await daprServer.stop();
+  exit(0);
 }
-// dapr run --app-id myapp --dapr-http-port 3500 --dapr-grpc-port 50000 dart run
+// http protocol run
+// dapr run --app-id myapp --app-port 2500 --dapr-http-port 3500 --dapr-grpc-port 50000 dart run
