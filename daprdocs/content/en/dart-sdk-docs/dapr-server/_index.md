@@ -99,6 +99,7 @@ final daprServer = DaprServer(
     communicatonProtocol: CommunicationProtocol.grpc,
 );
 ```
+{{% /codetab %}}
 
 <!-- #### Adding additional http endpoints
 When using `http` as communication protocol, it is possible to add additional http
