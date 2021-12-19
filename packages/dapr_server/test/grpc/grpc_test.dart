@@ -110,13 +110,13 @@ void main() {
       route: 'route1',
     );
     // Setup raw even subscription
-    // await daprServer.pubsub.subscribe(
-    //   pubSubName: pubsubName,
-    //   topic: topicName1,
-    //   callback: mockTestPubSub.testCallBack,
-    //   route: 'route1-raw',
-    //   rawEvents: true,
-    // );
+    await daprServer.pubsub.subscribe(
+      pubSubName: pubsubName,
+      topic: topicName1,
+      callback: mockTestPubSub.testCallBack,
+      route: 'route1-raw',
+      rawEvents: true,
+    );
 
     // Setup binding callback - register subscriptions.
     await daprServer.binding.receive(
@@ -171,7 +171,7 @@ void main() {
   });
 
   group('Test PubSub subscribe mechanism', () {
-    setUp(() async {
+    setUp(() {
       // Reset the mock after every test.
       // print('reset of pubsub mock object is called');
       reset(mockTestPubSub);
@@ -182,7 +182,8 @@ void main() {
       });
 
       final uri = Uri.parse('$publishBaseUrl/$topicName1');
-      await httpClient.post(uri, body: 'Hello World');
+      await httpClient.post(uri,
+          headers: {"Content-Type": "text/plain"}, body: 'Hello World 1');
 
       /// Wait for the even to be processed.
       await Future.delayed(Duration(seconds: 1));
@@ -195,9 +196,12 @@ void main() {
 
       final uri = Uri.parse('$publishBaseUrl/$topicName1');
       // Publish messages three times
-      await httpClient.post(uri, body: 'Hello World');
-      await httpClient.post(uri, body: 'Hello World');
-      await httpClient.post(uri, body: 'Hello World');
+      await httpClient.post(uri,
+          headers: {"Content-Type": "text/plain"}, body: 'Hello World');
+      await httpClient.post(uri,
+          headers: {"Content-Type": "text/plain"}, body: 'Hello World');
+      await httpClient.post(uri,
+          headers: {"Content-Type": "text/plain"}, body: 'Hello World');
 
       /// Wait for the even to be processed.
       await Future.delayed(Duration(seconds: 1));
@@ -211,7 +215,8 @@ void main() {
       });
 
       final uri = Uri.parse('$publishBaseUrl/$topicName1');
-      final resp = await httpClient.post(uri, body: 'Hello World');
+      final resp = await httpClient.post(uri,
+          headers: {"Content-Type": "text/plain"}, body: 'Hello World');
 
       /// Wait for the even to be processed.
       await Future.delayed(Duration(seconds: 1));

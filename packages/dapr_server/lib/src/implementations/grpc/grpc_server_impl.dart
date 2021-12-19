@@ -126,12 +126,30 @@ class GrpcServerImplementation extends AppCallbackServiceBase {
       // metadata: metaData ?? {},
     );
 
-    // print('on Topic event called');
-    // print(request.data);
     if (pubSubCallbackMap.containsKey(pubSubRoute)) {
       final _callback = pubSubCallbackMap[pubSubRoute];
+      // Decode bytes to string assuming it as utf8Encoded.
+      var _tmpData = utf8.decode(request.data);
+      late final dynamic _data;
+      if (request.dataContentType.contains("text/plain")) {
+        _data = _tmpData;
+      } else if (request.dataContentType.startsWith("application/") &&
+          request.dataContentType.endsWith("json")) {
+        _data = jsonDecode(_tmpData);
+      } else {
+        _data = _tmpData;
+      }
+      final _ce = CloudEvent(
+        id: request.id,
+        source: Uri.parse(request.source),
+        data: _data,
+        dataContentType: request.dataContentType,
+        specVersion: request.specVersion,
+        type: request.type,
+      );
 
-      final _result = await _callback!(request.data);
+      final _result = await _callback!(_ce);
+
       final _status = _result.when(
         success: () => TopicEventResponse_TopicEventResponseStatus.SUCCESS,
         drop: () => TopicEventResponse_TopicEventResponseStatus.DROP,

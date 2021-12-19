@@ -200,10 +200,10 @@ void main() {
     });
     test('publish data', () async {
       late final Map _subscribedData;
-      when(mockTestPubSub.testCallBack(dynamic)).thenAnswer((_) async {
+      when(mockTestPubSub.testCallBack(any)).thenAnswer((_) async {
         print(_.positionalArguments);
-        final _decodedMessage = _.positionalArguments[0];
-        _subscribedData = _decodedMessage["data"];
+        final _decodedMessage = _.positionalArguments[0] as CloudEvent;
+        _subscribedData = _decodedMessage.data as Map;
         return PubSubResponse.success();
       });
       final _publishedData = {'hello': 'world2'};
