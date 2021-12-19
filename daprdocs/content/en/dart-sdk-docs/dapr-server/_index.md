@@ -8,9 +8,7 @@ no_list: true
 ---
 ## Dapr Service SDK for Dart
 Dapr dart sdk provides a **dapr_server** package to bootstrap a daperised dart micro services defined using function callbacks.
-These services can be deployed either using gRPC or HTTP protocol:
- <!-- - [HTTP Server]({{< ref http-server.md >}})
- - [gRPC Server]({{< ref grpc-server.md >}}) -->
+These services can be deployed either using gRPC or HTTP protocol.
 
 ### Prerequisite
 - [Dapr CLI]({{< ref install-dapr-cli.md >}}) installed
